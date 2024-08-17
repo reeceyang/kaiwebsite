@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>kaiby website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      font-family: monospace;
+    }
+
+    canvas {
+      position: absolute;
+      opacity: 50%;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+    }
+
+    div {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 65ch;
+    }
+
+    .flex-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .flex-grid-col {
+      flex: 1 1 0;
+      padding: 0.5rem;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .dashed {
+      border: 1px dashed black;
+    }
+
+    #torty {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="pendulumCanvas"></canvas>
+  <div>
+    <h1>Kai van Brunt</h1>
+    <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
+  </div>
+
+  <div class="flex-grid">
+    <div class="flex-grid-col dashed">
+      <h2>Publications</h2>
+      <ul>
+        <li><a href="/fish">counting many fish</a></li>
+        <li><a href="/electron">trapping many electron</a></li>
+      </ul>
+      <h2>Blog</h2>
+      <ul>
+        <li><a href="https://goldenblue.substack.com/p/never-let-me-go">never let me go</a></li>
+        <li><a href="https://goldenblue.substack.com/p/because-its-summer">because it's summer</a></li>
+        <li><a href="https://goldenblue.substack.com/p/only-the-body-speaks">only the body speaks</a></li>
+      </ul>
+      <p>more on <a href="https://goldenblue.substack.com/">
+          substack
+        </a></p>
+    </div>
+    <div class="flex-grid-col dashed">
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://github.com/tidalove">github</a></li>
+        <li><a href="">linkedin</a></li>
+      </ul>
+      <h2>Tortellini</h2>
+      <button id="say-hi">say hi</button>
+      <img id="torty" src="./torty.jpg" />
+    </div>
+  </div>
+  <script src="doublePendulum.js"></script>
+  <script>
+    const torty = document.getElementById('torty');
+    const sayHi = document.getElementById('say-hi');
+    sayHi.addEventListener('click', () => {
+      if (sayHi.innerText === 'bye torty') {
+        torty.style.visibility = 'hidden';
+        sayHi.innerText = 'say hi';
+        return;
+      }
+      torty.style.visibility = 'visible';
+      sayHi.innerText = 'bye torty';
+    });
+  </script>
+</body>
+
+</html>
