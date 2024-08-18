@@ -5,9 +5,32 @@
   <title>kaiby website</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
   <style>
     * {
-      font-family: monospace;
+      font-family: "monotalic-narrow", monospace;
+      font-weight: 400;
+      font-style: normal;
+      color: white;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "gothicus", serif;
+      font-weight: 400;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: lightgoldenrodyellow;
+      text-shadow: 0px 0px 5px lightgoldenrodyellow;
+      letter-spacing: 0.1rem;
+    }
+
+    a {
+      color: lightskyblue;
     }
 
     canvas {
@@ -18,6 +41,7 @@
 
     body {
       overflow-x: clip;
+      background-color: black;
     }
 
     div {
@@ -25,6 +49,19 @@
       margin-top: unset;
       margin-bottom: unset;
       max-width: 65ch;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
     }
 
     .flex-grid {
@@ -44,7 +81,7 @@
     }
 
     .dashed {
-      border: 1px dashed black;
+      border: 1px dashed white;
     }
 
     #torty {
@@ -54,7 +91,7 @@
 </head>
 
 <body>
-  <canvas id="pendulumCanvas"></canvas>
+  <canvas id="simulationCanvas"></canvas>
   <div>
     <h1>Kai van Brunt</h1>
     <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
@@ -88,7 +125,7 @@
       <img id="torty" src="./torty.jpg" />
     </div>
   </div>
-  <script src="doublePendulum.js"></script>
+  <script src="./threeBodySimulation.js"></script>
   <script>
     const torty = document.getElementById('torty');
     const sayHi = document.getElementById('say-hi');
