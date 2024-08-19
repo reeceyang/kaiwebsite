@@ -23,7 +23,6 @@ class Body {
     let ay = 0;
 
     const mouse = new Body(mouseX, mouseY, 0, 0, 100, { r: 0, g: 0, b: 0 });
-    console.log(mouse);
 
     [mouse, ...bodies].forEach((body) => {
       if (body !== this) {
@@ -61,7 +60,7 @@ class Body {
 
     // Store the history of positions
     this.history.push({ x: this.x, y: this.y });
-    if (this.history.length > 50) {
+    if (this.history.length > 200) {
       this.history.shift(); // Remove the oldest point if history is too long
     }
   }
@@ -70,17 +69,16 @@ class Body {
     // Draw the trail
     for (let i = this.history.length - 1; i >= 0; i--) {
       const point = this.history[i];
-      const trailSize = this.mass * (i / this.history.length);
-      const opacity = i / this.history.length;
+      const trailSize = 20 * Math.sqrt(i / this.history.length);
       ctx.beginPath();
       ctx.arc(point.x, point.y, trailSize, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${opacity})`;
+      ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
       ctx.fill();
     }
 
     // Draw the body
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.mass, 0, 2 * Math.PI);
+    ctx.arc(this.x, this.y, 20, 0, 2 * Math.PI);
     ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
     ctx.fill();
   }
@@ -90,18 +88,18 @@ class Body {
 const bodies = [
   new Body(canvas.width / 2 - 200, canvas.height / 2, 0, 2, 100, {
     r: 255,
-    g: 89,
-    b: 85,
+    g: 255,
+    b: 255,
   }),
   new Body(canvas.width / 2 + 200, canvas.height / 2, 0, -2, 100, {
-    r: 138,
-    g: 201,
-    b: 38,
+    r: 245,
+    g: 245,
+    b: 245,
   }),
   new Body(canvas.width / 2, canvas.height / 2 + 200, -2, 0, 100, {
-    r: 25,
-    g: 130,
-    b: 196,
+    r: 235,
+    g: 235,
+    b: 235,
   }),
 ];
 
@@ -114,6 +112,12 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   bodies.forEach((body) => body.draw());
+
+  // draw the mouse
+  ctx.beginPath();
+  ctx.arc(mouseX, mouseY, 5, 0, 2 * Math.PI);
+  ctx.fillStyle = "white";
+  ctx.fill();
 }
 
 // Function to animate the simulation

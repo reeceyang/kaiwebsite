@@ -15,18 +15,37 @@
     }
 
     h1,
+    h1 *,
     h2,
+    h2 *,
     h3,
+    h3 *,
     h4,
+    h4 *,
     h5,
-    h6 {
-      font-family: "gothicus", serif;
+    h5 *,
+    h6,
+    h6 * {
+      font-family: "map-roman-condensed", serif;
       font-weight: 400;
       font-style: normal;
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: lightgoldenrodyellow;
       text-shadow: 0px 0px 5px lightgoldenrodyellow;
-      letter-spacing: 0.1rem;
+    }
+
+    h1 {
+      font-size: 10ch;
+    }
+
+    @media screen and (max-width: 65ch) {
+      h1 {
+        font-size: 15vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 6px 6px 0px red;
     }
 
     a {
@@ -35,7 +54,6 @@
 
     canvas {
       position: absolute;
-      opacity: 50%;
       z-index: -1;
     }
 
@@ -49,18 +67,19 @@
       margin-top: unset;
       margin-bottom: unset;
       max-width: 65ch;
+      padding: 0.5rem;
     }
 
     button {
-      background-color: black;
+      background-color: transparent;
       color: white;
       border: 1px solid white;
       padding: 0.5rem;
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: white;
+    button:hover:not(:disabled) {
+      background-color: rgb(255, 255, 255);
       color: black;
     }
 
@@ -69,11 +88,11 @@
       flex-direction: row;
       justify-content: space-between;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .flex-grid-col {
       flex: 1 1 0;
-      padding: 0.5rem;
     }
 
     img {
@@ -87,42 +106,56 @@
     #torty {
       visibility: hidden;
     }
+
+    #backdrop {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: -1;
+      backdrop-filter: blur(10px) brightness(0.5);
+      overflow-y: atuo;
+      padding: 0;
+    }
   </style>
 </head>
 
 <body>
   <canvas id="simulationCanvas"></canvas>
-  <div>
-    <h1>Kai van Brunt</h1>
-    <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
-  </div>
+  <div id="backdrop">
 
-  <div class="flex-grid">
-    <div class="flex-grid-col dashed">
-      <h2>Publications</h2>
-      <ul>
-        <li><a href="/fish">counting many fish</a></li>
-        <li><a href="/electron">trapping many electron</a></li>
-      </ul>
-      <h2>Blog</h2>
-      <ul>
-        <li><a href="https://goldenblue.substack.com/p/never-let-me-go">never let me go</a></li>
-        <li><a href="https://goldenblue.substack.com/p/because-its-summer">because it's summer</a></li>
-        <li><a href="https://goldenblue.substack.com/p/only-the-body-speaks">only the body speaks</a></li>
-      </ul>
-      <p>more on <a href="https://goldenblue.substack.com/">
-          substack
-        </a></p>
+    <div>
+      <h1>Kai van&nbsp;Brun<span class="red-drop">t</span></h1>
+      <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
     </div>
-    <div class="flex-grid-col dashed">
-      <h2>Links</h2>
-      <ul>
-        <li><a href="https://github.com/tidalove">github</a></li>
-        <li><a href="">linkedin</a></li>
-      </ul>
-      <h2>Tortellini</h2>
-      <button id="say-hi">say hi</button>
-      <img id="torty" src="./torty.jpg" />
+
+    <div class="flex-grid">
+      <div class="flex-grid-col dashed">
+        <h2>Publications</h2>
+        <ul>
+          <li><a href="/fish">counting many fish</a></li>
+          <li><a href="/electron">trapping many electron</a></li>
+        </ul>
+        <h2>Blog</h2>
+        <ul>
+          <li><a href="https://goldenblue.substack.com/p/never-let-me-go">never let me go</a></li>
+          <li><a href="https://goldenblue.substack.com/p/because-its-summer">because it's summer</a></li>
+          <li><a href="https://goldenblue.substack.com/p/only-the-body-speaks">only the body speaks</a></li>
+        </ul>
+        <p>more on <a href="https://goldenblue.substack.com/">
+            substack
+          </a></p>
+      </div>
+      <div class="flex-grid-col dashed">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://github.com/tidalove">github</a></li>
+          <li><a href="https://www.linkedin.com/in/kai-v-368a03206/">linkedin</a></li>
+        </ul>
+        <h2>Tortellini</h2>
+        <button id="say-hi">say hi</button>
+        <img id="torty" src="./torty.jpg" />
+      </div>
     </div>
   </div>
   <script src="./threeBodySimulation.js"></script>
@@ -132,7 +165,17 @@
     sayHi.addEventListener('click', () => {
       if (sayHi.innerText === 'bye torty') {
         torty.style.visibility = 'hidden';
-        sayHi.innerText = 'say hi';
+        sayHi.innerText = 'torty is resting';
+        sayHi.disabled = true;
+        for (let i = 1; i <= 3; i++) {
+          setTimeout(() => {
+            sayHi.innerText = 'torty is resting' + '.'.repeat(i);
+          }, i * 1000);
+        }
+        setTimeout(() => {
+          sayHi.innerText = 'say hi';
+          sayHi.disabled = false;
+        }, 4000);
         return;
       }
       torty.style.visibility = 'visible';
