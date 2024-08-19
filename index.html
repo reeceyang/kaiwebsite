@@ -12,6 +12,8 @@
       font-weight: 400;
       font-style: normal;
       color: white;
+      padding: 0;
+      margin: 0;
     }
 
     h1,
@@ -43,22 +45,32 @@
     }
 
     h1 {
-      font-size: 10ch;
+      font-size: 10.7ch;
+      padding-top: 4rem;
+      padding-bottom: 2rem;
     }
 
     @media screen and (max-width: 65ch) {
       h1 {
-        font-size: 15vw;
+        font-size: 15.5vw;
       }
     }
 
     ul {
       list-style-type: none;
+      padding-left: 2rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
     }
 
     li::marker {
       content: '✦ ';
       color: lightgray;
+    }
+
+    p {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
     }
 
     a {
@@ -76,7 +88,7 @@
       background-color: black;
     }
 
-    div {
+    .container {
       margin: auto;
       margin-top: unset;
       margin-bottom: unset;
@@ -90,6 +102,8 @@
       border: 1px solid white;
       padding: 0.5rem;
       cursor: pointer;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
     }
 
     button:hover:not(:disabled) {
@@ -107,6 +121,10 @@
 
     .flex-grid-col {
       flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 0.5rem;
+      gap: 4rem;
     }
 
     img {
@@ -121,35 +139,38 @@
       visibility: hidden;
     }
 
-    #backdrop {
+    .backdrop {
       top: 0;
       left: 0;
       right: 0;
       width: 100%;
-      z-index: -1;
       backdrop-filter: blur(10px) brightness(0.5);
-      overflow-y: atuo;
-      padding: 0;
     }
   </style>
 </head>
 
 <body>
   <canvas id="simulationCanvas"></canvas>
-  <div id="backdrop">
 
-    <div>
-      <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
-      <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
-    </div>
+  <div class="container">
+    <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
+  </div>
 
-    <div class="flex-grid">
-      <div class="flex-grid-col dashed">
+  <div class="flex-grid container">
+
+    <div class="flex-grid-col container dashed backdrop">
+      <div>
+        <h2>About</h2>
+        <p>Very handsome and poggers boyfradge. Likes water and tortoises.</p>
+      </div>
+      <div>
         <h2>Publications</h2>
         <ul>
           <li><a href="/fish">counting many fish</a></li>
           <li><a href="/electron">trapping many electron</a></li>
         </ul>
+      </div>
+      <div>
         <h2>Blog</h2>
         <ul>
           <li><a href="https://goldenblue.substack.com/p/because-its-summer">because it's summer</a></li>
@@ -160,17 +181,22 @@
             substack
           </a></p>
       </div>
-      <div class="flex-grid-col dashed">
+    </div>
+    <div class="flex-grid-col container dashed backdrop">
+      <div>
         <h2>Links</h2>
         <ul>
           <li><a href="https://github.com/tidalove">github</a></li>
           <li><a href="https://www.linkedin.com/in/kai-v-368a03206/">linkedin</a></li>
         </ul>
+      </div>
+      <div>
         <h2>Tortellini</h2>
         <button id="say-hi">say hi</button>
         <img id="torty" src="./torty.jpg" />
       </div>
     </div>
+  </div>
   </div>
   <script src="./threeBodySimulation.js"></script>
   <script>
