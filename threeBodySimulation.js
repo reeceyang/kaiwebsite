@@ -22,7 +22,7 @@ class Body {
     let ax = 0;
     let ay = 0;
 
-    const mouse = new Body(mouseX, mouseY, 0, 0, 100, { r: 0, g: 0, b: 0 });
+    const mouse = new Body(mouseX, mouseY, 0, 0, 10000, { r: 0, g: 0, b: 0 });
 
     [mouse, ...bodies].forEach((body) => {
       if (body !== this) {
@@ -31,6 +31,7 @@ class Body {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance <= this.mass + body.mass) {
+          // this prevents the close bodies from accelerating too much
           return;
         }
 
@@ -47,16 +48,11 @@ class Body {
     this.vx = Math.min(10, Math.max(-10, this.vx));
     this.vy = Math.min(10, Math.max(-10, this.vy));
 
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx + canvas.width;
+    this.y += this.vy + canvas.height;
 
-    // Bounce off the edges
-    if (this.x - this.mass < 0 || this.x + this.mass > canvas.width) {
-      this.vx *= -1;
-    }
-    if (this.y - this.mass < 0 || this.y + this.mass > canvas.height) {
-      this.vy *= -1;
-    }
+    this.x %= canvas.width;
+    this.y %= canvas.height;
 
     // Store the history of positions
     this.history.push({ x: this.x, y: this.y });
@@ -69,7 +65,7 @@ class Body {
     // Draw the trail
     for (let i = this.history.length - 1; i >= 0; i--) {
       const point = this.history[i];
-      const trailSize = 20 * Math.sqrt(i / this.history.length);
+      const trailSize = 5 * Math.sqrt(i / this.history.length);
       ctx.beginPath();
       ctx.arc(point.x, point.y, trailSize, 0, 2 * Math.PI);
       ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
@@ -78,7 +74,7 @@ class Body {
 
     // Draw the body
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 20, 0, 2 * Math.PI);
+    ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
     ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
     ctx.fill();
   }
