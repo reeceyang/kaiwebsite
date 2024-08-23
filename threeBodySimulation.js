@@ -22,7 +22,7 @@ class Body {
     let ax = 0;
     let ay = 0;
 
-    const mouse = new Body(mouseX, mouseY, 0, 0, 10000, { r: 0, g: 0, b: 0 });
+    const mouse = new Body(mouseX, mouseY, 0, 0, 100000000, { r: 0, g: 0, b: 0 });
 
     [mouse, ...bodies].forEach((body) => {
       if (body !== this) {
