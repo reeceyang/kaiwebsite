@@ -1,7 +1,7 @@
 const canvas = document.getElementById("simulationCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = document.documentElement.scrollWidth;
+canvas.height = document.documentElement.scrollHeight;
 
 const G = 100; // Gravitational constant
 let mouseX = 0;
@@ -22,7 +22,11 @@ class Body {
     let ax = 0;
     let ay = 0;
 
-    const mouse = new Body(mouseX, mouseY, 0, 0, 100000000, { r: 0, g: 0, b: 0 });
+    const mouse = new Body(mouseX, mouseY, 0, 0, 100000000, {
+      r: 0,
+      g: 0,
+      b: 0,
+    });
 
     [mouse, ...bodies].forEach((body) => {
       if (body !== this) {
@@ -125,15 +129,15 @@ function animate() {
 
 // Handle window resize
 window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = document.innerWidth;
+  canvas.height = document.innerHeight;
 });
 
 document.addEventListener(
   "mousemove",
   (e) => {
-    mouseX = e.clientX - canvas.offsetLeft;
-    mouseY = e.clientY - canvas.offsetTop;
+    mouseX = e.pageX - canvas.offsetLeft;
+    mouseY = e.pageY - canvas.offsetTop;
   },
   false
 );
