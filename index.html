@@ -2,14 +2,16 @@
 <html>
 
 <head>
-  <title>kaiby website</title>
+  <title>Kai</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Kai">
+  <meta name="description" content="The moment was structured that way">
   <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
   <style>
     * {
-      font-family: "monotalic-narrow", monospace;
-      font-weight: 400;
+      font-family: brigade, sans-serif;
+      font-weight: 500;
       font-style: normal;
       color: white;
       padding: 0;
@@ -28,12 +30,11 @@
     h5 *,
     h6,
     h6 * {
-      font-family: "map-roman-condensed", serif;
-      font-weight: 400;
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
       font-style: normal;
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: lightgoldenrodyellow;
-      text-shadow: 0px 0px 5px lightgoldenrodyellow;
     }
 
     .red-drop {
@@ -45,14 +46,15 @@
     }
 
     h1 {
-      font-size: 10.7ch;
+      font-size: 12ch;
+      text-shadow: 0px 0px 5px lightgoldenrodyellow;
       padding-top: 4rem;
       padding-bottom: 2rem;
     }
 
-    @media screen and (max-width: 65ch) {
+    @media screen and (max-width: 80ch) {
       h1 {
-        font-size: 15.5vw;
+        font-size: 17.5vw;
       }
     }
 
@@ -162,20 +164,25 @@
     <div class="flex-grid-col container dashed backdrop">
       <div>
         <h2>About</h2>
-        <p>I'm a 4th-year physics & math student at MIT interested in applying physics & ml towards sustainability. I
-          work in the <a href="https://beerylab.csail.mit.edu">Beery Lab</a> on counting salmon using computer vision. I
-          like power electronics, turbulence, Kazuo Ishiguro, nuclear policy, and the ocean. Email me at kav (at) mit
-          (dot) edu.</p>
+        <p>I'm a senior at MIT interested in applying physics & ml towards sustainability. I work in the <a
+            href="https://beerylab.csail.mit.edu">Beery Lab</a> on counting salmon using computer vision. I like
+          climbing, Kazuo
+          Ishiguro, and the ocean. Email me at kav (at) mit (dot) edu.</p>
       </div>
       <div>
         <h2>Writing</h2>
         <ul>
           <li><a href="https://goldenblue.substack.com/p/because-its-summer">because it's summer</a></li>
-          <li><a href="https://goldenblue.substack.com/p/never-let-me-go">never let me go</a></li>
+          <li><a href="https://goldenblue.substack.com/p/love-in-the-time-of-unlimited-data">love in the time of
+              unlimited
+              data</a></li>
           <li><a href="https://goldenblue.substack.com/p/only-the-body-speaks">only the body speaks</a></li>
+          <li><a href="https://goldenblue.substack.com/p/book-from-the-sky">BOOK FROM THE SKY</a></li>
         </ul>
         <p>more on <a href="https://goldenblue.substack.com/">
-            substack
+            Substack
+          </a> & <a href="https://mitadmissions.org/blogs/author/kav">
+            MIT Admissions
           </a></p>
       </div>
     </div>
@@ -200,13 +207,11 @@
       <div>
         <h2>Projects</h2>
         <ul>
-          <li><a href="/secret.pdf">Secret paper</a></li>
-          <p style="padding-left: 2em;">A little secret</p>
+          <li><a href="/echogram.pdf">Counting fish with temporal representations of sonar video</a></li>
+          <p style="padding-left: 2em;">Paper presented at ECCV 2024 in the <a href="https://cv4e.netlify.app">CV4E</a>
+            workshop (Fall 2024)</p>
           <li><a href="/squeezedlight.pdf">Squeezed light generation for gravitational wave detection</a></li>
           <p style="padding-left: 2em;">Final paper for 8.421 Atomic and Optical Physics I (Spring 2024)</p>
-          <li><a href="/reentry.pdf">Accuracy and maneuverability of atmospheric reentry vehicles</a></li>
-          <p style="padding-left: 2em;">Summary of work with Laboratory for Nuclear Security and Policy at MIT (IAP
-            2024)</p>
           <li><a href="/nuclearh2.pdf">Nuclear power for H2 generation</a></li>
           <p style="padding-left: 2em;">Final paper for 22.04 Nuclear Power and Society (Fall 2023)</p>
           <li><a href="/electronheating.pdf">Electron heating in plasmas via kinetic Alfven wave turbulence</a></li>
@@ -220,11 +225,15 @@
   <script>
     const torty = document.getElementById('torty');
     const sayHi = document.getElementById('say-hi');
+    const randomizeTorty = () => {
+      torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
+    };
     sayHi.addEventListener('click', () => {
       if (sayHi.innerText === 'bye torty') {
         torty.style.visibility = 'hidden';
         sayHi.innerText = 'torty is resting';
         sayHi.disabled = true;
+        randomizeTorty();
         torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
         for (let i = 1; i <= 3; i++) {
           setTimeout(() => {
@@ -240,6 +249,7 @@
       torty.style.visibility = 'visible';
       sayHi.innerText = 'bye torty';
     });
+    randomizeTorty();
   </script>
 </body>
 
