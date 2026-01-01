@@ -218,6 +218,21 @@ template = """<!DOCTYPE html>
       padding: 1.1rem;
     }}
 
+    .content img {{
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }}
+
+    .content a {{
+      display: inline;
+    }}
+
+    .content a img {{
+      cursor: pointer;
+    }}
+
     .post-navigation {{
       display: flex;
       justify-content: space-between;
@@ -286,7 +301,7 @@ template = """<!DOCTYPE html>
     <button id="home-btn">home</button>
     <button id="writing-btn" class="active">writing</button>
     <button id="gallery-btn">gallery</button>
-    <button id="likes-btn">likes</button>
+    <button id="collection-btn">collection</button>
     <button id="theme-toggle">☀</button>
   </nav>
 
@@ -360,7 +375,7 @@ template = """<!DOCTYPE html>
     document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
     document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
-    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
     document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({{ top: 0, behavior: 'smooth' }}));
   </script>
 </body>
@@ -416,6 +431,15 @@ with open(csv_path, 'r') as f:
         content = re.sub(r'<div[^>]*class="[^"]*subscription[^"]*"[^>]*>.*?</div>', '', content, flags=re.DOTALL | re.IGNORECASE)
         content = re.sub(r'<button[^>]*subscribe[^>]*>.*?</button>', '', content, flags=re.DOTALL | re.IGNORECASE)
         content = re.sub(r'<a[^>]*subscribe[^>]*>.*?</a>', '', content, flags=re.DOTALL | re.IGNORECASE)
+
+        # Remove Spotify embeds
+        content = re.sub(r'<iframe[^>]*spotify\.com[^>]*>.*?</iframe>', '', content, flags=re.DOTALL | re.IGNORECASE)
+        content = re.sub(r'<div[^>]*class="[^"]*spotify[^"]*"[^>]*>.*?</div>', '', content, flags=re.DOTALL | re.IGNORECASE)
+
+        # Remove image open buttons (Substack adds these)
+        content = re.sub(r'<button[^>]*>Open image.*?</button>', '', content, flags=re.DOTALL | re.IGNORECASE)
+        content = re.sub(r'<a[^>]*class="[^"]*image-link[^"]*"[^>]*>\s*<button[^>]*>.*?</button>\s*</a>', '', content, flags=re.DOTALL | re.IGNORECASE)
+        content = re.sub(r'<div[^>]*class="[^"]*image-button[^"]*"[^>]*>.*?</div>', '', content, flags=re.DOTALL | re.IGNORECASE)
 
         # Fix "Another Arctic" formatting - add leading spaces to "I."
         if slug == 'another-arctic':

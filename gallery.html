@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="title" content="Kai">
-  <meta name="description" content="The moment was structured that way">
+  <meta name="description" content="Gallery">
   <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
   <style>
     :root {
@@ -20,6 +20,7 @@
       --backdrop-brightness: 0.5;
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
+      --date-color: #aaa;
     }
 
     :root[data-theme="light"] {
@@ -33,6 +34,7 @@
       --backdrop-brightness: 1.5;
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
+      --date-color: #888;
     }
 
     * {
@@ -96,6 +98,12 @@
       padding-bottom: 0.55rem;
     }
 
+    li {
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
     li::marker {
       content: '✦ ';
       color: var(--marker-color);
@@ -110,6 +118,13 @@
     a {
       text-underline-offset: 0.25rem;
       text-decoration-color: #F43208;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
     }
 
     canvas {
@@ -147,33 +162,9 @@
       color: var(--button-hover-text);
     }
 
-    .flex-grid {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 0.55rem;
-      flex-wrap: wrap;
-    }
-
-    .flex-grid-col {
-      flex: 1 1 0;
-      display: flex;
-      flex-direction: column;
-      padding-top: 0.55rem;
-      gap: 4.4rem;
-      min-width: 27.5ch;
-    }
-
-    img {
-      width: 100%;
-    }
-
     .dashed {
       border: 1px dashed var(--border-color);
-    }
-
-    #torty {
-      visibility: hidden;
+      box-sizing: border-box;
     }
 
     .backdrop {
@@ -223,36 +214,22 @@
   </div>
 
   <nav class="menu-bar container">
-    <button id="home-btn" class="active">home</button>
+    <button id="home-btn">home</button>
     <button id="writing-btn">writing</button>
-    <button id="gallery-btn">gallery</button>
+    <button id="gallery-btn" class="active">gallery</button>
     <button id="collection-btn">collection</button>
     <button id="theme-toggle">☀</button>
   </nav>
 
-  <div class="flex-grid container">
-
-    <div class="flex-grid-col container dashed backdrop">
-      <div>
-
-        <p>I'm Kai. I studied physics at MIT and now work on computer vision for ecology in the <a href="https://beerylab.csail.mit.edu">Beery Lab</a>. Computer vision is interesting to me as a probe into embodied intelligence: how do different forms of life learn to organize raw stimuli into a meaningful perception of the world around them?</p>
-	<p>Before this, I worked on nuclear security at <a href="https://lnsp.mit.edu">MIT LNSP</a>, simulated core-collapse supernovae at <a href="https://lanl.gov">LANL</a>, and did plasma physics research with Nuno Loureiro.</p>
-        <p>
-	  I like <a href="https://goldenblue.substack.com">writing</a>, making <a href="https://kai.bleebo.dev/gallery">visual art</a>, bouldering, the ocean, Kazuo Ishiguro, ice skating, musical theater, and <a href="https://kai.bleebo.dev/collection">many more things</a>.
-	</p>
-      </div>
-    </div>
-    <div class="flex-grid-col container dashed backdrop">
-      <div>
-	<p>
-	  I have a tortoise named Tortellini. You can say hi!
-	</p>
-        <button id="say-hi">say hi</button>
-        <img id="torty" src="./torties/0.jpg" />
-      </div>
+  <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
+    <div style="padding: 1.1rem;">
+      <h2>Gallery</h2>
+      <p>
+	This page is in progress.
+      </p>
     </div>
   </div>
-  </div>
+
   <script src="./starfield.js"></script>
   <script src="./light-starfield.js"></script>
   <script>
@@ -293,35 +270,6 @@
     document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = 'collection.html');
-
-    // Tortellini functionality
-    const torty = document.getElementById('torty');
-    const sayHi = document.getElementById('say-hi');
-    const randomizeTorty = () => {
-      torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
-    };
-    sayHi.addEventListener('click', () => {
-      if (sayHi.innerText === 'bye torty') {
-        torty.style.visibility = 'hidden';
-        sayHi.innerText = 'torty is resting';
-        sayHi.disabled = true;
-        randomizeTorty();
-        torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
-        for (let i = 1; i <= 3; i++) {
-          setTimeout(() => {
-            sayHi.innerText = 'torty is resting' + '.'.repeat(i);
-          }, i * 1000);
-        }
-        setTimeout(() => {
-          sayHi.innerText = 'say hi';
-          sayHi.disabled = false;
-        }, 4000);
-        return;
-      }
-      torty.style.visibility = 'visible';
-      sayHi.innerText = 'bye torty';
-    });
-    randomizeTorty();
   </script>
 </body>
 
