@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>a year of counting fish - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="new-colors.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">new colors</span>
+    </a>
+    <a href="la-la-land.html" class="nav-arrow next-post">
+      <span class="nav-title">la la land</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>a year of counting fish</h2>
+      <span class="post-date">August 22, 2024</span>
+      <div class="content">
+      <p>When I was a freshman I joined a plasma physics lab. Plasma physics is beautiful stuff, magnetic flux tubes and reconnection and turbulence, which I came to appreciate over the two years that I did this research. But I first became interested because if you figure out those pretty things, then you can write down equations to plug into a simulation, and that simulation can give you a better idea of how plasma behaves in a fusion reactor. Then, of course, you build the perfect fusion reactor and you save the world.&nbsp;</p><p>That isn’t how it turned out, though. I started the project—and college—thinking I was a practical, applications-driven person, and that there were just a few big problems in the world, and I would pick one and work on it. Two years later I felt pulled apart in every direction. If I cared about applicability so much, why were my favorite classes invariably math classes where I could forget about the real world and sink into pure abstraction, where what I cared about most was finding a beautiful representation of some deep truth? If I cared about theoretical work instead, why wasn’t I any good at it, why did I feel a resistance to hunkering down and <em>getting</em> good at it—like I was holding out for a better ambition—and why did I feel this itch to build something real?</p><p>I thought that with my plasma research I had landed at an intersection of “pure” work and “real” work, but it turned out not to feel like either. To get any good at theoretical plasma physics you have to know a lot of things that I didn’t, or else be willing to put in time that I didn’t. And we’re a long way off from fusion power, even farther from commercial-scale fusion. The remaining challenges mostly lie in engineering, not esoteric plasma physics phenomena.</p><p>The more I explored, the more the very notion of “real work” became confused. Twiddling with dimensions in SolidWorks for engineering teams felt even bleaker than reading opaque plasma physics papers. One policy class and then another showed me that I liked learning about policy, but <em>politics</em> felt depressing and unproductive. </p><p>In my mind theory and application existed on two sides of an impenetrable divide, what had once been a hairline crack before college but which now yawned wider by the day. In every field I turned to, the same question reared its head: how do scientific discoveries leave journals and enter the real world? How should you think about the real world in your research? How does anyone ever get anything done? When I asked the adults I knew who were scientists and engineers and policymakers, they all said <em>that’s a really good question!</em> and not one of them answered it. Would I not find, at MIT, a single anecdote from a single person who felt deep down that they could do not only good work, but <em>real</em> work for the world?<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a></p><p>It’s been a bit over a year since that spring. Now, I have an anecdote.</p><div><hr></div><p>I started counting fish totally by accident. I had been accepted to this climate and sustainability research program. You could continue a previous sustainability-related project, or they would provide you with a list of options to pick from. I filled out my application making it clear that I wanted to do a nuclear engineering project. Fusion may not have felt worth working on anymore, but there’s a lot more to nuclear science, like materials or fission energy. </p><p>When they sent me the list of projects to choose from, I scrolled through the entire twenty-page document and saw that none were even remotely physics- or nuclear science-related. But amidst the disappointment there was this salmon thing. For some reason I kept coming back to this project description and reading it with glee, even though I told myself that I definitely did not have the prerequisite machine learning knowledge and that logically it was better to drop out of the program and find a solid physics project. Then I’d at least have something relevant on my resume to apply to grad schools or jobs with. But a small part of myself, something left over from childhood, still had ambitions towards marine biology and oceanography and ecology and was utterly enchanted by the idea of working on <em>salmon</em>.</p><p>That August stood on the final cusp of the era when the best you could coax from DALL-E was an oversaturated bundle of shapes, right when it started seeming like ML was something I needed to learn about. That’s how I justified my decision: working with ML models would be useful in my physics career too.</p><p>Here’s the idea of the project. Salmon spawn in rivers and swim out to the ocean to spend their adult lives before returning to their home rivers to spawn the next generation of salmon. This is really important to the ecosystems surrounding their home rivers: spawning salmon provide food, and their bodies fertilize the rivers when they die. But their populations have waned with habitat loss and warming waters.&nbsp;</p><p>To measure the efficacy of any conservation measure, we need an accurate method for measuring population. Currently people put sonar cameras in rivers and count the number of salmon swimming upstream or downstream when they return to spawn. This is very time- and labor-intensive, and it costs a lot to hire the technicians who do this counting, meaning that only a few rivers employ this sonar technology. Six years ago, some scientists including my PI asked, what if we apply computer vision to this problem? That’s the project I joined.</p><p>Though I work in a computer vision lab, most of what we talk about in group meetings is how to benchmark data, improve annotation experience, construct good metrics, and much less of the theoretical ML I’d thought would make up the project backbone. In fact, most of the work looks like this: given a problem, what data do you need to solve it, and how do you construct that dataset? How do you account for—a big problem in ecology—long-tailed distributions, where many classes of interest are sighted rarely, where 40% of your dataset is gazelles and 40% is zebras and the other 20% are a gazillion other species you want to identify correctly? How do you take a model which works well on data from one domain and develop some way of preprocessing or fine-tuning or unsupervised learning to help generalize the model to a new domain? Given an existing model, what kinds of questions can you ask and what strategies can you use to probe exactly what it is and isn’t understanding?</p><p>In group meetings for this salmon project we get even more concrete. A dam is being removed on the Klamath river this fall and they want to use our model to help count fish populations, before and after. Each Zoom call is a frenzy of discussion: we could give them our model as a web tool, but cloud GPU time is expensive; we could send it to them packaged in a Jetson (a little Linux box with NVIDIA GPUs), but it would be difficult to debug if anything went wrong during, say, a software update; we could buy them iPads and have them download an app, but then we’re getting into ireallyOS app development. “Maybe Apple would sponsor us,” one professor muses. “They could have this slogan, ‘Apple saves the fish!’”</p><p>They’re not being facetious; iOS app development isn’t outside of the realm of possibility! My grad students are building a raytracer to generate synthetic fish data and modifying this open-source annotation software. They build web apps to display multimodal data in sync, to query our database and collect clips more easily. I thought I might feel out of place as a physics and math student who, at the start of the project, had only used programming for plasma physics research before and barely knew what a class was—but everyone in the lab was picking up skills on the fly to cobble together applications, and I was no exception. (I’ve now built three web apps in my time here.)</p><div><hr></div><p>At the end of June, I flew to Seattle for a conference our group had organized. The idea was to aggregate all the people who were involved in this salmon counting project—my mentors at MIT, the other half of the group at Caltech, and for the first time, the people actually sitting watching the sonar video feed while fish swam by. In the conference hall, we set up our model on a desktop and tested it on people’s hard drives of sonar clips. One guy had sorted his clips into Easy, Medium, and Hard. Our model failed miserably on the Hard ones, somehow predicting over a thousand fish swimming by because the water was so turbid that the same twenty fish kept flashing in and out. My head felt fuzzy—my flight had been delayed by 12 hours overnight, and in the end I got just three hours of sleep—so I drifted out of conversations to refill my paper cup with coffee, conversations with an eclectic mix of ecologists and computer scientists, this short girl with dark hair and sure eyes who simulated fish populations in rivers, this tall skinny guy who’d pulled our code from GitHub and run it beforehand and was waving around a see-through red water bottle with an <em>I Love Fish!</em> sticker on it, this stocky man in a baseball cap who complained about how the NOAA wouldn’t fund the digitization of the decades of salmon counts they had yellowing in drawers.</p><p>The next morning we drove to the Skagit River and stooped over inside an RV to watch sonar clips of fish (and a beaver!) swimming by while technicians explained how they found these clips in the video feed. Some guys came laughing into the RV and showed us iPhone videos of fish corpses lined up along the bank during spawning season, whose insides were so battered and rotted away from the strenuous process of swimming up the river that, while cataloguing them, the guys would stick knives into the bursting red salmon sides and watch pink liquid stream out—“we call those ones yogurt bags,” one of them giggled while we all made retching noises.</p><p>I could go on and on about how beautiful and green everything was and how the whole place felt alive and how everyone <em>cared</em> about it being alive. The more people I met in Seattle who were deeply invested in the wellbeing of the river and ocean ecosystems, the less I cared for purity. Did it matter if my work was not pure, a calculation confined to a scientific journal waiting for an engineer to dig it up in fifty years to improve the efficiency of a fusion plant by a fraction of a percent—or even, improbably, a discovery that would help advance human knowledge for centuries to come? </p><p>You know, there is care and beauty and impact in that kind of work, too. As a freshman wholly unused to the kinds of problems I’d encounter in the real world, my mistake had been to conflate “real” work with physical, engineering-type work; then, as a sophomore affected by the intellectual prestige climb, I conflated “real” work with whichever type of work felt hardest and most technical. But you can feel dissatisfied whether you’re building a spaceship or reading math papers. What matters is finding something to bridge the crevasse you can’t help but see. Just like other people can’t help but want to code or make music or, I guess, think about topology, there’s this gaping chasm between theory and application that I know I would be sneaking desperate glances at forever if I don’t put my soul into bridging it. In Seattle I peered into the chasm once more and, for the first time, caught a glimpse of the bottom. Learning from different people, collaborating with my mentors, driving a project from start to finish to the hands of people who would use its results—to me that’s the real work: <em>real</em> not as in <em>physical</em> or <em>technical</em> or even <em>legitimate</em>, but as in the work that makes my life feel richer for each moment I spend on it.</p><p>It felt fitting that my first-ever visit to Seattle was in the context of this salmon project. Wherever we walked, salmon iconography appeared in sculpted totem poles and colorful shop faces. By the time I left my heart felt very full. My mentor and another PhD student waved us goodbye as I stepped into the bus back to the airport with another member of my group who was flying out that night. “I’m glad you’ll be working here full-time this summer,” he said, sitting next to me. The air outside filled with orange as the sun sank below the skyline. “There is so much for us to do.”</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!VMgl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!VMgl!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:6028241,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!VMgl!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!VMgl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F241eb5a4-4d62-4c34-96b6-c6c1ad739bd2_4096x3072.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">the Skagit River on that day</figcaption></figure></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>to be clear, plenty of people at MIT were and are doing really cool work. but at the time I was so confused and desperate that it didn’t feel like it; and for sure as an underclassman the amount of people I knew who were vocally doubtful that they could find something fulfilling and/or impactful way outnumbered the amount of people I knew who were vocal about believing in their work.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>choosing communities - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="48-degrees-and-cloudy.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">48 degrees & cloudy</span>
+    </a>
+    <a href="consequences-of-having-a-physical-form.html" class="nav-arrow next-post">
+      <span class="nav-title">consequences of having a physical form</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>choosing communities</h2>
+      <span class="post-date">March 17, 2023</span>
+      <div class="content">
+      <p>A lot of people seem to share the experience that, soon after entering college, they find friends that they connect with and understand on a deeper level than in most previous relationships. This is an especially prevalent sentiment at MIT, where lots of people say things like “I finally felt normal/accepted here” or “I found people I consider family”.</p><p>For much of my freshman year and some of sophomore year, I was disappointed that I seemed to be unable to forge such connections (apart from finding my girlfriend, without whom I would have been very lonely). I joined several clubs and tried my best to be active in my living community, but still there seemed to be a disconnect between me and most people I talked with. The chasm was far wider and deeper than I had experienced even in high school, when I didn’t feel particularly close to most people but at least could carry a conversation with them and have a laugh together.</p><p>But in the circles I frequented at MIT, conversations went the same way every day: <em>how are you? hosed? me too</em> — forced laughter and we’d part ways. This happened even though I wasn’t really that hosed (I was a freshman on P/NR, just taking some required classes) simply because it was the easiest thing to say to people. I couldn’t bring myself to join the conversations that people were having and feel like I had anything natural to say.</p><p>I’m much happier now, and I think the reason for this change is twofold. I moved to a different living community that aligns with my values more, and I began contributing to this community instead of expecting me just existing there to bring passive returns.</p><h4>i. values, then and now</h4><p>In my freshman year, I lived in East Campus, and I was sure I would be happy there. I was queer, I wanted to build things with people, I was drawn to a community that emphasized personal expression. It didn’t really work out like this.</p><p>I’d still say that the primary value East Campus holds is personal freedom of expression: do what you want if it makes you happy and doesn’t infringe on other people’s happiness. But this manifests in different ways across different halls. On my hall, I’d almost say that the concept of personal freedom morphed into personal comfort instead. I didn’t feel comfortable expressing feelings of ambition or happiness that my classes were challenging me, when it seemed like most other people felt their classes were unfairly demanding. I didn’t even feel allowed to express joy, since many others on hall were struggling.</p><p>In hindsight, people on hall almost definitely would have been supportive of me had I brought this up—as a bunch of frosh living on a hall with literally three upperclassmen (aka people who knew what they were doing), the environment was more the result of an emotional echo chamber than a reflection of our true selves. Still, living there was stifling.</p><p>I live in tEp now, a co-ed fraternity in Boston. Though we also value personal freedom of expression, I’d say our primary shared value is actually personal growth—other people here hold you to a standard, trust that you can handle responsibilities, and want you to improve. It’s by no means competitive or judgmental, but I feel inspired by my housemates doing extra work to fix up parts of the house, staying up late working on passion projects, cooking really elaborate meals for us just because they want to.</p><h4>ii. finding/building</h4><p>Finding the community is only the first part of the battle. I felt a lot better during my sophomore fall after moving into tEp—pretty much everyone in the house was someone I looked up to, considered very cool and interesting, and wanted to become closer to. This change in mindset was incredibly refreshing.</p><p>I had no burning desire to “give back” to my community in any way apart from existing in the vicinity of everyone else and being funny every once in a while. I felt quite satisfied with my friendships and figured they would naturally grow on their own (many friendships do).</p><p>At the beginning of this spring, we held house elections for some roles that needed renewal: chancellor, risk manager, treasurer… No one wanted to be the rush chair, so I said I would do it. I had some fun ideas for events and, although I thought the role would be stressful for someone not socially inclined like me, I wanted to try it out. We held a week of events for spring rush at the beginning of the semester.</p><p>Being rush chair basically entails deciding on events and delegating people to get a bunch of tasks done for those events. We designed and ordered T-shirts and rush cards, and we printed out a bunch of posters to put around campus. I ended up doing a lot of the work for the events myself, since it was often easier than delegation and I was anxious about getting things done right. (This isn’t to dismiss any of the work my housemates put into rush—we were all busy with events, and we all contributed quite a lot.)</p><p>Some parts were incredibly stressful—mostly, sending emails and holding meetings. I also underestimated how stressed I would be at the actual events, with crowds of people showing up and talking loudly and me not knowing if we had enough food for them… This is a great situation for a rush chair to be in, but was not a great situation for me as a person to be in!</p><p>But at the end of the week, I felt very happy about the amount of people I’d been able to give good experiences. It wasn’t even restricted to people who were actively rushing: we held a rhythm game cafe event, and some random grad student came because he wanted to play rhythm games. One of my friends, whom I’d convinced to come to some rush events, told me he felt he had made more genuine connections at tEp than anywhere else at MIT. This was exactly how I felt as well, and I was elated that that feeling of unique community had been communicated through some silly rush events where we ate food, dyed hair, went ice skating, and fed my tortoise.</p><p>I also became a lot closer with people living in the house. Rush events served as bonding events between us, too.</p><p>This was one of the first times I’d really built something for a community I enjoyed being a part of, and it has definitely been my largest-scale effort. But I understood now about wanting to contribute to communities—doing work for a community you care about and then seeing the fruit of your efforts is an incredibly rewarding thing.</p><p>In general, this makes sense: the more you’ve invested in something, the more you care about it. But also, having benefited from a community for a while, you’re in a unique position to know how to make it even better for those around you, and those who will come after you.</p><p>Anyway, I would say now that I share the sentiment that everyone seems to hold about “finding their families” or whatever in college. But it took some work on my part: not only to find a community that aligned with my values, but to help build it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

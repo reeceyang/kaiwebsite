@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>love in the time of unlimited data - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="someday.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">someday</span>
+    </a>
+    <a href="new-colors.html" class="nav-arrow next-post">
+      <span class="nav-title">new colors</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>love in the time of unlimited data</h2>
+      <span class="post-date">October 14, 2024</span>
+      <div class="content">
+      <p>In Milan I was constantly toeing the line between speaking solely in English, which I feared would make me seem like an entitled American who thought the whole world should cater to the dominance of their own language, and being so insistent on communicating in Italian that it posed a legitimate obstruction to getting anything across at all. Having lacked the foresight to grind a Duolingo course on the flight there, my half-baked strategy was to affect a sort of sheepish self-awareness—as I butchered every Italian word that I directed at waitstaff, cashiers, and train operators alike—that I hoped didn’t cross the line into flippancy towards their language. I couldn’t tell either way, because whether I said <em>grazie</em> with total confidence or none at all, they’d switch to English immediately and unsmilingly: “Okay, bye.”</p><p>On the first afternoon, I walked into the least intimidating-looking cafe I saw in the neighborhood of my hotel, asked for a cappuccino, and pointed at the VEGETARIANO option under an unidentifiable menu item. I was determined not to use Google Translate, in part because my phone was at 3% battery. The man behind the counter moved to cut me a slice of vegetable-topped focaccia and motioned at the bread with the triangular pizza server to interrogate how large I wanted it to be. I kept saying “yes” no matter where he placed the blade: I was hungry and just wanted any amount of food.</p><p>Ostensibly, the purpose of visiting Milan was to attend ECCV, the European Conference on Computer Vision. But I had a couple days free first, so I spent the first afternoon on sightseeing: basilicas, castles, museums. Finally I visited the Duomo, Milan’s central cathedral, which was the first architecture I’d ever seen to literally take my breath away—spiked by hand-carved spires rising to industrial heights, topped by life-size granite figures, the impossible product of six centuries of human labor.</p><p>Near the city center, a woman came running up to me and asked: “Español? Ingles?” I said yes to ingles, my Spanish was old and rusty. But she kept talking in Spanish anyway. She was a lost tourist who wanted to get to the canals. I didn’t know where they were any better than her, and I told her that: “No sé dónde están los canales.” </p><p>She gave a genuine laugh, maybe at the slowness of my Spanish dredged up word by word, but I think partly with relief upon communicating with someone who spoke her language, albeit badly. Then she thanked me and left.</p><p>I realized right after that although the interaction had lifted my spirits, I could have easily helped her by opening Google Maps and letting her type in the destination. In my selfish haste to achieve some idea of human-to-human connection through speaking the same language, I had actually failed her. </p><div><hr></div><p>A few of my labmates and I rented a motorboat to go on Lake Como, which was less than an hour’s drive from Milan. The rental company gave us the boat with minimal guidance (“do not try driving too fast close to shore or the police will see you with their lasers and will give you a fine”), and then we were barefoot sprawling out on the deck while handing off driving, the white hull cutting through this jade green water that had a real gemstone-like quality to it, cloudy and sharp and glinting in the sun. Shouldered by enormous bluffs, the Alps blue in the distance, it was the most gorgeous place I’d been in my entire life.</p><p>The lake was really big, something like twenty miles tip-to-tail. We’d speed through the middle for a few minutes, the top of the boat lifting out of the water with how fast we were going, wind whipping my hair back. Then we’d see a castle or something on the bank and go up to it and putter along drinking in the old moss-covered dark-stone historicity.</p><p>“Can we swim?” I said. I’d brought my swim shorts to Milan because somehow I’d assumed that every Italian town worth visiting must be a seaside village of some sort. I’d pictured myself taking a dip in the ocean every morning before the conference. It was only after I arrived in Milan, swim shorts in tow, that I opened Google Maps and noted with horror that Milan was right in the middle of the landmass, several hours’ drive to the ocean.</p><p>At my request, we drove as far from both shores as we could, until the apricot-colored buildings dotting each bank became small and indistinguishable. My labmate turned off the engine; as it revved down we were enveloped in a silence punctuated only by the occasional drone of another faraway motorboat. I took off my clothes—I’d worn the shorts underneath—and dove into the water. Far from any landmass, flat turquoise stretching forever in every direction, it felt like I had been plunged untethered into the center of the universe, submerged in a warm sweet core where I could watch everything else happening without touching it.</p><p>We found, afterwards, a small restaurant—one little kitchen, one table outside—high in the hills, the kind of thing where you had to take a winding cobblestone path up narrow stairs to get to the unlit restroom. An Italian mother and daughter prepared our food—we ordered basically the entire one-page menu—while the father fed bits of it to a dog. We watched the sun set while drinking wine and eating from a charcuterie board. I felt tired of eating so much dairy, having been functionally vegan in Boston, but it was offered with such care that in some way I enjoyed it anyway. For the whole evening we ate and chatted and the mother would emerge from the kitchen at odd intervals to drape more blankets over our shoulders as night cooled the mountains. Late at night this other lady came by who visibly exerted greater authority over the dog than the father, who had been trying with little success to get it to sit on command. “It’s time to go,” the lady said with a snap of her fingers, and the dog trotted away obediently, meat still dangling from its jaws.</p><div><hr></div><p>After presenting my poster the next morning in the ecology workshop, I drifted around and found myself in a workshop on hand pose and dynamics. These researchers from Meta built a big sphere you would put your hand in, with hundreds of LEDs inside which turned on and off individually. Using this sphere, they could farm a lot of training data on how hands looked in different lighting conditions. “We realized people don’t want a cartoon of themselves in the metaverse,” they said. “They want their real bodies in the metaverse.”</p><p>They played a clip of a disembodied head talking, cut off below the neck; then the same clip cut off below the torso to illustrate the difference: “Our goal is to perfectly recreate all real-life communication in the digital world, and hands are very important for communication.” They needn’t have explained this. We were in Italy; everyone around us was gesticulating wildly at all times.</p><p>Another workshop covered large-scale video object segmentation. This meant recognizing the boundaries around distinct objects present in a video. In particular I was impressed by Meta’s Depth Anything model, which took a video as input and predicted the distance of each point of each surface from the eye of the viewer. The second version had just debuted and showed drastic improvements over the original—for example, the spokes on a bike wheel could be distinguished now, whereas before they would blur into the same plane. The researchers showed an example of an application: you would be able to rotate your phone on a call with your family and their background would shift with an exaggerated parallax that implied a depth not obvious over non-augmented video.</p><p>That night, I bid my labmates goodbye after getting gelato together and walked back towards my hotel. A breathless teenager rolled up to me on his scooter. “Casa Milan?” he panted. “Uhh,” I said. I got out my phone and found the place on Google Maps and handed it to him. He rotated the phone around to see what street he should go down. “Thank you very much,” he said emphatically, in his thick Italian accent. </p><p>That was the only time I made someone else’s life better in Milan, and my humanity had nothing to do with it. I had simply acted as a lossless enough interface between a human with a need and a phone with unlimited data.</p><div><hr></div><p>There’s a difference between kindness as utility and kindness as connection. You’d think kindness as utility is what really matters: this kind of altruism improves our collective odds of survival and entails being selfless and rational enough to do what really improves the other person’s life instead of what makes you feel better. On the small scales of day-to-day survival that we’re evolved for, these align: picking mites out of each other’s hair, taking care of each other’s kids, accomplishing as two what we cannot as one. This is the kind of altruism we can augment by becoming <em>more</em> capable, <em>more</em> equipped to help, <em>more</em> prudent and attentive and understanding. More ubiquitous access to more powerful technology enables this kindness-as-utility: I can Uber my friend home, use Google Translate to have a real and productive conversation with someone whose language I don’t speak, or offer Google Maps to a lost teenager. </p><p>But a subtler flavor of kindness comes from trying to connect as humans, oversights and limitations and all. Offering cheese because that was all they had for a vegetarian; eating cheese even though I hate cheese because it showed they really cared about me. Tossing a cumulative steak’s worth of meat to the neighbor’s dog. My labmate giving me his sweater after I swam, not realizing its sleeve was dripping wet, only making me colder. Someone yelling <em>telefono! Telefono!</em> at me on the train, seriously alarming me at first until I realized they were trying to warn me my phone might fall out of my pocket. (Actually it’s just a really bulky phone.) Whether anyone apart from the dog gained utility from these interactions is questionable, but still they’re some of the moments I remember most fondly for the bright flashes of human care I felt, the instinctive, imperfect kindness, impossible to quantify or optimize towards. </p><p>These random, unpredictable interactions are why I try sometimes to avoid using Translate or using Maps or even charging my phone. But it’s harder to justify these decisions when they lead to increased inefficiency for everyone involved, even as the inefficiency, the time spent intentionally considering each other’s needs, forms the crux of human connection. With technology it is easier to provide utility to each other, either by achieving the goal of a given interaction more easily, sticking points of human interaction smoothed over by optimized text interfaces, or by saving each other time by skipping over the human entirely.</p><p>The conference organizers tried to keep it ambiguous, but it was obvious they had plans for a fully virtual ECCV by 2028. I’ll give my public statement now: by any conceivable loss function, this is the best future we can optimize towards. We’ll spare the collective thousands of metric tons of carbon dioxide emissions released from a hundred planes jetting to Italy just for us to bumble around, confusing waitstaff and standing in front of paper posters and waxing lyrical about how good we’ll all have it once this is simulated away. The cafe server will size my focaccia with kind, weathered hands holding a scuffed pizza server, with a latency of just a millisecond, two or three if my ping is bad, but in any case far faster than my jet-lagged brain could in person. The simulated focaccia will identify the precise neuronal clusters mapping to a savory creamy warm sensation and prod them in pulses of pleasure far beyond what the real life bread could deliver, which had been cold in the middle, cheese solid and tasteless, made marginally enjoyable only by the fact that I’d stepped off the plane an hour before. When I go sightseeing, the spires of the Duomo will reach so high into the sky (with the sensation of depth augmented by Meta’s Depth Anything v7) that at a glance I’ll fall to my knees weeping, the entire thread of human history funneling into my mind like a skull-shattering screwdriver. With my face and hands recreated faithfully, perhaps even augmented so that I don’t break eye contact or fidget with my watch like I do in real life and instead can give full attention to the person across from me, I’ll gesture and speak animatedly about my research in front of an interactive display rather than a static poster. During dinner with my labmates afterwards, I’ll think of their perfect presences with a fondness exceeding any feeling I could conjure now. “Do you remember back when this was held in person in Milan?” we’ll laugh. “It was so terrible. I got sick every time on the flight back home.” At the mention of a time when we suffered exhaustion and illness to see each other, at the thought of the people I failed before artificial augmentation made me wiser and kinder, at the memory of cold sweet water piercing my abdomen and the ecstasy of being alone with my friends in the center of the world, my heart will swell with the blood of machine compassion.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!dLLj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!dLLj!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg" width="1456" height="1941" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1941,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:5177312,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!dLLj!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!dLLj!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81e43d17-c067-4404-8d9b-1f7b22bfe312_4096x3072.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

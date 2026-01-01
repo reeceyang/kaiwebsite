@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>paprika - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="beantown-blues.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">beantown blues</span>
+    </a>
+    <a href="closeness-proximity.html" class="nav-arrow next-post">
+      <span class="nav-title">closeness / proximity</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>paprika</h2>
+      <span class="post-date">July 31, 2022</span>
+      <div class="content">
+      <p>listen to <a href="https://open.spotify.com/track/3zyqphgXvgHe436IMKeey3?si=41cfed430fcb4093">Paprika by Japanese Breakfast</a></p><p>For the past month, I've been staying with my family in California. Some things about the visit have been less than ideal: I started experiencing some medical issues around the same time as coming here, but haven't really been able to address them, since my PCP is back in Boston; communicating with my UROP mentors is harder, as my PI is in Portugal and sometimes a bit unreachable, and talking theory with my grad student is not exactly best accomplished through shaky scribbles on a Zoom whiteboard; I miss my partner like hell, and I miss dinners at tEp and sunsets over the esplanade. I return to Boston in two days, and I can't wait.</p><p>But those are for a different post. Some things here have also brought me a lot of joy, and they're things I hope to carry back to Boston with me.</p><h4>exercise</h4><p>I have a <a href="https://brightestdreams.wordpress.com/2021/07/25/the-weight-of-water/">mildly complicated relationship</a> with swimming. Save for the swim test at first-year orientation, I haven't stepped into a pool at all in my time at MIT. The boat test (treading water for 10 minutes after swimming four continuous laps) is a prerequisite to taking the MIT sailing class, so I went to take the boat test as well. But having to swim while people looked at me gave me so much anxiety that I meandered outside the pool deck for ten minutes trying to hype myself up before finally leaving.</p><p>Therein lies the crux of the problem: I only want to swim if there are zero people in the vicinity, so I don't have to think about my performance relative to others, how I look in the water, how my body looks to others in general. Thus passed a year at MIT wanting to swim, yet never swimming.</p><p>This discomfort couldn't be avoided here in California, though. My nine-year-old brother dragged me to the pool every other day, regardless of the number of potential onlookers present. Despite myself, I got used to swimming in front of people, and remembered again how beautiful moving through the water felt. For the first time in a long time, I remembered how it felt to lose yourself in swimming lap after lap: first four laps painful, every lap afterwards restless and smooth.</p><p>A month-long stint with a neighborhood swim team aside, I never swam competitively; I don't have the stamina or strength of those who swam all throughout high school. But it's my oldest sport, and I yearn for it still. I'm fairly confident now that when I return to Boston, I'll keep swimming at the Z. I've found swimwear that I'm comfortable in, and I like the look of my arms thickening and tanning under the California sun.</p><p>In addition to swimming, I've been learning how to skateboard this month, also at the behest of my brother, who zooms around on a hoverboard daily and has friends from the skatepark with sk8er boi names like Evan and Jaden and Ryder. My partner also skateboards, so I hope to yeet my way around Boston with her when I return.</p><h4>reading</h4><p>I've been meaning to read <em>The Goldfinch</em> by Donna Tartt for quite a while, and this time I finally made it past the first ten pages. Upon finishing the book, I didn't feel particularly impacted; I felt that there was something more about the book that I hadn't grasped, that would take a reread or two to fully understand. But now, three weeks later, the story keeps floating back into my thoughts; it struck me that while reading the novel, I could imagine all its events in startling vividity. Whatever lesson the book had to teach me seemed less valuable than how pure and real everything felt: every character, every subplot, every moment and emotion the author described.</p><p>Next I read <em>Neverwhere</em> by Neil Gaiman with my partner (we read it simultaneously and then discussed it). I had no complaints about <em>Neverwhere</em>; it was funny and riveting and emotional, and I was happy to read more Gaiman after <em>American Gods</em> and <em>Good Omens</em>. Next I'll probably read <em>Stardust</em>, and I'd like to get into the <em>Sandman</em> comic series again at some point, especially since a television adaptation is coming out.</p><p>The third book that I completed was <em>Tomorrow, and Tomorrow, and Tomorrow</em> by Gabrielle Zevin. First, good things: the plot was heavily focused on game design, which I found super interesting to read about; the main characters lived in Cambridge, then Los Angeles, the two places I'm most familiar with, and it was so cool to read about someone else's experiences in both of those same places; in general, I was very in love with the plot and the characters. I ended up giving the book three stars on Goodreads, though, simply because of the writing style. It was so dry that it felt legitimately like I was reading a 400-page SparkNotes rather than the actual book.</p><p>Now, the book I'm working through is <em>Entangled Life</em> by Merlin Sheldrake. I'm not too far into it yet, and I might have to take it on the flight back to Boston with me. But it's really interesting so far, and I'm learning lots about fungi in a much more lyrical fashion than I would have expected.</p><p>I haven't read fiction in quite a while, and it was wonderful to sink back into these books. I'm going to try to continue this during August and the school year.</p><h4>art</h4><p>I used to do a lot of digital art, but then high school happened, and I gave up pretty much all my creative interests to pursue science. I don't regret it, but now I think it is time to pick up some of those interests again. I did some publicity design for MIT's Musical Theatre Guild during the school year, but apart from that I hadn't picked up my tablet much. I resolved to change that this summer:</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!4vec!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!4vec!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 424w, https://substackcdn.com/image/fetch/$s_!4vec!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 848w, https://substackcdn.com/image/fetch/$s_!4vec!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 1272w, https://substackcdn.com/image/fetch/$s_!4vec!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/a8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png" width="683" height="1024" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/a8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1024,&quot;width&quot;:683,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:&quot;&quot;,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" title="" srcset="https://substackcdn.com/image/fetch/$s_!4vec!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 424w, https://substackcdn.com/image/fetch/$s_!4vec!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 848w, https://substackcdn.com/image/fetch/$s_!4vec!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 1272w, https://substackcdn.com/image/fetch/$s_!4vec!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8a47c23-e861-4414-96c7-3ff82c99663f_683x1024.png 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>I designed the front and back (only the front is shown) of a 4"x6" card that tEp will give out during rush. tEp's mascot is a purple squid!</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!dyIZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!dyIZ!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 424w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 848w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 1272w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png" width="747" height="1024" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1024,&quot;width&quot;:747,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:&quot;&quot;,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" title="" srcset="https://substackcdn.com/image/fetch/$s_!dyIZ!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 424w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 848w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 1272w, https://substackcdn.com/image/fetch/$s_!dyIZ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7afe1649-e565-4675-a5b3-e414cc4a28dc_747x1024.png 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>I'm designing an original character for my partner, partly to use as branding for her music, and partly because it's fun. Balancing my own capabilities with another person's thoughts on design is new to me. This character is known colloquially as mushroom girl :)</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!za6H!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!za6H!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 424w, https://substackcdn.com/image/fetch/$s_!za6H!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 848w, https://substackcdn.com/image/fetch/$s_!za6H!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 1272w, https://substackcdn.com/image/fetch/$s_!za6H!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png" width="817" height="1023" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1023,&quot;width&quot;:817,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:&quot;&quot;,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" title="" srcset="https://substackcdn.com/image/fetch/$s_!za6H!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 424w, https://substackcdn.com/image/fetch/$s_!za6H!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 848w, https://substackcdn.com/image/fetch/$s_!za6H!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 1272w, https://substackcdn.com/image/fetch/$s_!za6H!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F84b514be-1b60-4e0a-acba-ecc5714fc2a8_817x1023.png 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>This is Theo, the main character of <em>The Goldfinch</em>. It's a work in progress, but I'm trying to learn to paint on one layer. Usually I use many layers for my art (like for the pieces above), which makes it easier to produce clean art and avoid mistakes, but painting on fewer layers also gives a lot more flexibility and artistic freedom. Most digital artists whose speedpaints I've seen who work primarily with painting use very few layers.</p><p>Apart from this, I'm also beginning to learn to animate! Being capable of making my own animations was my end goal from the very beginning of my journey to learn digital art, and I'm finally starting on it. But that's a process for another blog post; suffice it to say that I have several projects in mind, and this first (very simple) one is proving both more tedious and more fun than I'd expected.</p><p>There have been periods in the past when I put my all into pursuits other than science; inevitably, though, I become restless and return to my textbooks and my code. I think that will happen again this summer, but for now, I'm allowing some indulgence in other parts of myself.</p><div class="captioned-image-container"><figure><a class="image-link image2" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Ut88!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Ut88!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 424w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 848w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 1272w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/a90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png" width="1022" height="227" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/a90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:227,&quot;width&quot;:1022,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:&quot;&quot;,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" title="" srcset="https://substackcdn.com/image/fetch/$s_!Ut88!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 424w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 848w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 1272w, https://substackcdn.com/image/fetch/$s_!Ut88!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa90e98cf-9c28-4c80-8893-df3d3389d920_1022x227.png 1456w" sizes="100vw" loading="lazy"></picture><div></div></div></a><figcaption class="image-caption">the background for my current animation project :)</figcaption></figure></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

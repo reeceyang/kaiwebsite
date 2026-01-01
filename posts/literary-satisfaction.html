@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>literary satisfaction - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="what-would-anna-do.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">what would Anna do?</span>
+    </a>
+    <a href="ode-to-my-ankle.html" class="nav-arrow next-post">
+      <span class="nav-title">ode to my ankle</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>literary satisfaction</h2>
+      <span class="post-date">April 13, 2024</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!9IOj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!9IOj!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 424w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 848w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg" width="1456" height="887" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:887,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:9654050,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!9IOj!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 424w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 848w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!9IOj!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92176923-6417-4da4-8656-ff8a947ffbe0_3869x2356.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Matthew Wong’s <em>River at Dusk</em></figcaption></figure></div><p>I don’t have the time to write a full post right now, but still life goes on and I want to share about it, so here are some discombobulated thoughts.</p><h2>poetry</h2><p>I started reading <em>Twice Alive</em>, a poetry collection by Forrest Gander. I got this book at a sale in Kendall Square in the fall. I was always one of those people who didn’t “get” poetry, but finally, recently, I’ve found some appeal in the genre. </p><p>When you can feel the buildup to the final line—something carnal intertwined with a higher mode of thought, a cortex-controlled resistance to the climax you know in your soul is coming, like your head spinning before you throw up, your mouth watering before the first bite of food, holding on to the final beats before the drop, the moments before orgasm—most poems don’t do this for me, but the ones that do are fucking insane, genre- and life-defining. </p><p><a href="https://www.kernelmag.io/2/transubstantiation">Here’s one</a>, not by Forrest Gander; <a href="https://www.mercurius.one/home/forrest-gander-at-which-point-without-any-lurching-commencement">here’s another</a> (I like the first one on the page, called <em>Son</em>), from a different Forrest Gander collection; <a href="https://thebaffler.com/poems/unto-ourselves-2-gander">here’s a third</a>, from <em>Twice Alive</em>, the last stanza of which is reproduced here.</p><blockquote><p>By now, some of us, outmaneuvered by the economy,<br>were lying around Dolores Park like fallen fruit<br>waiting to rot. Others found themselves receptive<br>to a trivial, self-justifying kindness.<br>What with coral belching up its algae, evaporating stars,<br>the waking tundra, how could we bear, we wondered to<br>each other, even the weight of<br>our own sorry initiatives? <em>Life</em>, someone<br>countered, <em>is pure gratuitous magnitude. Just</em><br><em>look: the light is there, grace itself</em>. But<br>it was already noon and as we looked,<br>the colors of the hills began to blanch,<br>and all around us, in the field of the visible, we<br>sensed, without speaking, duration’s ebb.</p></blockquote><p>Doesn’t the last line hit like a brick? Whenever I read this poem, I have to put my hand under the line I’m on so that I don’t skip ahead. The anticipation makes me physically start shaking and salivating. That’s really gross, but my point is it’s kind of insane that words can do that to a person. </p><p>Why doesn’t more poetry feel like this? I guess poetry is incredibly dense—every word matters, makes some first-order alteration to the trajectory of the piece—so maybe it takes a very close reading to achieve this feeling with most poems, a level of attention I haven’t breached. But there’s also merit to poetry that doesn’t demand such a level of attention to still punch you in the gut.</p><h2>Substack</h2><p>I finally am beginning to feel satisfied with the Substack feed I’ve curated for myself, finally am mostly following writers whom I respect intellectually and whose work makes me think more deeply about my life and my writing.</p><div class="embedded-post-wrap" data-attrs="{&quot;id&quot;:142949014,&quot;url&quot;:&quot;https://samkriss.substack.com/p/how-to-live-without-your-phone&quot;,&quot;publication_id&quot;:1071360,&quot;publication_name&quot;:&quot;Numb at the Lodge&quot;,&quot;publication_logo_url&quot;:&quot;https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F75fb5a16-c295-4898-b7e3-9ab295cd3530_378x378.png&quot;,&quot;title&quot;:&quot;How to live without your phone&quot;,&quot;truncated_body_text&quot;:&quot;I bought my first smartphone in 2012. At the time I was an undergrad at the University of Leeds, halfway through a year abroad at UCLA. If you’ve never made a similar move, you can’t possibly imagine what it was like to be thrust suddenly out of the damp armpit of West Yorkshire and into the California sun. I was twenty-one years old and I had just disc…&quot;,&quot;date&quot;:&quot;2024-04-10T16:18:29.790Z&quot;,&quot;like_count&quot;:0,&quot;comment_count&quot;:0,&quot;bylines&quot;:[{&quot;id&quot;:14289667,&quot;name&quot;:&quot;Sam Kriss&quot;,&quot;handle&quot;:&quot;samkriss&quot;,&quot;previous_name&quot;:&quot;sam kriss&quot;,&quot;photo_url&quot;:&quot;https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8e7a7673-bc18-4190-be35-81e29a4ba9e5_2980x3024.jpeg&quot;,&quot;bio&quot;:&quot;It's got eyes of brown, watery; nails of pointed yellow&quot;,&quot;profile_set_up_at&quot;:&quot;2021-11-21T12:23:18.627Z&quot;,&quot;publicationUsers&quot;:[{&quot;id&quot;:1019897,&quot;user_id&quot;:14289667,&quot;publication_id&quot;:1071360,&quot;role&quot;:&quot;admin&quot;,&quot;public&quot;:true,&quot;is_primary&quot;:false,&quot;publication&quot;:{&quot;id&quot;:1071360,&quot;name&quot;:&quot;Numb at the Lodge&quot;,&quot;subdomain&quot;:&quot;samkriss&quot;,&quot;custom_domain&quot;:null,&quot;custom_domain_optional&quot;:false,&quot;hero_text&quot;:&quot;These heavy sands are language tide and wind have silted here&quot;,&quot;logo_url&quot;:&quot;https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/75fb5a16-c295-4898-b7e3-9ab295cd3530_378x378.png&quot;,&quot;author_id&quot;:14289667,&quot;theme_var_background_pop&quot;:&quot;#8AE1A2&quot;,&quot;created_at&quot;:&quot;2022-09-02T12:58:47.860Z&quot;,&quot;rss_website_url&quot;:null,&quot;email_from_name&quot;:&quot;Sam Kriss from Numb at the Lodge&quot;,&quot;copyright&quot;:&quot;Sam Kriss&quot;,&quot;founding_plan_name&quot;:&quot;Founding Member&quot;,&quot;community_enabled&quot;:false,&quot;invite_only&quot;:false,&quot;payments_state&quot;:&quot;enabled&quot;,&quot;language&quot;:null,&quot;explicit&quot;:false}}],&quot;is_guest&quot;:false,&quot;bestseller_tier&quot;:1000}],&quot;utm_campaign&quot;:null,&quot;belowTheFold&quot;:true,&quot;type&quot;:&quot;newsletter&quot;,&quot;language&quot;:&quot;en&quot;}" data-component-name="EmbeddedPostToDOM"><a class="embedded-post" native="true" href="https://samkriss.substack.com/p/how-to-live-without-your-phone?utm_source=substack&amp;utm_campaign=post_embed&amp;utm_medium=web"><div class="embedded-post-header"><img class="embedded-post-publication-logo" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/75fb5a16-c295-4898-b7e3-9ab295cd3530_378x378.png" loading="lazy"><span class="embedded-post-publication-name">Numb at the Lodge</span></div><div class="embedded-post-title-wrapper"><div class="embedded-post-title">How to live without your phone</div></div><div class="embedded-post-body">I bought my first smartphone in 2012. At the time I was an undergrad at the University of Leeds, halfway through a year abroad at UCLA. If you’ve never made a similar move, you can’t possibly imagine what it was like to be thrust suddenly out of the damp armpit of West Yorkshire and into the California sun. I was twenty-one years old and I had just disc…</div><div class="embedded-post-cta-wrapper"><span class="embedded-post-cta">Read more</span></div><div class="embedded-post-meta">2 years ago · Sam Kriss</div></a></div><p>Here’s a post I enjoyed recently. People on Substack are really obsessed with writing anti-digital-era pieces, which gets grating after a while (even though I almost always agree with the thesis) because not all of them are very good at it, but this piece is both well-written and legitimately delivers new ways to think about the psychological role phones play in our lives.</p><blockquote><p>Not using a phone taught me what a phone is really for. It’s not for communicating with other people, getting directions, reading articles, looking at pictures, shopping for products, or playing games. A phone is a device for <em>muting the anxieties proper to being alive</em>. This is what all its functions and features ultimately achieve: cameras deliver you from time, GPS abstracts you out of space, and an all-consuming screen that keeps you a constant safe distance from yourself. If there’s something you’re worried or upset about, you can simply hide behind your phone and it will all go away. One third of adults say they’re on their phones almost constantly. Their entire waking lives are spent <em>filling time</em>, plastering over the gaps, burning up one day after another, waiting for something to happen, and it never does.</p></blockquote><p>As for my own writing, for the first time I’m in the position of having a <em>backlog</em> of topics to write about. I have a lot of thoughts about these topics and want to do them justice, but I don’t have the time to actually research and write and revise at the moment. I’m missing last summer in Santa Fe, when I could take a whole weekend to write a post by hand, in the shade outside a cafe where other writers and artists sat hunched over their notebooks too. Now, there’s always something else to do.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

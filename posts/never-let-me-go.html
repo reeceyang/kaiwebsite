@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>never let me go - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="la-la-land.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">la la land</span>
+    </a>
+    <a href="because-its-summer.html" class="nav-arrow next-post">
+      <span class="nav-title">because it's summer</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>never let me go</h2>
+      <span class="post-date">July 30, 2024</span>
+      <div class="content">
+      <p>SPOILERS: I talk about Kazuo Ishiguro’s <em>Never Let Me Go</em> and Paul Schrader’s <em>Mishima: A Life in Four Chapters</em>. Personally, I think if you knew exactly what happened in both works you would still get basically the same value out of them, and the plots are pretty predictable from the start anyway.</p><p>But if you want to go in totally blind, you shouldn’t read this. And if you haven’t read/seen either of them, this should still be perfectly legible to you.</p><div><hr></div><p>Lately I feel constantly like I’m losing something. I send a poorly worded text and think, <em>I’ve fucked up—it’s over</em>. My mother’s radiology tests come in over text. My grandparents buy their gravestones. My body dissolves into bug bites and strangers’ fingerprints and a crackling left shoulder joint. I wake up too late, go to bed too early, feel time slipping between my fingers. I reread <em>Never Let Me Go</em> and at the final few pages saliva collects in my mouth and my stomach twists as though I’m about to throw up. </p><p>In <em>Never Let Me Go</em>, Kathy, Ruth, and Tommy grow up in Hailsham, a British boarding school, knowing that they were born to act as donors in their twenties and “complete” by around thirty. Against this backdrop, they play football and go on road trips and navigate social dynamics. It’s an emblematic Ishiguro tale: not quotable in the slightest; instead, a slow painting of a lifetime. Subtle and quiet. Close up, each scene seems to mean very little. Taken all together, the mundanity shifts and warps towards the heartbreaking beauty of a whole life.</p><p>When I finished the book for the first time, I went on Goodreads and found most of the negative reviews saying things like, Why didn’t they resist? Even <em>1984</em>’s weary incellish protagonist resisted! Why did they just accept their fates? Zero stars for this endorsement of helplessness! Even some of the positive reviews conceded that the characters were repressed, pitiful, with no concept of the cruelty of their situation.</p><p>Sure, Goodreads is no hub of high-quality literary criticism. But it is easy enough to read into the passivity and despair permeating the novel and conclude no resistance was mounted, that our characters are rag dolls bending to their designated roles and swirling through monologues that skirt politely around their fates. </p><p>On a second read, though, I think they fought for themselves in a very concrete way: through art. Hailsham’s curriculum centers around the students making art; from youth they prize “being creative” above all other virtues. One primary arc of the story centers around Tommy and Kathy preparing their portfolios of art to show a Hailsham authority, hoping that through their art she will understand their love and allow a deferral on their donations so they can be together longer.</p><p>Continually it’s impressed upon the students of Hailsham that they’re more fortunate than other children being reared for donations, because of something special that Hailsham gave them. In one of Kathy’s first ruminations about the difference between her and non-Hailsham donors, she muses, “I was talking to one of my donors a few days ago who was complaining about how memories, even your most precious ones, fade surprisingly quickly. But I don’t go along with that. The memories I value most, I don’t see them ever fading.”</p><p>In part this is because she has happy, idyllic memories of Hailsham; but also it's because Hailsham gave her the will to make art and to hold onto the slice of memory contained by art. Why was art the venue chosen here? Why not run away from the boarding school or donation center, stake out a longer life for yourself on the road? Why, instead, spill your pain out on a canvas, yet continue to shackle yourself? When you feel yourself losing something, should you let go or hold on?</p><div><hr></div><p><em>Mishima: A Life in Four Chapters</em> was this batshit insane biopic I recently watched about a famous Japanese author-turned-fascist who committed seppuku after leading a failed coup against the government in 1970. Each section of the movie depicts a chapter of Yukio Mishima’s life in black and white, paralleling one of his works shot in gaudy color against a theater set. </p><p>In one such chapter, a narcissistic, self-obsessed actor named Osamu begins weight training to improve his body. Despite his efforts at gaining physical strength and power, he fails to protect his mother when she’s confronted about her missing rent. But the woman who owns his mother’s property, Kiyomi, is taken by Osamu’s beauty and offers to forgive his mother’s debt so long as she can use his body how she wishes.</p><p>In the first scene we see of them together in a sickly pink room, Kiyomi presses a cold pack to Osamu’s skin, offering him relief from the summer heat; then she makes a small cut on his torso with a blade. This woman with the angular face and flared nostrils wielding physical power over him, this man with the face of a poet who failed to exert power in the way he wished. He opens his eyes in surprise.</p><blockquote><p>“Your skin is so beautiful...I just had to cut it.” Kiyomi moves away, begins to slice a melon. Heat waves rise through the air. </p><p>“A thought just occurred to me,” Osamu says from his position on the couch. “‘This must be the woman I’ve been looking for. I’ve finally found her.’ For the first time I feel like I exist. I don’t need a mirror.”</p><p>“Perhaps you should die with me,” Kiyomi says, in a lilted, joking manner. “I could watch your face in a pool of blood until it stopped moving. Then I would poison myself.”</p><p>“You have to promise not to kiss me,” Osamu laughs, “until after I’m dead.”</p></blockquote><p>Osamu’s story parallels a chapter of Mishima’s own life: his realization that his own body is not worthy of art, that it can’t exert power the way his words can, and his subsequent pull towards bodybuilding. Growing up as a sickly, sheltered child, Mishima realizes he must cure his body of its flimsy condition if he is to effect change in the world. From childhood, “my need to transform reality was an urgent necessity, as important as three meals a day or sleep.” But through art or through action? He flips between these two throughout the film, wondering if he can unite them. He also becomes really jacked.</p><p>In the end, Kiyoko kills Osamu and then herself in a double ritual suicide; Mishima, too, stabs himself, from his vantage point in 1970. Both seem to come to a decision in their final moments to prolong beauty, to alter their realities by taking this moment and stretching it forever.</p><p>And me? When I met those people I loved in Maryland, faced with a two-week limit on our time together, I kept thinking guiltily about an exchange of blood—cutting our palms open and pressing them against each other, our life sources entangling—some way to give them part of me in a moment of the purest understanding. I knew I may not ever see them again; wouldn’t it be better to end it with something we could never come back from? There—preserve me in your mind, before our love for each other ebbs, before our bodies wilt.</p><p>Mishima worked tirelessly at making his body into the perfect form for death. In the film, he laments:</p><blockquote><p>The average age for a man in the Bronze Age was eighteen; in the Roman era, twenty-two. Heaven must have been beautiful then. Today it must look dreadful. When a man reaches forty, he has no chance to die beautifully. No matter how he tries, he will die of decay. He must compel himself to live.</p></blockquote><p>He killed himself at 45.</p><div><hr></div><p>A week ago I was sitting on Killian Court with my friend V, whom I’ve known since we were twelve. I took my shoes off; we ate out of a bag of Takis. We had spent the day walking around Newbury Street together after not seeing each other for a while. In some way I felt empty. “I feel I haven’t been very good to you,” I told V.</p><p>They leaned against the smooth surface of the sculpture we were sitting on. “It seems to me that you lack object permanence. That if someone isn’t actively in your life then you don’t care about them. It’s upsetting to me. But I guess it must feel freeing for you.”</p><p>At some point in every previous friendship I’ve had, I would move to some other part of the country, and inevitably we would grow apart. We might still text for a while after. But at the first sign of distance I’d pull away entirely. So it was with V: for the first two years after the pandemic forced us out of school and then I flew across the country to Boston, we barely spoke, a six-year friendship at the time reduced to nothing. It wasn’t until they, by chance, moved here as well that we reconnected.</p><p>I care about my relationships. But, like Mishima, I feel the impulse to kill them before their time. I want them to flare out at their peak, so I don’t have to even face the possibility of watching their sad declines, so we never get a chance to fall out of love.</p><p>When I first moved away from friends I really loved, I was eleven. I remember the months after, wallowing in a very eleven-year-old kind of sadness: clutching my laptop to my chest in the dark of my room, listening to “Let Her Go” by Passenger, the sorrow made worth it by my conviction that the whorls of destiny would bring us together again. Of course they didn’t; I made it for a while with Aryanna, my best friend from that time, but in the end we, too, fell apart into yearly exchanges of formalities, our friendship distilled into its least interesting parts.</p><p>What I have left of her is the art we shared. We were always on call, drawing and writing together, posting to the same forums. So even though I say I don't miss people much—and it’s true that for years I haven’t known the clawing desperation that once defined “missing people” even though I consider my emotions pretty intense along other axes, and if I know that someone’s not likely to reenter my life then I don't even consider the possibility of keeping in touch with them—still I feel an ache when I listen to the music she loved: Linkin Park, Breaking Benjamin. They’ll always be hers. There’s nothing false about it: because Aryanna felt understood by this art then, because I understand this art now, a real part of her is here as well.</p><div><hr></div><p>The students in <em>Never Let Me Go</em> don’t carry out any action to bring them closer to the lives they dream for. They’re actively disempowered in the realm of action—their bodies are not even really theirs to use. Like Osamu, they are totally lacking in physical power and must resort to other means. But their Hailsham education did empower them to make art, a vehicle for mutual understanding across not only disparate destinies, but also across time and place. Art functions as a bridge between them and the “normals” who they believe control their fates. And later, it’s a vehicle for uncompressed memory: read a poem or listen to a song and feel, <em>I understood this then; I understand this now</em>.</p><p>Through art, someone whose mind you can’t possibly hold in your own feels the same truth that you do. Certainly that’s what writing is to me: a way to invoke truth through imagery and rhythm, when words delivered linearly, conversationally, are not enough. When I wrote <a href="https://goldenblue.substack.com/p/because-its-summer">because it’s summer</a>, I wanted to capture and prolong what I’d felt in Maryland, to create a time capsule for a love that would not decay.</p><p>There is no way to lie when you make art: whatever feeling resonates in the other person must be true. There is no way to lie when you act: the action creates the truth in the physical world. And there is no way to lie in death. When you can trust that the other person is telling the truth, and when you feel the same truth yourself, that’s pure understanding. </p><p>To Mishima this final culmination of art and body and truth is all that matters, a moment of purest understanding at the end, we two bound to each other by the only real shared experience, which is why he considers death to be the unity of art and action. Samurai used to speak of <em>bunburyodo</em>, the harmony of pen and sword, but now this is a myth realized only in death. Mishima: “The truth is that harmony can only happen in a moment, a flash.”</p><p>To Ishiguro, it’s the rest of life that matters. Ishiguro believes that even in the absence of total understanding we can love each other, that the shared inevitability of death is enough to bind us. As real humans, and not as fascists idolized through a TV screen, we’re much more like Ishiguro’s telling than Mishima’s.</p><p>The students in <em>Never Let Me Go</em> never reach Mishima’s type of pure understanding with the normals, or even with each other. Towards the end of the book, when the students have moved on from the boarding school and are all in their late twenties, tension between Kathy and Tommy builds as he, a donor, nears completion while she, a carer, hovers years out from hers, lacking his experience of declining autonomy and mounting fear. Tommy stops showing her his attempts at art. Ruth, who completed earlier in the novel, is cordoned off from their knowledge of the true nature of Hailsham. Each character feels some unassailable distance from the other two. Still they hold on to each other, even as the curtains tear to reveal the ugliness behind the stage; for instance, when Kathy and Tommy start having sex:</p><blockquote><p>But even that first time, there was something there, a feeling, right there alongside our sense that this was a beginning, a gateway we were passing through. I didn’t want to acknowledge it for a long time, and even when I did, I tried to persuade myself it was something that would go away along with his various aches and pains. What I mean is, right from that first time, there was something in Tommy’s manner that was tinged with sadness, that seemed to say: “Yes, we’re doing this now and I’m glad we’re doing it now. But what a pity we left it so late.”</p><p>Maybe it was to do with that room, the way the sun came in through the frosted glass so that even in early summer, it felt like autumn light. Or maybe it was because the stray sounds that would occasionally reach us as we lay there were of donors milling about, going about their business around the grounds, and not of students sitting in a grassy field, arguing about novels and poetry. Or maybe it had to do with how sometimes, even after we’d done it really well and were lying in each other’s arms, bits of what we’d just done still drifting through our heads, Tommy would say something like: “I used to be able to do it twice in a row easy. But I can’t any more.” Then that feeling would come right to the fore and I’d have to put my hand over his mouth, whenever he said things like that, just so we could go on lying there in peace. I’m sure Tommy felt it too, because we’d always hold each other very tight after times like that, as though that way we’d manage to keep the feeling away.</p></blockquote><p>With every breath you take, you’re losing more of each other, falling farther away from understanding—and Ishiguro still thinks the rest of life is worth it! Inevitably, your experience of life diverges from that of the people you love: your friends start families while you stay single; your parents get sick; your housemates move across the country; over and over an understanding you once shared is wrenched from you. Over and over you make the choice either to let go and preserve a fiery beauty in death, or to hold on and preserve a quiet memory in art.</p><div><hr></div><p>Lately I feel constantly like I’m finding more to hold on to. I walk to pika with my friends, who are balancing on the curb or cycling leisurely in the middle of the road, and watch golden light dapple their faces. I find joy in climbing again, the same happiness I felt the first month I climbed, something I never thought I’d hold in my heart again after my injury. I meet new people and feel, again and again, this jab of fear that I’ll fuck up our relationship; every time I have a happy interaction with someone, I think maybe it would be best if that was our last.</p><p>And then we keep seeing each other anyway—and sometimes I act awkward or I misinterpret a message or something; but somehow, the people I meet reach out again. To my eternal surprise, they look me in the eye and say what’s on their mind, some sentiment in the neighborhood of <em>I want to keep talking to you</em>, or <em>I want to give you some of the limited time I have left on Earth</em>, or <em>I want to pursue understanding even if we’ll never reach complete harmony</em>.</p><p>I say I don’t miss people much, and mostly that’s true, but sometimes, it feels like you’re ebbing away from me even when we’re together. It’s this foolish human tendency against living in the moment that could be fixed if I meditated enough, probably. Until then, foolishly and selfishly, I’ll encase the past in amber: I’ll write about our late night excursions; I’ll sketch what I saw of your smile when we ran to Trader Joe’s together; I’ll make playlists of the songs you send me. Even if we will never fully understand each other, even if someday one of us will take the first step away from the other, there are parts we can understand of each other now, memories we will never have to let go of.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

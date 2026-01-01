@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>you can do both - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="like-real-people-do.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">like real people do</span>
+    </a>
+    <a href="moon-song.html" class="nav-arrow next-post">
+      <span class="nav-title">moon song</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>you can do both</h2>
+      <span class="post-date">February 18, 2024</span>
+      <div class="content">
+      <p>One day, over IAP, I was eating lunch in the office with two people from my lab, both graduated already, L and J. L mentioned offhandedly that he “moonlights a bit in archaeology”. I absorbed this information with some surprise: L often arrived at the office before 9 a.m. and left after five; he liked going backpacking or ice climbing for whole weekends at a time, endeavors which I thought would already take a lot of time and energy; and besides, I couldn’t imagine how <em>anyone </em>could “moonlight” in archaeology.</p><p>It turns out that he mainly does grunt field work and a bunch of statistics for archeologists, who allegedly don’t do statistics very well themselves. He told us about his first (mildly unpleasant) experience with field work, trying to excavate a structure made entirely of basalt out of some rock which was also mostly basalt.</p><p>J, too, does projects outside of work. This was less surprising to me when I learned of it, since he doesn’t actually come to work that often. His passion project is something with a Ukraine nonprofit.</p><p>As I get to know more adults (like, over-25, real adults), this becomes increasingly common. My PI in the AI/ecology lab I work in used to be a professional ballerina. John Urschel, who recently became an associate professor at MIT, got his PhD in math while playing in the NFL. Talking about this with some of my professors, they agree: “discoveries are made at intersections,” one noted.</p><p>Just because I meet a lot of people who pursue multiple fields at once doesn’t mean it’s easy. Even doing <em>one</em> of getting your PhD in math or playing in the NFL or being a pro ballerina or publishing a bunch of well-received ML papers is really hard. You can’t half-ass any of those things. But having a foot in two worlds is also real and achievable.</p><p>This tracks with my own experience. I always thought I’d have to either give up on one of physics or sustainability, or work in some cursed intersection of the two that doesn’t really capture what I love about either.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a> Now, I’m taking physics classes I enjoy while also preparing a computer-vision-powered salmon counting tool for a summer conference with ecologists who will <em>actually </em>use this to count salmon and manage risks to biodiversity. I’m taking a circuits class where I make cool things like a surprisingly functional Xbox controller while also contributing some work to nuclear disarmament efforts.</p><p>I feel genuinely passionate about each of these paths. I think, in some universes, I could be a physicist, or an ecologist, or an electrical engineer, or a nuclear security researcher. Maybe one of those universes is this one. I used to feel stressed about having to choose between everything I could be doing, but it seems like I won’t be forced to choose for a long time. </p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!M0A1!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!M0A1!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 424w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 848w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/ebb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg" width="1152" height="1152" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/ebb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1152,&quot;width&quot;:1152,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:188768,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!M0A1!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 424w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 848w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!M0A1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febb26b73-86d0-4045-8176-ebb1c95f22b0_1152x1152.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">the Xbox controller I soldered together in class! I used it to play Celeste on my PC and it was stunningly kind of good</figcaption></figure></div><p>But truth be told, I think I’m still on the path of trying to cultivate the kind of focus and work ethic that would enable me to do just <em>one</em> thing well. This is a constant struggle, because I’ve come to believe over the past couple of years that there really is an optimal amount of work to be doing, and if you try to take on more work than that, you’ll do a suboptimal job at everything. But that ceiling—that “optimal” amount of work—can be pressed higher with practice.</p><p>It’s hard to tell whether I’m pushing myself enough in this aspect. I feel less mental discomfort than I did in high school—is this a sign of less self-loathing (yes), or a sign of becoming lazier/more complacent (probably also yes)? I’m also objectively more productive than I was in high school, both in terms of total volume of work done and stuff learned per unit of effort—is this a sign of just being in a better environment with more resources (yes), or am I really getting better at learning (maybe also yes)?</p><p>I don’t know. I don’t miss being tired all the time and constantly thinking about being a worse human being than some Olympiad qualifier two counties over. I’m glad I’ve mostly grown out of this inferiority complex and have some confidence in my own abilities now. But isn’t it true that back then, I really cared about something, enough to forego food and sleep and other earthly pleasures (even if this wasn’t a good idea), and now mostly I like to drink boba and take naps, and something real is missing from that?</p><p>In this light, my desire to pursue multiple fields feels a bit facetious even if so far I’ve been fairly successful at it. I do want to find something that speaks to me on a deeper level than I’ve experienced thus far in college, something that sparks the kind of dedication I had in high school. In lieu of such motivation, I’ve just been chasing opportunities that help me learn some of the things I want to learn—machine learning, C++, electrical engineering—while trying to have a positive impact in the spaces I care about.</p><p>And to some extent, I think this is a good use of my time. Being comfortable with tools I’ve learned for these projects, like the command line and emacs and Git (…somewhat), has turned out to be really useful. I like working on salmon counting stuff—training models, building interfaces for annotating data, finding better ways to tune hyperparameters—and knowing that it will get used, that I’m contributing to conservation efforts in a real, concrete way. Even if I fall totally in love with some field in physics and decide to go to grad school immediately, I could totally see myself moonlighting as an AI-wielding fish counter.</p><p>On the other hand, what I <em>do</em> miss about high school is the feeling of being totally engulfed by an ambition I cared about, to the extent that I would sacrifice most other things to progress along this axis. I think most of life is not like that, and that’s okay; but I miss it nonetheless, the sense of direction it gave me.</p><p>For now, I think it’s okay to keep exploring, and to let my sense of direction lead me towards anything I find fun and worthwhile. Counting fish is fun; making Xbox controllers is fun. I guess I am young and in college and, for now, I can do both.</p><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>not trying to be mean towards either physics or sustainability lol but the intersections tend to just look like engineering (with the exception of climate physics which I think is cool); I’ve tried a couple of engineering teams at MIT and generally disliked them so probably no engineering as a career for me</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -12,10 +12,27 @@
   const ctx = canvas.getContext('2d');
   let stars = [];
   let comets = [];
+  let animationId = null;
 
   function resize() {
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Get height of actual content (excluding canvas itself)
+    const body = document.body;
+    const html = document.documentElement;
+    let contentHeight = 0;
+
+    // Find the last element that's not the canvas
+    const allElements = Array.from(document.body.children);
+    for (const el of allElements) {
+      if (el !== canvas) {
+        const rect = el.getBoundingClientRect();
+        const bottom = rect.bottom + window.scrollY;
+        contentHeight = Math.max(contentHeight, bottom);
+      }
+    }
+
+    // Add buffer for bottom padding/margin
+    canvas.height = Math.max(window.innerHeight, contentHeight + 100);
   }
   window.addEventListener('resize', resize);
   resize();
@@ -101,6 +118,21 @@
   }
 
   function loop(now) {
+    // Check if content height changed
+    let contentHeight = 0;
+    const allElements = Array.from(document.body.children);
+    for (const el of allElements) {
+      if (el !== canvas) {
+        const rect = el.getBoundingClientRect();
+        const bottom = rect.bottom + window.scrollY;
+        contentHeight = Math.max(contentHeight, bottom);
+      }
+    }
+    const newHeight = Math.max(window.innerHeight, contentHeight + 100);
+    if (canvas.height !== newHeight) {
+      resize();
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // spawn stars
@@ -121,8 +153,24 @@
       return alive;
     });
 
-    requestAnimationFrame(loop);
+    animationId = requestAnimationFrame(loop);
   }
 
-  requestAnimationFrame(loop);
+  // Export control functions
+  window.starfield = {
+    start: function() {
+      if (!animationId) {
+        animationId = requestAnimationFrame(loop);
+      }
+    },
+    stop: function() {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+        stars = [];
+        comets = [];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+  };
 })();

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nambe Falls - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="what-makes-a-memory.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">what makes a memory</span>
+    </a>
+    <a href="chinese-breakfast.html" class="nav-arrow next-post">
+      <span class="nav-title">Chinese breakfast</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Nambe Falls</h2>
+      <span class="post-date">July 10, 2023</span>
+      <div class="content">
+      <p>My partner Reece arrived in Santa Fe at 2am yesterday morning. When her Lyft pulled up outside the casita, I was waiting for her on the sidewalk in a T-shirt and boxers, my hair damp from a shower. I hugged her and led her inside.</p><p>She was planning on staying until Monday night, and I wanted to show her all I had come to love about Santa Fe in my month here before she left. Our plan for yesterday was to check out some markets and spend some time at the community center. Nearly 48 hours after she arrived, I’m sitting here with cuts peppering the bottom of my feet, forearms sore, purple bruises blooming across my knees.</p><p>Let’s take a step back. Yesterday morning, we all went to the farmers’ market—me, Reece, and my roommate here, Alex. We were planning on grilling food the next day, so in preparation, we bought oyster mushrooms, zucchini, and garlic. We also bought a paper bag’s worth of yellow and red cherries and took turns reaching into the bag and biting into the sweet, acidic meat, then spitting the pits out on the side of the road.</p><p>As we walked, marigolds stretched far out onto the sidewalk, obstructing our path. Lavender bushes grew as tall as my shoulders. I spotted one bee lumbering among the flowers, causing the stem it perched on to sway beneath its weight—then I spied another bee, and another, until I stepped back and realized the bush was full of them, little yellow fellows taking their fill from each purple blossom lining the stalks.</p><p>We went into Ark Books, which had been deemed by a reviewer on Google Maps “my favorite metaphysical bookstore”. It was intriguing to me that this was a category in which someone would have a favorite, and that the favorite in question was so close to us, so I resolved to check it out with Reece and Alex.</p><p>The entrance sat behind adobe walls, a wooden doorway next to a wooden swing. There were indeed books in the store, but the main attraction seemed to be the room of crystals, carved into shapes of snakes or Buddhas, or worn smooth and round and piled in boxes upon which hung placards describing the various crystals and their functions. The room smelled of incense and felt humid, a reprise from the dry, blazing heat outside. I took an apatite stone into my hand; round, smooth, and reassuringly heavy, its placard advertised better problem-solving ability through unlocking the creativity and wisdom of one’s subconscious. I felt like this would be useful to me as a researcher, so I kept the golden-veined, dark blue stone in my grip as we continued browsing. </p><p>I saw several other stones said to boost confidence; a year ago, maybe I would have needed this. But I trusted enough in my own ability now that I kept my grip on the apatite stone. My desire now was to be able to use my abilities more effectively—I believed they were there within me.</p><p>I also found a little tortoise carved of soapstone, two yellow eyes staring out in slightly different directions. It was charmingly asymmetrical; I could tell it had been hand-carved, the markings of its shell chiseled carefully by an artisan’s pick. I bought the tortoise (who is named Brick now) and the apatite.</p><p>Our friend Ivan, from the same internship program as Alex, picked us up to go ice skating and swimming at the community center. After the free skate session ended, Alex went to ask for tickets to the pool. They returned from the front desk shaking their head. “You have to reserve slots in advance,” they said, “and everything is booked today.” It was crazy to me that the recreational pool needed to be <em>reserved</em>, but there was nothing we could do about it now. </p><p>Ivan spoke up. “This might be a crazy idea, but do you guys want to go swimming at a waterfall?”</p><p>Yes. Of course. When would we ever <em>not</em> want to go swimming at a waterfall.</p><p>So we set off. After stopping for boba, Ivan drove us all straight to Nambe Falls. He told us he’d heard there would be a “short hike” up to the waterfall, where we could relax, cool down, and swim. He was only a little bit right.</p><p>We drove through reservation land to get to Nambe Falls. When we parked the car and got out, we all put on sunscreen and looked around. In the dusty red parking lot, other people had put up tall tents. The smell of fried chicken wafted through the air. Children were wading in the stream.</p><p>We started up the trail to the waterfall. It followed the stream up a gentle slope, and we watched as the water widened and calmed, finally morphing into a slow-moving pool we would have to wade through to make more progress. We took our shoes and socks off, held them in one hand while the other gripped the rock wall for balance. Angular slabs jutted out of the walls, which rose high over both sides of the river.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!wTUM!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!wTUM!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 424w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 848w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!wTUM!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 424w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 848w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!wTUM!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c1f2e3d-b80f-4f7d-ad16-f21622dc0771_1600x1200.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>When I dipped my feet in the water for the first time and began walking across the smoothed stones forming the riverbed, my feet were overcome with such cold that it throbbed through my legs like fire. I kept walking, hoping it would fade if I waited it out. We made our way upstream slowly, having to test each step before setting our aching feet down.</p><p>Finally we reached the pool of water at the base. People splashed around in it, shrieking as the cold water hit their bodies, from children in cartoon T-shirts to old men and women wearing their silvery hair in braids, packs straddled on their torsos.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!pyUA!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!pyUA!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 424w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 848w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!pyUA!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 424w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 848w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!pyUA!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a0cdbad-3268-4217-abf4-a701ebd6bc75_4032x3024.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>The waterfall was still a few levels up. We began walking up what looked like a trail on the side of the river, but it ended quickly at the feet of massive, impenetrable rock. From here, we could see the waterfall, giant and rushing; the enticing bed of sand and pebbles on the shore of the pond it fed into; and the several layers of falling water between it and the base pool we’d been at. It was clear that the only way to the waterfall would be up the side of the river.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!_j5x!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!_j5x!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 424w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 848w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg" width="1456" height="1941" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1941,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!_j5x!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 424w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 848w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!_j5x!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2adcda79-e00b-4405-8387-1f83ac6b0f12_3024x4032.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>It seemed slightly dangerous—clawing our way up wet, mossy rocks, our projected path towering above a shallow, violent river—but somehow this topic did not make its way into our discussion about going up to the waterfall, which mostly consisted of “can I tie my shoes on your backpack?” “sure”. With shoes tied, both hands free now, we could all properly climb, and we set off, excited for the adventure.</p><p>Going up was a blur. We went in single file along the rock wall, pulling ourselves up against the stream. To get up one of the rocks, which had fewer footholds and was larger than the others, Ivan stood and offered his hands as a stepping point for each of us, and then we all pulled him up the rock. I loved the feeling of ascent. My fingers reached out, searching the surface of the rock for crevices to slip them into and leverage myself up with; my bare feet angled themselves to the rock, edging into corners or flexing against sloped slabs.</p><p>I’d been climbing indoors before. I knew the feeling of thinking a move to be impossible, then grabbing a hold in my hand and pulling through the pain and not letting go, and making it—and then marveling at the fact that I had physical power over and through my body like this. This climb was not nearly as technically challenging as an indoor climbing wall, but the same feeling was there, the deep, carnal satisfaction at moving my body with and against the rock.</p><p>Before I knew it, I had reached the top. Alex was in front of me and stood, grinning, in the spray of the waterfall, tumbling down thirty feet of rock. Sunbeams refracted into a rainbow, visible just a few feet from us. The waterfall generated such wind that it blew my hair out behind me.</p><p>We turned our gaze back towards the last rock bluff leading up to the waterfall. Reece had just made it up, and Ivan was a ways behind her. As we watched, Ivan’s croc-adorned foot slipped, his arms flailed, and he pitched backwards into the water ten feet below.</p><p>Miraculously, his pack cushioned his fall, making his head snap up before it could hit rock. Ivan pulled himself back up and gave us two thumbs up, took his crocs off, and kept climbing.</p><p>We were all shaken by this—Ivan himself was physically shaking from being drenched in cold water when he made it to the shore—but we forgot it quickly enough as he laughed it off and said it hadn’t hurt him at all. Thank God for his pack.</p><p>I stepped into the pool and walked towards the waterfall. The wind became more powerful and intense the closer I got; it was freezing, but after a few moments walking through and staring at the clear water, the thought of diving in became more enticing than terrifying. I submerged myself in the water, pulled myself through, felt the pressure of the waterfall on my back.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Ehy0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Ehy0!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!Ehy0!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Ehy0!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F331200bf-e28d-49a7-b654-fb47d00bf4ba_4032x3024.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>When we descended, we were considerably more careful, spotting each other through each group of rocks. On our way up, I’d felt like I had something to prove to the others, that I was as capable of ascending the rocks as they were. But there was no sense of pride involved in the descent, only us giving tips to each other about footholds and angles, and being there if the others fell.</p><p>I don’t want to overstate the difficulty of this scramble. Though there was risk involved, it was mostly in the rocks being wet and slippery and the threat of falling into the shallow river below, not necessarily the technical ability needed. But being able to ascend and descend this stream was one of the first times in my life that I felt physically capable—that I knew with some surety that I could trust in my own strength and physical judgment.</p><p>Though I wasn’t always confident in my academic abilities, the feeling of trusting my knowledge in some field was familiar to me, knowing that the work I had put into learning something would pay off. But the effort I put into growing physically, building muscle and stability and being able to move my body how I wished, had not visibly paid off in the past. For the first nineteen years of my life, I was accustomed to being the weak link in the group in <em>any</em> physical activity. Climbing, kayaking, hiking—I was the slowest and the first to fatigue, and often some physical activities would simply be out of my reach.</p><p>But this summer, I have been going to the gym every other day and trying hard to eat enough protein and get enough sleep. And it has finally paid off. As I descended the rocks yesterday, I felt the same sharpening of focus and one-minded determination that I felt in the crucial moments of a Science Bowl round or while making the determining strokes of a painting. It was the first time I trusted my body as I did my mind. </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

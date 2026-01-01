@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>what makes fear worth it - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="seven-scenes-from-paris.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">seven scenes from Paris</span>
+    </a>
+    <a href="how-useful-is-narrative.html" class="nav-arrow next-post">
+      <span class="nav-title">how useful is narrative?</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>what makes fear worth it</h2>
+      <span class="post-date">February 14, 2025</span>
+      <div class="content">
+      <p>Despite being a brief and shallow fan of <em>Hamilton</em> in middle school, I didn’t fully grasp the concept of musical theater until college. <em>Hamilton</em>, to me, existed as a series of songs someone had compiled in a YouTube playlist. Somehow everyone in the comments was stringing together a coherent plot from these songs; being ignorant of the fact that they were actually performed live, interspersed among acting scenes, I marveled at the commenters’ powers of inference.</p><p>When I saw <em>Firebringer</em> in my freshman fall at MIT—urged to attend by other people on my hall involved in the production—it lingered in my mind for days after. How was it possible for a group of college students to tell a story so vividly and intensely? It was about more than the acting, more than the singing, more than the dancing. I attended no shortage of plays and a cappella performances and dance showcases (and—bonus—the Boston Ballet). These were all good. I enjoyed them. But I was never once touched as deeply as I have been, consistently, by musical theater.</p><p>So what is it? Maybe it’s the writing, this undercurrent of dark humor that runs through most musicals I’ve seen. Lots of musicals have this structure where Act I is relatively normal and Act II flips the story on its head in a totally unexpected, fucked-up manner. But musicals with conventional story structures have made me cry, too.</p><p>Is it a sense of immersion? The lights, sound, and set design tend to be more elaborate for musicals than for concerts or dances. Maybe a musical puts more effort into crafting a specific experience for the audience. But that can’t be the only thing—seeing a movie in a theater is more immersive, and I’m rarely as touched by a movie as a musical.</p><p>What really makes musical theater my favorite medium is also its defining characteristic, the live performance of over-the-top musical numbers. <em>Over-the-top</em> is key: the entire medium is predicated on the idea that a character’s (or group of characters’) internal state of mind warrants a whole song and dance number. It elevates the character’s direct, internal experience of the world to an even higher level of importance than its subtler external manifestation as dialogue or body language. A production can’t shy away once it’s entered this stage: our inner worlds are so complex, so intensely and deeply felt, that to invert the character, to manifest their inside in the outer world, requires a commitment to fantasy. Yes, in this world everyone else knows the choreography by heart, everyone else knows the lyrics and joins in seamlessly and spontaneously, there’s even a live orchestra with an upright bass player—isn’t this how it happens in our heads, too?</p><p>It’s this brash inversion of self that I love, that runs so counter to conventions of social interaction. When my attempts at conversation are warped by a desire for relatability to the point of being unrecognizable, when the failure to be understood by other people makes me feel sick with disappointment—and when I say <em>failure</em> I don’t mean solely that we miss deep understanding but that we misunderstand even each other’s surface level meanings, that I’m unintentionally and unwillingly telling lies all the time in service of convenience and conformity—there are two reprieves I turn to. </p><p>First is to retreat inside my head and draw the curtains closed—by writing, mostly, a process during which I don’t think about other people at all. Though I often end up posting my writing online, and it’s a wonderful feeling when people comment on it and reveal they’ve given my work their attention for a few minutes, this joy is separate from the peace that the bare activity of writing brings me. Writing is a time to lean into my wildest inclinations with no regard for other people’s expectations. So <em>success</em> in writing, to me, means <em>honesty</em>—not in the sense that I’ve been factually accurate but in the sense that I’ve painted a world that reflects something that was really inside me.</p><p>And second is to consume art: to watch others flip themselves inside out. To release the mess they contain—to organize it in some way, of course, to present it as song or dance or another art, to reduce its unlimited dimensionality to a physically comprehensible form—putting in years of effort just for the hope that someone somewhere will view it and understand what they mean. </p><p>Through art the concept of a stranger transforms from an unknowable figure, an opponent in a game, to someone to open your heart to despite whatever anxiety you feel about a world in which you have no hope of bridging the gap between you and other people. That’s what making art is for me: not a statement of <em>trust</em>, exactly, but a statement of hope. </p><p>I wanted to try this, too—to open the curtains, to turn myself inside out on a stage. Maybe then I would feel understood.</p><div><hr></div><p>After seeing <em>Firebringer </em>I had a brief stint of involvement with MIT’s Musical Theater Guild, which puts on all these productions. Lacking the confidence to audition, instead I designed some posters and ran the sound board for <em>Into the Woods</em> that spring. </p><p>Running sound is a nontrivial task especially for a show with as much interwoven dialogue as <em>Into the Woods</em>. I fucked up more than once. So although I loved the show, I was also filled with anxiety every night, afraid to let down all the other people on the cast and crew whom I barely knew. </p><p>After the opening weekend I got sick (which I’m fairly sure was anxiety-induced: this happens sometimes and feels a pretty specific way even if the symptoms—sore throat, etc—are categorically the same as those for a contagious cold) and also developed a gastrointestinal disorder that stuck around for more than a year after (which I’m certain was anxiety-induced). So I told them I couldn’t run sound for the second weekend (they found someone else who did okay, thank God) and, ashamed, slunk away until this winter—three years later—when finally I signed up for an audition slot for <em>Cabaret</em>.</p><p>In the four weeks of IAP before <em>Cabaret</em>’s opening night, we learned the lines, choreo, and vocals in evening rehearsals scattered around rooms in the Stud. In the final week (“prod week”), we ran the show in full every night, progressively adding sound and lights and set and orchestra. Finally at the end of IAP we had the first weekend of real performances.</p><p>I thought acting would be like a more intense and active version of the audience experience. What I got was more intense and active, but along a different axis: getting closer to the workings of the show didn’t immediately make me feel more connected to the audience or to other actors on stage. It was difficult to channel the kind of energy I wanted when so much cognition was being spent on coarser movements—how to time my entry, the broad strokes of choreo, hitting the correct notes and words. </p><p>The gap between doing it right and doing it <em>honestly</em> manifested in all the details I had no energy or skill to spare for, like the fine control over facial expression, gesture, and tone that the lead actors refined over the course of prod week. Or the emotional continuity between scenes, being able to step out of the wings where you’ve been sitting watching other people dance around for 20 minutes and immediately enter the state of high emotional tension that your character left off in their last scene.</p><p>This <a href="https://www.goodreads.com/quotes/309485-nobody-tells-this-to-people-who-are-beginners-i-wish">gap between personal taste and realized quality</a> of one’s work is present in any medium, of course. I’m lucky that I started writing early enough that it became a comforting activity long before I cared about the taste-vs-skill gap. But I can’t say the same for musical theater. Maybe past some threshold of singing or acting skill, when you open your mouth you’re able to tap into a beautiful, fulfilling connection, to energize a wire which thrums with understanding between you and everyone else in the room. I’m very far from that.</p><p>Still, being a part of <em>Cabaret</em> was beautiful. Each night before the start of the show, we gathered in the dressing room to do our hair and makeup. Everyone was bursting with the desire to sing, all the time. Sometimes someone played Hozier or Lady Gaga on their speaker and we all joined in, one after the other—or the soft hum of a lyric from the show would morph into a full-fledged song—either way the dressing room blossomed with music every night, voices mingling, shoes squeaking in impromptu dance across the wooden floor.</p><p>In these moments, in the silent and shared agreement to sing together, to break into harmony and melody, lead and backing parts, I felt it: not a knife through my anxiety, which came in waves throughout the night regardless, but a reason to walk with it. A confirmation of hope.</p><div><hr></div><p>After the run of <em>Cabaret</em> was over, I found myself listening to songs from musicals in my spare time. On shuffle, a song from <em>Into the Woods</em> that I had entirely forgotten about came up.</p><iframe class="spotify-wrap" data-attrs="{&quot;image&quot;:&quot;https://i.scdn.co/image/ab67616d0000b2735d7a3b06679f568e3ad4f1d7&quot;,&quot;title&quot;:&quot;No One Is Alone (From \&quot;Into The Woods\&quot;)&quot;,&quot;subtitle&quot;:&quot;Chip Zien, Kim Crosby, Ben Wright, Danielle Ferland, Original Broadway Cast of Into the Woods&quot;,&quot;description&quot;:&quot;&quot;,&quot;url&quot;:&quot;https://open.spotify.com/track/1MPd109cX9mB9Os1KbsNw7&quot;,&quot;belowTheFold&quot;:true,&quot;noScroll&quot;:false}" src="https://open.spotify.com/embed/track/1MPd109cX9mB9Os1KbsNw7" frameborder="0" gesture="media" allowfullscreen="true" allow="encrypted-media" loading="lazy" data-component-name="Spotify2ToDOM"></iframe><p>I’m alone when this fear arrives. Surrounded on all sides by a barrier totally excluding the possibility of touch. Even if your hand rests against mine, could I ever hope to know what you’re feeling? Listening to <em>No One Is Alone</em> now, touched through a three-year-thick blanket of time by my memories of the actor on stage choking out the lyrics between tears, something like regret washed over me. What if I had stayed after <em>Into the Woods</em>? Auditioned for the next musical when I felt like it? Would I now be able to connect with people the way I felt connected with when I watch musicals? Would I be less inhibited, more confident, more present?</p><p>During <em>Cabaret</em> I was torn over whether to audition for MTG’s spring musical. But on Tuesday, the first time in three weeks that I’d gone 48 hours without performing the show, I realized—despite my imperfect performances; despite the constant danger of disappointing others and myself; despite the 60-hour weeks—that I missed it. I missed getting the <em>chance</em> to make art with other people, even if usually it felt like I was failing.</p><p>My anxiety has receded since freshman year but still I sometimes find myself gripped by nausea, sweating and shivering, nerves screaming for anything but the current moment, cold shock through my heart at a glance into the dark future. I was seven when I remember first feeling this mind-numbing fear, this dizzying shot of adrenaline in response to mundane situations. I felt it many times during <em>Cabaret</em>. But it doesn’t matter in the end. There’s only one choice to make when this fear creeps in, and it’s to hold on to hope or to give up. Yes, I’ve given up before, all those times I let anxiety deter me from going to the gym or psetting with people or saying what I really meant. But I’ve also looked this fear in the eye and walked with it out the other side and found someone who loved my art—or someone whose art I loved. Someone whose voice felt as familiar as a friend’s. Someone whose performance of a scene let me know they understood everything.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

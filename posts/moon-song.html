@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>moon song - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="you-can-do-both.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">you can do both</span>
+    </a>
+    <a href="january-in-media.html" class="nav-arrow next-post">
+      <span class="nav-title">January in media</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>moon song</h2>
+      <span class="post-date">February 08, 2024</span>
+      <div class="content">
+      <p>I finished my IAP UROP last Friday, said goodbye to my mentor, left him richer by one 20-page report and two GitHub repos. It was strange to see my desk so empty, the space usually cluttered by sticky notes, papers torn out from a notepad, a fork wrapped in napkins.</p><p>I’m not sad about ending work: I’m looking forward to my classes this semester, and to seeing some of my friends again who were away or inaccessible during break. IAP is a strange limbo between work and rest, and in a way I’m glad to step out of its liminality back into the familiar light of classes and psets.</p><p>On the other hand, since leaving work for the last time, some unidentified bitter taste lingers on my tongue. I liked my UROP less because of the content—which was fine but not super inherently interesting—and more because people trusted me to do what I felt was best, and good things came out of this. I wrote a Monte Carlo program to find aerodynamic coefficients of a specific geometry using Fortran, characterized the motion in flight of this geometry, validated it, wrote a report on it, made recommendations for future work. Despite only lasting a month, it was the most productive research experience I’ve ever had.</p><p>But even still, I don’t know what to do in the future. Even still, I feel embarrassed, even ashamed, to talk to others about this work: what was ostensibly physics research, but so applied that it may as well be aerospace engineering research. Impure, you might call it—far from the Hartree-Fock calculations, the alignment of lasers, the telescopic observations that characterize <em>real</em> physics, which advance fundamental human knowledge. Paired with the research I do during the school year—using computer vision to count salmon—often I think I must seem like a totally unserious physicist.</p><div><hr></div><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!JKlp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!JKlp!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 424w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 848w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/d48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg" width="960" height="646" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/d48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:646,&quot;width&quot;:960,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:null,&quot;alt&quot;:&quot;Installation view of \&quot;Toshiko Takaezu: Shaping Abstraction\&quot; at the Museum of Fine Arts, Boston.\n&quot;,&quot;title&quot;:null,&quot;type&quot;:null,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="Installation view of &quot;Toshiko Takaezu: Shaping Abstraction&quot; at the Museum of Fine Arts, Boston.
+      " title="Installation view of &quot;Toshiko Takaezu: Shaping Abstraction&quot; at the Museum of Fine Arts, Boston.
+      " srcset="https://substackcdn.com/image/fetch/$s_!JKlp!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 424w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 848w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!JKlp!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cde8f-d91d-4b46-a3ea-97b3ce5df636_960x646.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Shaping Abstraction</figcaption></figure></div><p>I went to the MFA with my friend to see an exhibit called <em>Shaping Abstraction</em>, featuring the ceramic works of an Okinawan artist, Toshiko Takaezu. She created “closed forms”—like vases or jugs, but completely closed so as to be nonfunctional—that she called moons, trees, pebbles, each washed over by deep blue or soft russet glazes. In the video that played on loop on the museum TV, Takaezu shaped these forms out of clay, then dropped small beads of the same material inside, which would solidify in the kiln and then clang around inside whenever the form was shaken afterwards.</p><p>Takaezu said she liked to hear the sounds the clay made, a message from the sealed-off inner cavern of the jug that could never be known again but by its sound. But the museum obviously didn’t let us pick up the forms and shake them; instead, they played the various rings in the background.</p><p>In one sense, the forms were beautiful, and because of the museum they would be preserved for many people to see and know Takaezu. In another sense, because of the museum they were no longer alive, and could no longer be held and listened to as they were in a past life.</p><div><hr></div><p>I started this past fall taking 18.112, Complex Analysis, but after the first week I dropped it and added 8.231, Physics of Solids, instead. I didn’t tell my advisor this, but part of the reason I no longer wanted to take 18.112 was because the professor told us that the notes we would follow and problems we would do were from a set of notes written by <em>his</em> old professor, who had passed away a few years ago.</p><p>When I tried to read these notes—hand-written in cursive, on vaguely yellow paper, scanned to Canvas for us all—I thought only of the man who had written them: that, foolish as it sounds, I was reading lemmas and exercises which once, not so long ago, formed a part of his soul. Somehow this pierced me in a way that made it impossible to keep studying from these notes—the feeling that I was taking something from his memory without his permission, and without a way to give anything back.</p><div><hr></div><p>My UROP this winter was in the Laboratory for Nuclear Security and Policy. In a roundabout way, I was supporting nuclear disarmament efforts. But the <em>roundabout</em> part felt very round. On the surface you want to reduce the number of nuclear weapons in the world, but if you don’t do this carefully you may make the world <em>more</em> dangerous by increasing the risk of conventional warfare. On the surface your project is being used for this thing you agree with. But you’re doing “weapons work” anyway, even if you’re drawing different conclusions from your work than the CIA is, even if you’re not actually trying to <em>improve</em> weapons systems. So you have to be careful.</p><p>Whether I’ll continue, then, is a question I need to mull over more, even though this experience checked all the other research boxes: cool people, a sense of agency, waking up every morning looking forward to the work. In one sense I don’t like to participate in a system so intertwined with weapons at all, even one actively opposed to the military-industrial complex. In another sense it’s clear that through the system is how disarmament would get done. And the alternative is to do nothing until a clear-cut solution appears before you.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a></p><div><hr></div><p>This semester I’m taking 8.421, Atomic and Optical Physics, with Wolfgang Ketterle. It’s the first real graduate-level course I’ve deigned to take so far—I did take graduate classical mechanics last semester, but a lot of undergrads take that class too, so it’s kind of geared towards a lower level.</p><p>During our first class, Ketterle spoke with what seemed to be deep respect for physics as a field, for the physicists who had come before him. At one point he drew a tree of physicists who had been each other’s research advisors on the board, and at the bottom of the tree, there he was. (Actually, my own advisor continues on from there—<em>his </em>advisor was the postdoc of Ketterle’s grad student.)</p><p>I don’t have any outstanding interest in AMO; I don’t know what I want to do with my life at all. But whenever I think about breaking away from physics completely, I feel a little heartbroken. So there must be something which keeps me here, which makes it feel more worth it than the various forms of math or engineering or art which I’ve tried out.</p><p>I know that in high school, some of what drew me to physics was the history. I remember reading about Erastothenes’s measurement of the radius of the Earth in Carl Sagan’s <em>Cosmos</em> and thinking about it for months and months. I remember the smell of the water-damaged textbook I first read about Rutherford’s gold foil scattering experiment in, when after understanding the experiment I leaned the open pages against my chest and felt my own heart beating against them. I remember trying to explain the experimental evidence for the final Maxwell’s law to my friends—why it felt so crazy to me, the act of connecting a capacitor to a circuit and making a simple observation that had escaped everyone before him. Physicists would design these experiments to extract models of the universe out of blind spots that generations of humans had looked past before, and I had been living my whole life not knowing about all this memory. </p><p>Now I get to know about it, from the mouths of those who construct more of it. Now the question is: which lineage do I choose? Which is the most moral, the most productive? I don’t know, and I think I won’t for a long time; but to me it seems that to do <em>any</em> kind of work with care and compassion is to carry life forward. I am glad that physics is so alive, that I am surrounded by moons and pebbles and trees waiting for me to give them a shake and listen to them sing.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!lWTb!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!lWTb!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 424w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 848w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg" width="1456" height="971" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:971,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:2308021,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!lWTb!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 424w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 848w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!lWTb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c1bc0ee-3608-4d30-bdd4-372894ba4989_6000x4000.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption"><em>Photo by <a href="https://unsplash.com/@lqfox?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Pavel Polansky</a> on <a href="https://unsplash.com/photos/white-clouds-and-blue-sky-during-daytime-gq-q5Yq5SfY?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Unsplash</a></em></figcaption></figure></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>There are many kinds of work beyond technical research that contribute to nuclear disarmament/nonproliferation—I’d say technical research even seems to be a minority, from anecdotal lab accounts. I think advocacy also has a lot of value and many people in my lab also participate in advocacy outside their own research. But even if all advocacy efforts were totally successful and the U.S. wanted to give up nuclear weapons right away, I think you would need a solid technical understanding of the risks of various disarmament strategies to proceed. So I’m speaking only about technical research here when I say “the alternative is to do nothing”, but I believe technical research is necessary enough that the alternative is inviable.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

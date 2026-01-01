@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>the story of my snake tattoo - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="halfway-there.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">halfway there</span>
+    </a>
+    <a href="goldfinch-or-sunflower.html" class="nav-arrow next-post">
+      <span class="nav-title">goldfinch or sunflower?</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>the story of my snake tattoo</h2>
+      <span class="post-date">August 22, 2023</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Qe-V!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Qe-V!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg" width="1456" height="971" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:971,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:2843913,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!Qe-V!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Qe-V!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F980bcbd2-2efa-4ecf-8a7e-4100c6075661_5184x3456.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@ericvieira?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Eric Vieira</a> on <a href="https://unsplash.com/photos/9rYvzzNcEjg?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure></div><p>I love jewelry. I love the clang of it, metal against metal, the weight of rings on my fingers. The sweat pooling in circles. I have two rings now, both metallic, thick, heavy. My Ultrium Brass Rat, the MIT class ring that we all receive as sophomores. I received mine under yellow hotel light, took pictures with my friends, then pulled my girlfriend to the front of the ballroom to dance to the live band. They played songs I would have skipped had they come up on Spotify shuffle but which made us feel glittering and radiant in the moment, my girlfriend in a borrowed satiny gown and me in a borrowed suit and tie.</p><p>I was acutely aware of our borrowed positions in those hotel event rooms, but I looked at it with more of a sense of amusement than anything else: amusement at the notion that these college students who descended in swarms upon chocolate-covered fruits before the servers even set them down properly could be allowed to inhabit this space, to adorn their fingers with a collective million dollars’ worth of gold and silver. Regardless, we played the part for the night.</p><p>My second ring is lighter and less practical than the Brass Rat, which I like to keep on my right hand in case I have to punch someone (this has never actually been a use case for it, but you never know). I’ve used the Rat to crack open hard-boiled eggs on the go, and you could probably use it to pop open a beer bottle if you tried; it’s a tank. </p><p>Not my second ring—a jewel of the Santa Fe Artists’ Market, it’s an antique watch welded to a leaf-patterned bridge with its face ripped off to expose the gears inside. If I punched it into the shell of a hard-boiled egg it would whine and rust. I bought the ring because I liked the look of metal on my fingers and wanted each joint to be covered in it. I also wanted something to hold on to that would remind me of Santa Fe.</p><p>I wore those rings almost every day. I took them off to sleep and to shower, and sometimes in the gym, if I was working out my arms. Other people thought they were sick; that made me feel good, but what I liked most about the rings was looking at my hands with renewed appreciation for my knuckles, nails, veins, accentuated by silver bands.</p><p>I also have a tattoo on my left upper arm of a snake. The story of this tattoo is stupid enough that by all means I should be a poster child for tattoo regret, but I’m not. I love it and how it looks on me, and how my girlfriend traces its tail when she’s next to me in bed, how gruff tatted-up guys will stop me in McDonald’s to tell me they think it looks cool. In particular I love that it lies on my bicep so that it moves and arches when I flex in the mirror to check my progress.</p><p>I got the tattoo the week before Halloween my freshman year of college. I’d taken the commuter rail to Salem with my Chinese literature class; we browsed through the Peabody Essex Museum, then toured the Yin Yu Tang<em>, </em>the four-walled mansion built in the Qing Dynasty that they’d picked up from China and dropped off and reconstructed in Massachusetts.</p><p>After the class disbanded I went to the tattoo parlor across the street and asked for a tattoo. “We’re only doing flash,” the girl at the counter said, and pointed at the binder in front of me. I flipped through obediently. It made sense that they were only doing flash tattoos that day, small and preordained designs they could stencil onto your skin in an hour; Salem, yes, of the witch trials, was so congested in the week before Halloween that I could barely navigate through the streets, even with entire roads blocked off for pedestrians.</p><p>But this place’s flash selection was pretty atrocious. Maybe they were trying to discourage potential customers. All the tattoos they offered were Halloween-themed: cheesy-looking spiderwebs, cartoon witches riding broomsticks, jack-o-lanterns. Finally I found two options that seemed reasonable: a moon surrounded by leaves, and a snake. I picked the snake because it looked badass. “It’s a good first tattoo,” my artist observed, which made me feel more confident about it.</p><p>Really the whole thing was predicated upon a desire to be the kind of person who would impulsively get a snake tattoo. I imagined that this kind of person would also be the kind of person who owned his presence in a room rather than hiding behind a facade of self-doubt. Someone worth a snake tattoo. By having the snake inked into my skin, suddenly I became so.</p><p>This preoccupation with my appearance, with seeming “cool”, sprouted rather suddenly in college when it had never been a part of my character before. I don’t recall ever caring about my appearance during high school; I wore the same thing all week, rolled out of bed in the clothes I’d come home in. In some ways this was an attempt at achieving an understated expression of masculinity. I rolled up the sleeves of my flannel to feed into the illusion of having convex biceps. I never wore shorts that ended higher than knee length. But mostly I didn’t care; I was okay with people seeing me as a disheveled nobody. My appearance, I felt, had nothing to do with my person.</p><p>Actually, this mindset goes further back than I can remember. Raised as a girl, I was nonetheless almost immune to the implicit messaging that every other woman I know swears was being spouted at them endlessly. I don’t doubt this—but maybe I ended up following the wrong set of instructions, because while girls my age say they competed for puniness and frailty, all I can ever remember is wishing I was as big and strong and held as much power as a boy. But I never did; I never looked the part. So over time, instead of acting as an active hindrance, my appearance simply broke away from my sense of self.</p><p>College, then, is when these two parts of me, body and mind, began to stitch themselves back together. I cut my hair a few months before going, began to smile when I looked in the mirror; and then at college, with so many people around me dressing and acting just how they wanted, it was impossible to not also feel I could do the same. It took time—one tattoo, two rings, the slow accumulation of a wardrobe, the even slower accumulation of muscle and power—but at some point, meeting new people felt less like an obstacle to climb over, a first impression of a small, slouching, shy kid to forever fight against, and more like a declaration—if not of self, then of intent.</p><p>When I visited my father this summer, I told him about my tattoo so he wouldn’t be surprised when he eventually saw it. He was annoyed: “So are you gonna continue to deface your body?”</p><p>“Not in the near future,” I said honestly. Tattoos are expensive, and I want my next to be custom. So I don’t know when I’ll get another.</p><p>“Good,” he said. “They didn’t make that thing so you could just paint all over it.”</p><p>But they really do. Sure, I’m practical—I’m not thinking of getting any face tattoos, probably no hand tattoos, in fact in the grand scheme of things I’ll probably be pretty conservative with the tattoos I do get (the snake is very easy to cover)—but something changes when you have a snake on your arm and rings on your fingers, something deeper than the concept of “cool”. The aspiration towards “cool”, maybe. A choice you make, a path you take, of your own volition, shaping your own life with a scalpel you hold. Painting your own body. </p><p>Appearance, to me, is an expression of aspiration. A declaration of what you are reaching towards. I am no daredevil and no punk; and I’m not saying you can’t be one if you don’t look the part, but for me, someone who has spent their life making themself small while wishing to be big, a snake coiled around my arm, impossible to ignore, is a good first step.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

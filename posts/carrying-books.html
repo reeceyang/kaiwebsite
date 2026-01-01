@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>carrying books - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="taking-criticism.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">taking criticism</span>
+    </a>
+    <a href="the-weight-of-water.html" class="nav-arrow next-post">
+      <span class="nav-title">the weight of water</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>carrying books</h2>
+      <span class="post-date">November 11, 2021</span>
+      <div class="content">
+      <p>It’s autumn now—the first autumn I can remember spending in an area where the leaves change color and drift to the ground, where it takes time for tree branches to become barren and grey. This Sunday was the beginning of Daylight Savings Time, and now it gets dark at four in the afternoon and gets light at six, and the sunrise tinges the horizon with pink and makes the river glow like heaven.</p><p>This autumn is the first where I have slowed down to feel time pass. For the first time I feel like I have changed. To an extent I am who past me hoped to be when he thought about life at MIT: with friends who care about me, studying material that challenges me, researching topics that excite me. And to an extent I still am not: I still get nervous talking to new people sometimes (though far less so than before), I still have trouble getting up on time in the mornings, I still am a little bit adverse to trusting the care others show me and reciprocating it. I still have not achieved any semblance of a regular workout routine. I still could manage my time better. But I am growing and changing, and so is this campus: it is beginning to feel like home.</p><p>One of the classes I am taking is called 12.000: Solving Complex Problems. It is the required freshman fall class for those in the Terrascope learning community, and so no one really calls the class Solving Complex Problems, we just refer to it and everything surrounding it as Terrascope. Originally there were around sixty people in the class; the number of regular attendants has dwindled to perhaps thirty.</p><p>In this class we, as a theoretical team of sixty, put forth a proposal to solve a complex problem. This year’s problem is how to make long distance transport more sustainable and equitable. We have done a lot of work on this front and yet with every new research paper we read, I feel like we get farther from the goal. Which maybe is the point—these problems are complex, after all, and everything we look into brings us down another rabbit hole of capitalism and policy and worker rights and, and, and. Our reviews from mentors on our draft proposals have thus far been scathing; they’re people working in the sectors that we’re researching now, so of course they know leagues more than we do, and they don’t hold back in their criticism.</p><p>Tomorrow the first draft of our website is due, on which we will present our solution in great detail. So today after writing this blog I plan to go to the Terrascope room, a joint classroom and lounge that Terrascopers have 24/7 access to, and join the other members of the class and bang out a website. I’m working on the economic and policy analysis of our proposed solutions, which is a lot of work. And I also accidentally roped myself into helping with the website as well.</p><p>(“Who wants to work on the website?” another person in my group asked yesterday. Not me, I thought, I’m overcommitted already. Maybe everyone else thought this too, because no hands went up. “Okay, let me put it differently—who is free tomorrow to work on the website?” My hand grudgingly went up.)</p><p>The subgroup I am in is looking at ports—specifically, improving issues with emissions and congestion at ports. It is a lot of looking through research papers until you find relevant ones; skimming those until you find relevant information; looking up terms because papers will just throw around acronyms like RTG (rubber tyred gantry) and QC (quayside crane) and YC (yardside crane); reading about the decision processes that organizations like the Massachusetts Port Authority and the California Air Resources Board go through in order to decide on policy details; realizing, after going through all this work, that you really don’t even know what a crane looks like, and watching YouTube videos where guys working on container ships take you through what they do in a day, and starting to understand how everything fits together.</p><p>This is not work I thought I would enjoy, and it is certainly not work that I think I would enjoy doing for any long period of time, but crammed into a few weeks, with the leering threat of the Terrascope faculty confirming that the literal head of the Boston Port is going to be watching and commenting on your proposal? Well. That’s a motivation if there ever was one. And it is so satisfying learning how these things work—these complex systems that interlock with each other, that depend on pieces of policy sliding together—how much detail is contained in a single EPA report, a single summary of a board decision!</p><p>Terrascope is wonderful outside of just the class, too. There is a quiet, steady support present in this community that I have not found in many other places in my life. We have lunch (TerraLunch!) together every week, which is legitimately really good food and an event I look forward to as much for sitting down on the grass with my Terrascope friends and talking as the cuisine. Our TAs are so dedicated and friendly—today they are holding continuous office hours from 9am to 11pm to help us with our work. And it is wonderful to be around people who care as deeply about sustainability and equity as I do, and are willing to put in the work for it. My laptop broke a few weeks ago, and all of my work for my UROP was on it, and I stressed over it for days, thinking my UROP advisor would fire me or something, I’d have to re-code everything, and it wasn’t so much the coding that was hard but the prospect of starting over again and maybe not getting everything done on time and whether my UROP advisor would even believe that my laptop had broken.</p><p>At some point I went to my advisor, Ari, who is one of the two main Terrascope professors and who had just sent out an email saying there was free food in the Terrascope office, coincidentally right as I made up my mind to email him for advice about the laptop issue. So I went to the Terrascope office and grabbed a bagel and a small plastic cup of cream cheese, and knocked on his door.</p><p>He spun around in his swivel chair, said “Come in!” So I sat down on the chair next to his desk, which had books and wires stacked haphazardly all over it, and told him about my laptop woes and the irrational worries I had.</p><p>“So here’s what you should do,” he said, and told me about asking the IS&amp;T service desk to repair my Mac, getting it looked at by this other company, using a USB drive to something something boot partition it (the exact instructions have unfortunately slipped my non-Course 6 mind). I was feeling better already, thanked him and got ready to go, when Ari said: “One more thing.</p><p>“You are worried about things in the future that may or may not happen. I know the feeling; I do this too. I want you to go home and write down all the things you’re worried about, in a long chain, from the first step, this very immediate event of your laptop breaking, to the end, what you fear will happen, your UROP advisor firing you and maybe not getting another UROP and being a terrible physicist, everything.</p><p>“For each of these worries, take a heavy textbook into your arms, and hold it. And keep stacking them until you have one book for everything you’re afraid will happen. Feel the weight of it on your arms. Feel how it’s weighing you down. Then look at the last thing—has it happened yet? If not, cross it off. And take the top book off, and feel a little lighter.</p><p>“Keep doing this. Keep crossing your worries off and taking the books off. By the end you will have one book in your arms, and one concern that is weighing on your mind, the only one that has already happened. You will feel the book in your arms, and its weight will be trivial compared to the weight that was just on you, and you will think: ‘well, I’ve been carrying this weight for a bit now, and it really is not that bad. Maybe I can carry it for just a little longer.’” And when you put it like that, it becomes crystal clear. That yes, I have a few heavy books in my arms, lingering doubts and worries and bad habits; I am still not enough for any version of myself to be satisfied. But I have Terrascope, which has taught me that our ideas have value even if they are not perfect; and I have friends who care about me, even if it will take time to develop the deep bonds I expected to form in college; and I have the trees lining the walkway by the river, changing as I do. So maybe I can carry these books just a little while longer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

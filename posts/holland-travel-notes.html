@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Holland travel notes - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="ode-to-my-ankle.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">ode to my ankle</span>
+    </a>
+    <a href="like-real-people-do.html" class="nav-arrow next-post">
+      <span class="nav-title">like real people do</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Holland travel notes</h2>
+      <span class="post-date">April 03, 2024</span>
+      <div class="content">
+      <p>My partner and I visited North Holland, in the Netherlands, over spring break. We stayed in a small town called Badhoevedorp close to the airport. It was my first time in Europe, and my first time outside the country in almost a decade.</p><p>I could go on about the entirety of our trip, but I’ll focus on a few points. Obligatory disclaimer that these are my perceptions on various issues after being in the Netherlands for one (1) week, so they will be pretty speculative and vibes-based.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!fwJY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!fwJY!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 424w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 848w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg" width="1440" height="1080" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1080,&quot;width&quot;:1440,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:131527,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!fwJY!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 424w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 848w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!fwJY!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ee2f7ac-8a11-4ad6-b3d0-9429b2399946_1440x1080.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">the view as we cycled away from the Keukenhof tulip fields!</figcaption></figure></div><h2>cycling culture</h2><p>Badhoevedorp was a twenty-minute bike ride from the edge of Amsterdam. I hurt my ankle a month ago and couldn’t walk on it for a while, which made me worry about how the trip would go with my limited locomotion, but it turned out not to be an issue: in North Holland, everyone bikes.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a></p><p>By everyone I mean <em>everyone</em>. You see the occasional pedestrian, and of course the city of Amsterdam itself is filled with troves of people walking about, but especially in the outskirts, people prefer to bike. It’s an immensely casual activity. On our rides, friends would bike slowly side by side, laughing and chatting; or they’d squeeze two people onto one seat, or one person would drape themselves over the front of the bike as the other person pedaled. Young kids rode together in groups on the street.</p><p>In many ways, biking around Amsterdam is psychologically scarier than biking in Boston: you’re just on the street with the cars, often cutting across their paths, with other cyclists going in all directions, a whole horde of you stopping together at six-way intersections, e-bikes zooming by.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-2" href="#footnote-2" target="_self">2</a></p><p>Even so, it’s perceived as a pretty safe activity. Dutch children have to pass a bicycle exam in elementary school to get their “license” (though I’m not sure how this is enforced since they just handed the bikes to us heavy-footed Americans), and there’s so much cyclist infrastructure built into the city that it’s difficult to suffer an accident from, say, a poorly designed intersection. I don’t remember a single person wearing a helmet (it wasn’t even an option when we rented the bikes) except for a baby on the back of their parent’s bike—it must seem silly to wear a helmet if serious cycling injuries are said to be so rare.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-3" href="#footnote-3" target="_self">3</a></p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!tyB0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!tyB0!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:1391216,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!tyB0!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!tyB0!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c7154b8-a336-4c63-bdd1-0a1420330944_4096x3072.jpeg 1456w" sizes="100vw"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">this was a train station in downtown Amsterdam</figcaption></figure></div><h2>good design</h2><p>The cyclist-friendly road networks of Amsterdam point to an element of the city I enjoyed more broadly: everything was designed very well.</p><p>Take the restrooms as one small, specific example, and just imagine that these principles permeate everyday life. Here are several things less annoying about Dutch restrooms than American restrooms:</p><ul><li><p>The doors fit, so you can’t Glare Directly Into the Eyes of someone using the toilet from outside the stall; I think this is just a general thing outside of America’s puzzlingly transparent stall designs though, not unique to the Netherlands.</p></li><li><p>In America, to get soap out of a soap dispenser you need to press a giant flat surface, which inevitably gets wet and gross. The Dutch soap dispensers have this nice small bar that dries quickly and that you cup your hand against so that when you push it, the soap falls nicely into your palm.</p></li><li><p>A more hygienic and less wasteful way of drying your hands: towel dispensers give you <em>one continuous cloth towel</em> that wraps around and gets cleaned inside the dispenser again. </p></li><li><p>Every restroom stall—even airport stalls, stalls in museums, stalls at public places that need to have a <em>lot</em> of stalls—has a vacant/occupied indicator that shows on the outside when you lock or unlock from inside. So you don’t have to resort to all manner of trickery (pushing on the door gently, inferring from cast shadows, bending down to see people’s feet) to tell whether you can enter a stall with a closed door.</p></li></ul><p>Good design was the core of why I came to Amsterdam. I didn’t notice this until I thought about why this vacation felt different than trips I had taken in the past: usually I am drawn to locations because of the land, and by extension, because of that which happens naturally. Driving hours to see a meteor shower in Socorro, say, or to bike through the Vermont mountains, or to swim off the coast of California. Never in my memory have I visited an American city because it was <em>well-designed</em>, or because I felt the people there did a good job building it.</p><p>Many white Americans romanticize the concept of towns as spontaneous growths out of shared entrepreneurship (think old mining towns, hubs around railroads) or a desire to “live close to the land” (e.g. hunting/skiing/ranching), built by a group of people that got together and just made things work. Mainstream culture is changing, but people still find charm in what they perceive as untouched lands, and in traditional ways of life that no longer always make sense: it’s “what God gave us”, not “what we made for ourselves”.</p><p>On the other hand, the Netherlands sit six feet below sea level; nothing would work if not explicitly designed to do so. You can tell this is true when you visit just from physical observations. I haven’t seen a single cumulative acre of untended land in all the seventy-plus kilometers I’ve biked, between North and South Holland. Although nature abounds, all of it revolves around the city in some way, from neat rows of planted birch trees to grey herons perching atop tents in the streets of Amsterdam waiting for scraps of fish to be thrown. Eurasian coots and Egyptian geese paddle through the canals, hopping onto houseboat docks when motorboats piddle by; sheep, goats, and horses populate tilled fields; even the famed Dutch tulips sprout in plotted patterns. </p><p>A more substantial example: rather than a building developer bidding for the land and then working with the local council to decide on a zoning policy for the lot (how it’s done in the US and UK), a detailed “zoning plan” is decided in advance by the Dutch government, <a href="https://blog.shelter.org.uk/2015/07/zoning-american-dreams-or-going-dutch">which the developer must abide by</a>. The EU even <a href="https://ak-advocaten.eu/en/expertise/property-law/spatial-planning-zoning-exemptions/">says</a>: “The objective of the zoning plan is ‘good spatial planning’.” As a result, the houses that sprout in residential areas are identical for blocks at a time; and there exist clear boundaries between commercial and residential neighborhoods. Everything is top-down design.</p><p>Plenty of Americans would not be happy with this, although it seems to work quite well at least for Amsterdam and the surrounding regions. At its core, if Amsterdam is the belief that you can engineer a working society, America is the belief that you shouldn’t have to.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-4" href="#footnote-4" target="_self">4</a></p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!g_CK!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!g_CK!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 424w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 848w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg" width="1440" height="1080" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1080,&quot;width&quot;:1440,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:79921,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!g_CK!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 424w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 848w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!g_CK!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49f0fafe-0230-4ca5-b7aa-22db87ea5585_1440x1080.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">got photobombed by this massive bird</figcaption></figure></div><h2>marina abramovic</h2><p>Famously, Amsterdam houses the “Red Light District”, lined with shops offering live sex shows, sex workers standing in not very much clothing at the street-facing windows of the rooms they rent out, coffee shops filling the air with pot and cigarette smoke<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-5" href="#footnote-5" target="_self">5</a>, and a bunch of tattoo shops for some reason?<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-6" href="#footnote-6" target="_self">6</a></p><p>Occasionally, the beginning of a transaction played out: a man knocking on a sex worker’s window, darting inside when the door opened, the curtain briskly pulled shut by her bejeweled hand. More common was the sight of a couple or group of friends just hanging out, basking in the dim glow of neon lights lining the storefronts, perhaps standing in line for a show.</p><p>Naked bodies did not feel taboo. The Stedelijk Museum Amsterdam held a retrospective on Serbian performance artist Marina Abramovic’s work; she was naked in almost all the grayscale videos projected on the walls, the medium of her art being her body after all. In one of her pieces (<em>Imponderabilia</em>, 1977), she had stood naked across from her male partner Ulay (also naked) in a narrow doorway, with members of the public forced to squeeze between them in order the pass through, and in the process being forced to choose which person to look at. The Stedelijk reenacted this with two people who were not Abramovic and Ulay; people got in a line winding all the way around the room to squeeze through them.</p><p>I don’t have any grand takeaways here. I just thought this was interesting because I can’t imagine public displays of comfort with human sexuality and the naked self happening so frequently in any big American city.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!QofS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!QofS!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 424w, https://substackcdn.com/image/fetch/$s_!QofS!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 848w, https://substackcdn.com/image/fetch/$s_!QofS!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!QofS!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:161961,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!QofS!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 424w, https://substackcdn.com/image/fetch/$s_!QofS!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 848w, https://substackcdn.com/image/fetch/$s_!QofS!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!QofS!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F572fdc79-2774-4bb2-807d-8be82a94825d_1600x1200.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">another massive bird, seen on a street selling fish</figcaption></figure></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>By the time the trip started, I was able to walk on two feet with a limp for up to around twenty minutes before my injured ankle started seriously hurting; exerting flat weight on it, as you do when biking, was totally fine</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-2" href="#footnote-anchor-2" class="footnote-number" contenteditable="false" target="_self">2</a><div class="footnote-content"><p>On a related note, people are much more rational about intersections here and I love it—I always feel frustrated and vaguely embarrassed in America when cars stop for me at intersections, because we all know it would be much faster in 95% of cases if the car just goes and the pedestrian pauses for, like, half a second. Of course at its core this exchange revolves around something like politeness rather than convenience. In the Netherlands, jaywalking is legal, cars zoom by unless you hold your hand up or something to ask them to pause, and mostly, people just cross when it makes sense to cross</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-3" href="#footnote-anchor-3" class="footnote-number" contenteditable="false" target="_self">3</a><div class="footnote-content"><p>As a tangential note, the number of annual cycling fatalities per capita in the Netherlands is more than double that in the U.S., but so many more people bike in the Netherlands to get around—it’s the mode of transport used for 30% of trips—that it is probably significantly statistically safer</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-4" href="#footnote-anchor-4" class="footnote-number" contenteditable="false" target="_self">4</a><div class="footnote-content"><p>This isn’t a commentary on the actual politics of the Netherlands versus the US—greater government oversight doesn’t necessarily correspond to progressive values, and from what I gathered from news articles and reading other people’s travel experiences, right-wing sentiments in the Netherlands have been rising as people perceive their government to favor the wellbeing of immigrants over lifelong residents. I just think there’s a big difference in the ideal of freedom, and the relative importance of human-imposed + human-centered design, in each country</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-5" href="#footnote-anchor-5" class="footnote-number" contenteditable="false" target="_self">5</a><div class="footnote-content"><p>Smoking cigarettes is such a thing in Amsterdam, way more prevalent than vaping! All the teenagers go around smoking in your face all the time! I’m glad this culture is pretty much gone in the US, because otherwise I would definitely be destroying my lungs for the aesthetic</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-6" href="#footnote-anchor-6" class="footnote-number" contenteditable="false" target="_self">6</a><div class="footnote-content"><p>This is the one that confuses me—why would you want to get a tattoo in the same place where everyone else is smoking and hooking up? I don’t get it</p><p></p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

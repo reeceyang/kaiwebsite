@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Like magic - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="another-arctic.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Another Arctic</span>
+    </a>
+    <a href="time-or-vertigo.html" class="nav-arrow next-post">
+      <span class="nav-title">Time or vertigo</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Like magic</h2>
+      <span class="post-date">October 18, 2025</span>
+      <div class="content">
+      <p>One of us always had a playlist going—of songs from <em>Wicked</em> or <em>Mamma Mia </em>or <em>Newsies</em>, never from our show, <em>A Gentleman’s Guide to Love and Murder</em>, whose soundtrack we all knew at that point, down to each beat, by heart: very often I went to bed and woke up with the same song playing in my head, and often it was not even one of <em>my</em> songs. So we took what reprieve we could, singing “Dancing Queen” spinning around the dressing room instead of a fiftieth rendition of “Barrel of a Gun.” Every time that our voices rose together and arrived, earnestly, always to my slight surprise, on the same melody, I felt it—that first perhaps there had been food and sex, but very soon after, there had come song. Circling the just-swept stage while warming up, we linked arms, might have been circling a fire at night. There was all we did in the light, all the small talk and planning and rationalizing that drove distance between us, but in the dark something different, primal, bound us to a shared rhythm.</p><p>And yet much of what we actually did onstage fell under the purview of a spotlight. We hovered under the white glare of the mover or the shine of one of the sixty-something stationary lights we’d hung along the pipes traversing the ceiling of the theater. The proscenium we’d constructed and painted, supported from behind by beams that we U-Hauled along with everything else from the set shop and screwed in on the spot and supported from above by cords looped around the curtain rods, rested on wooden platforms elevated a foot off the stage which extended behind and in front of the curtains. The process of hanging lights occurred simultaneously, three pairs of us standing on three ladders working to clamp the plastic handles of the twenty-pound lights onto the pipes and to tie their safety wires around said pipes and to string their power cords over to plug into outlets on the ceiling.</p><p>The day we set up in the theater, I kept stepping onstage to look out at the empty audience; I imagined, stretching out my hand and arm outlined by stage light towards the rows of seats, what it might feel like to enter that magical, dark space, to bring the entire audience into that ancient joy beside me. Musical theater produced such a visceral, spontaneous fountain of emotion for me as a spectator that I had always marveled at the actors’ ability to call forth this slippery thing every single night, had wished my friends <em>good luck</em> and meant it. I had felt reliant on luck, too, during my first ever performance, as part of a twenty-person ensemble with basically ten minutes of onstage time in the winter musical directly preceding <em>Gentleman’s Guide</em>. Every night I’d rethought my entrances and my timings, and some nights, seemingly randomly, had felt better than others. Someone—the leads—had moved the audience to tears each night, and though I had played some small part in this, I also knew that I’d stood outside the real art.</p><div><hr></div><p>The fixed features of backstage embedded themselves more deeply in my mind than the ephemeral onstage landscape composed of furniture pieces transient between scenes, functioning as props more than real features of the world, the couch you had to be in position behind the curtain in time to help with, the table that was your job to bring on. The image onstage was of an artificial peninsula, concrete we’d poured over a frame assembled in a few months. When you pushed the door open to backstage the walls opened up into real world, you stepped onto millennia-old granite sinking into sea.</p><p>The corridor connecting Rehearsal Room A to the women’s dressing room to the backstage right door to the exit outdoors to the backstage left door to the men’s dressing room to Rehearsal Room B wound semicircular behind the theater. In practice, we did not split between dressing rooms by gender but by our relative importance in the production, the four leads sharing women’s and the five ensemble—including myself—and one side character sharing men’s. We traversed almost the full length of the corridor whenever a scene change demanded an entrance from the opposite side of the stage, which often we took advantage of to bring out or stow away the next batch of costumes, or to refill the tea kettle perpetually re-boiling on the counter of the men’s dressing room. From the corridor I could faintly hear the notes of the booming onstage orchestra if I approached one of the backstage doors. Otherwise it was quiet.</p><p>Emerging from the corridor onstage I became keenly aware of the artifice of my own position: glow tape marked the spots to stand on certain cues so the spotlight would fall on me the moment it turned on; the lights burned bright spots into the upper half of my vision so I couldn’t really see the audience if I wasn’t squinting out into the seats; I hoped, without much evidence for or to the contrary, that my mic was working, given I couldn’t hear myself or anyone else all that well during the big group numbers, with orchestra blaring from behind and speakers pointing out at the audience. Once we stepped out of the spotlight and pushed the door open to backstage our smiles or anguished faces dropped immediately. We slipped out of our outfits into new ones; some people had such rapid outfit changes that four or five of us would gather around them at once to unbutton their shirt or tie a sash around their waist before the next cue came.</p><p>And when the cue came—as I discovered in that first week we rehearsed in the theater, the first day the sound engineer tucked in the back with his mixer and monitor turned our mics on and off as our lines came and went, and then the first day the lights booth behind the audience ran through the program, and then the first day the orchestra players shuffled behind a tinselly white curtain bordering the stage so the audience saw just their silhouettes—it sparked a four-way coordination of effort between sound and lights and orch and actors. I couldn’t have believed it before doing theater myself, that the entire production would hinge on such a fragile series of moments of collaboration, and that we ever avoided serious disaster. During dress rehearsal the fake fish broke apart; Richard forgot the lyrics to half a song and waved his arms around while the ensemble, resigned, sang our harmonies with no melody; Daphne’s contact lens popped out of her eye; Dubem sweated so much under the spotlights shining on his layers of thick polyester costuming that he mimed kissing Daphne instead of actually doing it, both their faces too wet to go through with it; I exited off the wrong side of the stage and then didn’t hear the cue and waffled around behind the door while Grace and Dubem spent two minutes improvising a conversation wondering what the hell was taking me so long.</p><p>For months the fear of such disaster striking during a live performance crowded my mind. In the final month before reserving the theater, we moved from rehearsing our vocals and blocking separately in three-hour chunks to running each act in full, then the entire musical, start to finish, with notes, endeavors which lasted from six p.m. to midnight, and which I left totally demoralized. Often it was my lack of skill or experience, my inability to hit my notes and memorize my harmonies, that held us all back from achieving that gorgeous ascent of sound and feeling, those moments when our parts which sounded random and discordant in isolation layered into a gossamer crescendo. Those early runs, held in classrooms since we didn’t have access to the theater yet, when Sue sat at the piano to deliver our accompaniment and we mimed using all our props and pushing open the door to enter or exit the stage, back when I still frantically scrolled through my script on my iPad between scenes to make sure I was ready to enter from the correct “door,” take on a sort of blurry, protracted quality in my mind now, their images having been snuffed out cleanly by images from the real show, so much more vivid and bright and colorful.</p><div><hr></div><p>I visualized, come opening night, the transformation of the peninsula into real land the moment faces populated the audience; I braced myself for a mind-numbing fear surmountable, I thought, only by total immersion in the show, by losing myself in the art. All this expectation just for the accumulation of fear to be swept clean from my mind by the end of the first number—and, simultaneously, for my body to feel still grounded firmly in the corridor, the dressing room, the wood panels tiling upstage, having transcended nothing. </p><p>What I found was that it had nothing at all to do with luck. It wasn’t as though we didn’t have better or worse performances, collectively—but for all of us, I think, there was this feeling that we knew the show so well that it was impossible for anything to go seriously awry. The production itself might have been fragile, but once the opening notes sounded there was nothing for any of us to do but to drive the show to completion, and this collective conviction buoyed us through dropped lines and delayed curtain closes and forgotten props.</p><p>In fact each night the show expanded. We found new details to add to the constellation of characters and choices, reinforced the world we had built onstage that we committed ourselves to with such devotion that the notion that it could collapse with something as simple as a missed entrance was laughable. It’s false, now, to say I ever felt <em>immersed</em>, even once I was hitting all my notes and knew my harmonies; it’s false even to say that I engaged in any sort of skilled acting or vocalizing. There was this idea I had before of wielding raw expression and power to strip the world to its emotional core, to scrape clean a kernel of truth to display before the audience, that the mutual understanding of a deep slice of reality would connect us. Instead the artifice grew and grew. My best Inspector performance showed on the final night when I thought, finally, <em>well, they can’t kick me out now</em>, committed myself fully to the pompous oblivious British detective bit, came backstage to find the rest of ensemble in tears from laughter. When things went wrong it actually became fun for me to lean into that improvisation, to answer the question every night: what happens in this world? How do we get there together?</p><p>No one in cast ever saw the full production, though often those of us not preparing for the next scene gathered behind the curtain to watch our favorite parts and to mime the onstage actors’ lines to each other. Having workshopped the show together from the start, we never had the chance to be caught by surprise by the beats of the story or the running jokes. We didn’t need to, I guess. The point is to work hard backstage until when someone watches your show for the first time they are struck by the beats that you never had the chance to be struck by. That dark, onstage mysticism, that excavation of something primal, eluded me each time I threw the curtains open and stepped into the light to find instead the same wooden platforms I’d trod night after night before. Yet despite the distance between the practice, the calculation, the construction, and that uninhibited display of emotion I’d imagined, the gap between us and the audience closed anyway. There’s no magical space where the harmony unfolds without thinking, but there <em>is</em> magic: you are the magician, practicing again and again the sleight of hand that thrusts your audience into a world of your making.</p><p>I could be forgiven for expecting a magical space to present itself to me. There are other ways to enter one, other practiced motions to draw apart folds of reality, and in fact up until doing theater that might have been my primary experience of art. That was the feeling I chased when drawing. During live drawing sessions, in a room with tablecloths stretched by candlejars and dark windows buffeted by rain, my fingers warmed and relaxed around the charcoal over the course of the model’s first stretches and contortions in the glow of the radiator; my strokes lightened and lengthened. She posed for fifteen seconds at a time, then one minute, then did five-minute dynamic poses, of which you could not hope to capture any likeness, could only vaguely sweep an arc of the motion. By the time she settled into the first of her fifteen-minute poses, I would have entered, without fail, that soft, empty space in which a shoulder was no longer a shoulder but a tongue of light against shadow; where, if I set all the pools of light and dark against each other on paper, faithful to what I saw and not what I imagined, then nature arranged them into the likeness of the woman before me.</p><p>Not much else in my life offered that ease, that slipping away of awareness, that entry to a space where access to reality felt nearer, more direct. Watching live performance came close; performing live diverged. When the boundary between myself and the world dissolved as I was drawing, I had no audience. I was just taking the pieces of the world apart for my own pleasure. An audience demands you put those pieces back together to construct a subsequent fiction. For isn’t there some tension which pries the joy we experienced onstage apart from that joy I felt messing around unseen backstage—isn’t there some tension in the knowledge that you project, not a world, but the image of one, refracted through lens after lens, onto a wall which your audience <em>knows</em> is a wall and not a window? We construct a Rube Goldberg device and, smiling, knowing everyone can see its machinations, release the marble. We put on a show we know cannot be believed, and we believe in it anyway.</p><p>At its very best musical theater is what some would term “bad”: dramatic, flashy, pointless to interpret; <em>shallow</em>, in a way, the opposite of literary. Consider a sampling of scenes from <em>Gentleman’s Guide</em>: voices stacked three octaves high over a phallic-architecture-obsessed priest falling three stories (each story played by a different ensemble member) from the height of a Gothic, penile tower to his demise; a narcissistic philanthropist dragging her abused subordinates around the globe to enact her white savior complex; the entire show being resolved by simply confusing the detectives enough that the protagonist walks free. You do not, as an actor, think about what a real live person would do under the circumstances (the answer is “try to get everyone to stop singing and dancing”). Your job is to be fully aware of this fantastical frame you inhabit—and to love it tenderly, without cynicism or irony, without responding to the awareness of this form with detachment or superiority. In that sense my mind was cleaned of fear not by immersion or ease but by love and dedication.</p><p>Backstage we sung together however we wanted to songs with no frame attached, no outsider to perceive a fiction. And the spontaneity, the lack of inhibition, was a beautiful, primal feeling. We had a rehearsal to brush up on our roles between the first and second weekends of shows, during which we were allowed to fuck up lines and make jokes since we’d run the show so many times by that point. It’s a fun time: you lean into your gay headcanons for your character, you use the wrong prop on purpose. But I couldn’t help feeling a little betrayed by our collective abandonment of the script, and relieved when we returned to the second weekend of shows. It’s the love, after all—the fact that we all committed to a prescribed way of singing onstage, to treat the knowledge of artifice with earnestness, to pick up where the other leaves off, to achieve some marvelous consistency and detail in a made-up image of an implausible world—that’s the magic of theater.</p><p>So seeing the corridor (and the glow tape, and the mics taped to cheeks, and the backstage simmering kettle) for myself did not jar me the next time I watched a production in that theater. It was the end of a summer I’d spent away, uninvolved in the show. I had come to say hi earlier, had done the vocal warm-ups with the cast for fun, then returned outside to get my ticket and found my seat in a packed audience. When the curtains drew apart, the actors stood onstage, faces washed blue by the lights. Watching them emptied of self-consciousness, treating the wooden posts they held at their sides as seriously as a real rollercoaster car, I relaxed too: I began to trust them, to let myself be ensnared by the spectacle. I let the updraft of rising voices loft me high into the air. I let them hold me there, at the climax, before releasing me on a ride towards the ground. I felt my stomach soar; I saw the world approach, false, painted, loved.</p><iframe class="spotify-wrap" data-attrs="{&quot;image&quot;:&quot;https://i.scdn.co/image/ab67616d0000b273e58724521fe7e84276b4c373&quot;,&quot;title&quot;:&quot;Paprika&quot;,&quot;subtitle&quot;:&quot;Japanese Breakfast&quot;,&quot;description&quot;:&quot;&quot;,&quot;url&quot;:&quot;https://open.spotify.com/track/3zyqphgXvgHe436IMKeey3&quot;,&quot;belowTheFold&quot;:true,&quot;noScroll&quot;:false}" src="https://open.spotify.com/embed/track/3zyqphgXvgHe436IMKeey3" frameborder="0" gesture="media" allowfullscreen="true" allow="encrypted-media" loading="lazy" data-component-name="Spotify2ToDOM"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

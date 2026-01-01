@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>how useful is narrative? - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="what-makes-fear-worth-it.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">what makes fear worth it</span>
+    </a>
+    <a href="books-i-read-in-2024-ranked.html" class="nav-arrow next-post">
+      <span class="nav-title">books I read in 2024, ranked</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>how useful is narrative?</h2>
+      <span class="post-date">January 19, 2025</span>
+      <div class="content">
+      <p>In elementary school I had a best friend named Tiarra. I don’t remember how we met or why we became friends, only that she was pretty weird, and I was two years younger than everyone else in my grade, and so our pairing felt quite natural.</p><p>Not that that’s how I would have conceptualized it then. We had similar interests, we role-played Warrior Cats during recess and filmed movies during sleepovers. Once, though, she said something that struck even nine-year-old me as odd. Someone had asked us, “Do you ever fight?” Tiarra responded immediately: “We’re best friends, of course we do.”</p><p>Not only was this trite, it was also simply false: I remember a meaningful conflict occurring only once, lasting basically until our next class together. But what struck me at the time was the fact of her minuscule sample size. We’d met in the fourth grade. How many best friends can you make before then who you can have substantial arguments with? Almost certainly her claim rested on a model of best-friendship gleaned from media or from observing other friendships.</p><p>Most of my friendships worked like this until high school. This is not to imply that they were in some way artificial, but that the moments of happiness I felt in my relationships derived only questionably from an actual feeling of closeness, and far more directly from the thrill of doing what I thought close friends did.</p><p>The gratification of fitting a curve of my life to the arc of an existing narrative was not confined to relationships. On my path home from high school there was a swing set under a tree, in a park filled with golden light, next to a pond dotted with geese. All these things I loved, sometimes for their immediate beauty, but more often for the sense of looking from above at a scene from a story: the landscape identified as, say, a spot where I’d hung out with friends all throughout childhood—though having just moved there for high school, of course this wasn’t the case. </p><p>But something magical lived in the idea. Some of this dream even came true: my friends and I really did pool together our cash, every nickel precious, for a single Sprite from the neighboring 7-11 to pass back and forth; we really did sit in the shade of those trees to talk about our futures. Yet the real heat of those autumn days blends in my memory with heat shimmering on the surface of indie coming-of-age films, the orange tint of slice-of-life anime sunsets, and the tanned slices of skin shown in music videos. Would I still think so fondly of those afternoons without a narrative to map them to?</p><div><hr></div><p>Nearly all the nostalgia I feel can be traced back to the pleasure of curve-fitting. Popular narratives have always framed the decisions I made in non-interpersonal areas of life. When talking about what to do after graduation, for example, people said things like: <em>well, there are a couple possible paths, startup or industry or grad school</em>—no! There are infinitely many possible paths! And the common reduction in conversation to these few categories poses a legitimate constraint on the way we think about our choices. It takes work to step back from this constrained framing of the future, but then you tilt your head and take the prevailing narratives out of focus, and the entire world comes into view. </p><p>Up until last year I thought at least I was good at exercising free will in my relationships. I entered both of my past relationships based on a definitive sense of attraction: I find this person compelling in some way; I want to touch them, to be touched by them; this is the strongest thing I’ve felt until now, it must be what people talk about when they talk about love. And so here are the rest of the things people do with those they’re in love with, so let’s go and do them. It’s not that I didn’t enjoy those things. I had an actual desire to, you know, go on dates and have sex. But it’s hard to disentangle the enjoyment of doing the thing from the pleasure of affirming the relationship’s legitimacy.</p><p>The real, relevant events comprising a relationship are not adherences to structure but interactions between individuals. The moments your souls touch in some way that’s entirely uncontainable and indescribable. We come up with words for this stuff, label a box for every possible configuration. Maybe for the first 20 years of your life, everyone goes neatly into a box just fine, and in fact you derive lots of joy from how well all your boxes are doing. Then you turn 21 and no one fits in any of the labeled boxes anymore. Instead you have to think, what do I want to do with this person? You have to think about freedom.</p><div><hr></div><p>Still there’s value in the boxes. They work well for a lot of people. In fact, it seems to me that the societies with the strongest interpersonal relationships, where no one’s talking about a “crisis of loneliness” or the dwindling number of close friends people have, are extremely socially structured. Maybe over 10,000 years, humans have figured out the most sustainable relationship models, and they’re made of things like “love your family” and “make friends at church” and whatever.</p><p>I don’t know how true this is. The real reason feels deeper to me. <a href="https://samkriss.substack.com/p/numb-in-india-part-7-land-of-gloop">Sam Kriss thinks</a> that we infinitely free Western Gen Z-ers<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a> may be able to construct less traditional relationship models in theory, but we’re no more immune to fear of rejection than our unenlightened predecessors, and thus we’re using more energy to signal conformity at each other. More is at stake for us in an interaction with a potential friend than it is for someone already tightly bound in the structure of family and community, which offer a prescription for belonging <em>separate</em> from individual traits. In a sense entirely absent from the Western conception of found love, those relationships are unconditional, based on the fact of one’s existence rather than superficialities like personality. </p><p>The example that comes to mind is of a kid named Nareck from my high school, who was such a dick that he was almost universally hated, but still found grudging tolerance from the other Armenians by virtue of a shared culture. And the most enduring example is family: no matter how weird my brother is, we are still siblings, I’ll still accept him. He doesn’t need to signal to me. With less effort expended on establishing pretenses, maybe we’re more free to pursue the exact kind of relationship we want.</p><p>Is that what I search for when I try to fit my relationships to popular narratives—the perceived stability which allows for individual quirkiness, the comfort of pattern-matching to a happy ending? Sharing a narrative can fill the same purpose as signaling, after all. They got me flowers, they surprised me at work—how romantic, the lines they follow that reassure me we are thinking of the same story.</p><p>Even in the most outright rejections of tradition—when we criticize marriage or question our ties to blood family or refute the stereotypes of male breadwinner and stay-at-home wife—it’s not as though we’re reaching for total freedom in their place. We just want alternative narratives to latch on to. Can we get a story about found family, about a <em>menage a trois</em> that actually works out, about your best friend falling for you? Can we get a story that crafts a new tradition, that tells us how to reach for a happy ending together?</p><div><hr></div><p>I’ve come to appreciate the asymmetry of mentorship. I know my research mentor won’t ask me for support or unduly criticize me or offer unsolicited opinions on my personal choices. The burden is split unevenly—it mostly lands on him—and somehow, I’m fine with that. Some kind of purity is drawn out from the constraints: a willingness to collaborate, to say stupid shit without breaching a social contract. My deficiencies as a younger, less experienced researcher are explicitly accounted for in our model of the relationship, so I can lean into them from the outset as opposed to prodding at the question of whether I’m allowed to ask for help.</p><p>All this scaffolding doesn’t make our connection feel any less genuine. The fact that his personality is almost secondary to his title doesn’t make my appreciation for our relationship hollow. In fact, it enables a level of connection that would be difficult for us to achieve otherwise. I’m not spontaneously developing productive, supportive relationships with 30-year-olds on the street, after all. Some tradition—the tradition of academia—made this possible. We didn’t have to carve this from scratch. </p><p>That’s why I’m skeptical when people say you can pick and choose what you want from a relationship with someone else. I’ve tried this and concluded that there’s a reason these things usually come in packages, why friends don’t do the same things romantic partners do. Try to dissolve these boundaries too hastily and you might erode all the substance of the relationship and end up swept far away from any narrative to fall back on, flashing confused signals at each other in a desperate bid to avoid pain.</p><p>Are there situations in which genuinely new dynamics form which don’t eventually converge to an existing tradition? I think the answer is yes, but it also feels like I haven’t lived long enough to answer this question. It’s true that in some moments, even in entire friendships, I’ve felt like I achieved person-to-person contact, rather than person-to-trope-to-person contact. (Most notably: in eighth grade I had a beautifully connective two-month conversation through Quora DMs with a guy whose name I still look up occasionally who’s an English major at UPenn now. We talked about depression and classical music, and then he got on meds and we only had classical music left to talk about, and so the conversation fizzled out.)</p><p>Occasionally, having adhered to some existing relationship model for a while, the opportunity to craft something beautiful and unique together presents itself. But this feels truly disorienting. The closest experience I can liken it to is learning a new physical skill. Jumping for a hold when I’m climbing, half thinking I won’t make it, and miraculously hanging on. Making a 3-turn when figure skating (basically, changing direction on one foot—the shift of balance is a really strange and unnatural feeling!). The first time I did these things, I felt my universe literally expand. <em>This movement wasn’t possible before, and now it is.</em> It’s the same feeling—fear, excitement, shift of balance—when a relationship evolves in an unexpected way. </p><p>So when is it okay to abandon narrative? When the fear of rejection has passed, when no tradition captures what we want from each other? When the familiar images of paradise look wrong, when we want to write an entirely new story? I used to love people as friends, or siblings, or romantic partners. Now I have found that I can love you in an infinite number of ways: as a human might love an angel, as Graham loved Erdos, as Tereza loved Karenin. Am I narrativizing again? What I mean to say is this: I can search for the paved path to a happy ending or I can write a new story myself. And I might try the latter, but I would be lying if I claimed to know better than all the humans who tried it before me.</p><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>/s</p><p></p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

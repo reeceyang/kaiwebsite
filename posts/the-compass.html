@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>the compass - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="the-better-place.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">The Better Place</span>
+    </a>
+    <a href="the-other-name-for-disappointment.html" class="nav-arrow next-post">
+      <span class="nav-title">the other name for disappointment</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>the compass</h2>
+      <span class="post-date">May 02, 2025</span>
+      <div class="content">
+      <p>I don’t like saying I’m “not built” for something. I always felt insulted by the concept as it’s conventionally understood. For instance, physics never came easily to me—and when I say this to people they offer up the explanation that I’m comparing myself to other MIT students, real, bona fide geniuses—but I’m talking about high school, when I spent weeks going over the same chapter of my $15 South Asian copy of Morin, over and over. Back then I thought, this must be how life is: that everything worth doing feels impossibly hard, like pushing against an immovable wall for years on end.</p><p>I remember relishing how hard it was, difficult in a way nothing had ever been for me before. At the time I believed steadfastly in people starting out on level playing fields. That if I put in the hours I could succeed as well as anyone. This was necessary to soothe my fear that I’d never measure up to the academic weapons whose Physics Team biographies I doom-read in my spare time; I liked having a counterexample to the idea of innate predisposition towards one subject or another.</p><p>At MIT I tested out of the first-year physics courses, took graduate physics classes, presented physics research at conferences. I turned out a decent enough performance that along the way I felt justified in making vague motions towards graduate school in physics. This semester I took a lab class which gave me the opportunity to work with a quantum computer, whose cryomagnet-encased barrel of a body whirred away in the corner of the lab, and to investigate superconductivity, sliding probes down the neck of a vacuum-insulated dewar of liquid helium and watching them speckle with frost. It was all very cool physics, and at the end of each experiment all I felt was relief that it was over.</p><p>In the time between entering MIT and my impending graduation, the awareness of this gap hovered just beyond my conscious thought and finally dawned upon me all at once. When I hung out in the Physics Common Room I would hear other students posing speculative questions about physics to each other, writing on the blackboards and laughing about the insane conclusions they’d come to, and the thought would cross my mind: Thank God I don’t have to think about that. </p><p>That’s the real crux of it. It would be okay if I was slow; it would be okay if I found the math difficult. What’s not okay is that exploration feels like work, and always has. Because my labor is limited to what’s demanded of me by the next pset, I’m always regurgitating other people’s models, not building my own. </p><p>I don’t regret studying physics: Now I know that things which feel impossibly hard are not. (Also, now I know something about physics.) You really can train your brain to think in entirely new ways, you can expand your capabilities by orders of magnitude, you should be willing to do difficult things that will take years to bear fruit. But I also think I will never be a happy or productive physicist, not because I’m stupid, but because the people who make discoveries in physics are those for whom the work feels like play. They enjoy poking around a system and pushing at edge cases; they want to know what would happen if you made this or that change. This is a much more fundamental shared trait of the passionate physics students (and professors!) I know than talent or even dedication.</p><p>Still, you might expect some payoff to arise from patience: as you become better at physics, as you learn about and become comfortable with the methods you use to poke around a system, you also will have more fun doing so. I guess that is why I stuck around for so long, in the hope that one day it would feel natural. But now I’m quite confident: You don’t need an in-depth understanding of quantum physics to think about a precessing top. And you don’t need to know quantum field theory to play with the idea of atoms absorbing light. You can take the freedom that F=ma unlocks for you and run with it into the cosmos. It’s true I was choosing to do all those psets and experiments, and I mistook this for the intrinsic curiosity that drives a physicist who loves their work. But if I didn’t have the structure of those assignments to force me to think about these questions, I just wouldn’t.</p><p>I know this level of curiosity is not unreasonable to expect, because there are other domains I <em>do</em> feel excitement about in this way. I’ve taken math classes for which I genuinely looked forward to gaining access to the next pset so I could be guided to puzzle through a few more secrets of the universe. Up until halfway through college, most of the math I learned was from fucking around on my own. I didn’t invent calculus, but I did learn most of what I know of it from twiddling with the concepts I was taught, out of pure curiosity. And I don’t consider myself “good” at math—as I said, you don’t need to be very skilled to be able to treat a subject with joy and curiosity.</p><p>The writing process is similar—I’m motivated by the end product, sure, but also by curiosity: what happens if I lean into this concept? What might I be able to make? What works and what doesn’t? I never really know until I try to put it down on the page. Past some threshold, this is not a predictor of skill: I regularly read from people my age who are much, much better writers than me. But what I’m saying is that doesn’t matter that much compared to this compulsion, this curiosity. That is what sustains you.</p><p>Letting go of physics is a bit sad for the high school version of myself, who wanted so desperately to be the kind of person who was good at physics that they entirely gave up writing and art, pulled all-nighters, motivated themself by withholding meals, for <em>years</em>, in pursuit of liberation from predisposition. They would see my choice now as a failure of willpower.</p><p>It’s alright that they’d be disappointed in me. They will find out soon that when the scaffolding of high school science competitions disappear, when they are flailing in the infinite possibilities of the real world, the possible frameworks for choosing what to do are so myriad, so ill-defined that the only sensible choice is to reach for what they are internally sustained by, to thrash against the self-important desire for intellectual prestige conferred by the idea of becoming someone who is good at physics. They were terrified of being limited by biology, they viewed predisposition as the iron chain of fate; I think it can be something more, the iron needle on a compass pointing towards what you love.</p><h2>postscript 1. impact</h2><p>The other thing that allowed me to let go of physics was a reframing of my understanding of impact. I wanted to do work that made people’s lives better in a tangible, quantifiable way. This sounds stupid, since it’s not as though physics research is necessarily “impactful” anyway in the sense I was using it then, but you can imagine nearby applications in energy or materials science. In addition, I had to do <em>the most</em> impactful thing: I had to work on fusion energy, for example, or more efficient solar cells or something that would one day indisputably transform the world for the better. This kind of work felt honorable to me; it felt like the only way to avoid wasting my life away. </p><p>Now my understanding of impact is much broader. I agree pretty much with the final takeaway of <a href=" https://guzey.com/impact/">this post</a>. Guzey writes:</p><blockquote><p>I can think of exactly three people over the course of human history who I’m fairly confident had a large (the first two, positive) impact on the world: Socrates, Jesus, Marx.</p><p>Socrates wasn’t trying to teach all of the Western Civilization how to think: he was just being annoying to everyone, asking questions.</p><p>Jesus was trying to become the king of the Jews (Matthew 2:2), but ended up being crucified as a false messiah by them, yet accepted by billions of goys.</p><p>None of Marx’s stirring up communist revolutions worked and only because of the Prussian government getting tired of him and exiling him to London was he able to start the work that actually ended up causing communist revolutions and showing to the entire world what building communism actually looks like.</p><p>Anyone who decides to do or not to do things based on their impact is bullshitting themselves; and anyone who tells you to do things because they’re high-impact or not do them because they’re low-impact is bullshitting you.</p></blockquote><p>To me it seems now that the more important and sustainable quality to prioritize is beauty. What do I envision in a world that is beautiful to me, that makes me want to keep living in it? Writing that moves me, friends to love, care for the billions of other forms of life that share this planet with us. In the end I care less about “solving problems” and more about making sure that beautiful things live on into the future.</p><p>The very first thing that attracted me to science was the beauty of the night sky. I sat shivering outside every night to look at the stars when I visited my dad in rural Colorado. But back then I wasn’t thinking that I wanted to understand them. Instead I wanted to write stories about them.</p><h2>postscript 2. the future</h2><p>Two years ago I wrote this sort of cringe-inducing passage:</p><blockquote><p>Although I feel happy with how I’m spending my time right now, I have been thinking more about what I really want to do with my life, and, thus, my days. I mean this not in a career-focused, “what work do I want to pursue” way, but in a “what kind of person do I want to be” way.</p><p>A few different visions:</p><p>I could be someone confident, strong, and daring—spending hours outside in the sun and snow, traveling over mountains and over tides with open palms of callouses and a wide, muscled chest, building a body that bends to my will;</p><p>someone dedicated to their work, an intellectual sea, reading Newton and Seneca and becoming a finely tuned instrument, an intense academic who wears trenchcoats and blazers;</p><p>someone bursting with creativity, gripping a pen or brush with ferocity, stacks of used canvas and thickened, softened notebooks filling corners of my desk, sketching out sculptures at museums and merging words with color in my spare time;</p><p>but can I be all of these—or, the real question, should I <em>try</em> to be all of these? I sought to be an artist once, and then I abandoned this in favor of science. It feels to me like I can only put all of myself into one endeavor at a time. I feel scattered and unfocused otherwise, spread thin over too many pursuits.</p><p>I know there are people who accomplish all this simultaneously. But time feels so scarce. How do they do it?</p></blockquote><p>I hardly think about this anymore. As far as I can tell, the answer to the question past me posed—<em>how do you do it?</em>—is just that you put time into the things you care about, and surround yourself with people who do the same. Most of my character development since then (into someone who is more physically confident, better-read, more creative, more disciplined) has occurred as a result of 1) beginning and maintaining routines even when I didn’t know whether they would bear fruit, and 2) meeting people who shared my values and hanging out with them. </p><p>That dilemma is not too related to my current one. I mention it here only to cast my vote of optimism for the future, that the most pressing problem on my mind for the first two years of college was one I’m now so far removed from that I almost forgot it ever inhabited mental real estate. Yes, reflection and thought are important: cruising along blindly can land you in regions of stability and familiarity at the expense of spending time on pursuing truer desires. But apart from some periodic course correction, it seems like what has served me best is developing practices, being consistent but open-minded, allowing myself to bend towards my revealed preferences.</p><p>At the time it seemed so difficult to grow in all three of these areas at once (roughly: physical, academic, creative) because I had only ever developed a <em>practice</em> for growing academically. That had taken me years. Developing a practice for the other stuff takes years, too. I’m beginning to get the hang of it now, and so I feel like I’m growing in all three directions at once now. Back then, I thought that would never happen.</p><div><hr></div><p>I’ll still get my degree in physics; I’m one month away from graduating. Then I have my computer vision research, and I have my writing, and I have a job for the next year. Beyond that, the future is as muddled as it’s ever been. But I think it is also now clearer to me what I should look for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

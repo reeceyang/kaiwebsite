@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>junior spring - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="only-the-body-speaks.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">only the body speaks</span>
+    </a>
+    <a href="what-would-anna-do.html" class="nav-arrow next-post">
+      <span class="nav-title">what would Anna do?</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>junior spring</h2>
+      <span class="post-date">May 21, 2024</span>
+      <div class="content">
+      <p>It’s summer now—or some limbo before summer, at least; I have one final left and my summer research starts immediately thereafter, but I’m still grasping at the vestiges of free time I have right now, writing in cafes and buying books I’ve wanted to read forever.</p><p>This semester was interesting. With it I’ve reached the end of my third year at MIT. I have one year left and I feel strangely calm about it—strangely in control of my academic destiny.</p><p>Here are some of the things I did this spring, and how I felt about them.</p><h2>Classes</h2><p><strong>8.13 (Experimental Physics, or colloquially, Junior Lab)</strong>: This is the physics capstone lab class, an infamous 18-unit monstrosity. Throughout the class, you recreate two historical experiments and then design an experiment involving cosmic ray muon detectors. </p><p>This is probably the singular physics class I’ve learned the most in at MIT? (Maybe tied with 8.05, but they teach such orthogonal content that it’s hard to compare) Beyond that, it was a very comforting space, being in the lab with just five other people (I guess no one wants to take jlab in the spring), taking measurements and debating data analysis for six hours a week. I loved talking with the staff about scuffed statistics and less-scuffed experimental design. And at a few points, in the heat of a discussion with my lab partner, I felt like I was doing real physics, deriving real, nontrivial insights from observations of the world. That was awesome.</p><p><strong>8.421 (Atomic and Optical Physics)</strong>: I took this class solely because Wolfgang Ketterle was teaching it, which turned out to be the best thing about it. I was woefully unprepared for the content, having not taken 8.06, which wasn’t a prerequisite but should have been. I’m still glad that I took the class: atomic physics is really beautiful, and engages me in a way that no other subfield of physics I’ve studied does. </p><p>I wrote my final paper on squeezed light generation for gravitational wave detection. Basically, they detect gravitational waves with a laser interferometer, where laser light travels through a beam splitter into two arms where the beams reflect in a cavity for a while, then recombine and are shot back out. In this process, the two beams suffer a 180º phase difference, so if the arms are the same length then the beams destructively interfere when recombined and no light is detected. Since a gravitational wave literally distorts spacetime, though, it compresses one arm and elongates the other, and you get an interference signal when you detect the interferometer output! </p><p>Then you can increase the sensitivity of such a device by injecting a “squeezed vacuum” into the other port of the beam splitter, which would otherwise just take in a vacuum state. The squeezed vacuum is a state that has lower phase uncertainty than the vacuum state, at the cost of a higher amplitude uncertainty; but phase uncertainty is what affects shot noise, which is the limiting factor for detection at certain frequencies. There are still advances being made in this area, e.g. by doing frequency-dependent squeezing instead of generating uniformly squeezed states (so sometimes you squeeze the amplitude and sometimes you squeeze the phase, depending on what kind of noise is more prevalent at the frequency you care about), or designing lasers and cavities to squeeze light at the different frequencies needed to probe new parts of the GW spectrum in future telescopes.</p><p><strong>6.200 (Circuits and Electronics)</strong>: This is the intro electrical engineering class. It covered your standard circuit analysis stuff, a very good treatment of op-amps, and some RLC circuits at the end, encompassing signal filtering circuits and power electronics. The labs were awesome—we built so many cool things, like a bass booster (which, funnily, when connected to an iPad with the gain turned all the way up and nothing playing on the iPad, just acted as a radio) and a digital-to-analog converter. </p><p>I had been interested in power electronics because I wanted to make things go vroom and also because I’m interested in energy policy, the electric grid, clean energy in general. This class gave me my first taste of what power electronics actually is, how you convert efficiently between the 120V 60Hz power pumping from your wall socket and the 5V DC source your handheld device takes in. In one lab, we used an RLC circuit with an op-amp as comparator to produce a 12V source from a single 1.5V battery, relying on the inductor’s inertia to pump power into a capacitor that already had over 1.5V across it. That was crazy. I’m really excited to take Power Electronics Laboratory in the fall and do more with many volts &gt;:)</p><p><strong>21G.120 (Business Chinese)</strong>: It was relieving to speak Chinese with people my age again after two semesters of not taking a Chinese language class. The Global Languages department is chill and gives us good food. Everyone in the class was nice. That’s about it.</p><h2>Research</h2><p>After a brief foray into nuclear policy during IAP, I continued my salmon counting research from the fall. This is really exciting and I’ll probably talk more about it in a future blog post, since we are bringing our finished model to a fish counting conference in June (and will get to see REAL LIFE MIGRATING SALMON at the sonar monitoring stations!!!! crying). </p><p>I’m sad to be leaving this UROP soon. It felt really fulfilling to develop a product that would directly help people (and fish). But in the end, it makes me happy that this kind of work exists in the world and that I was able to contribute to it!</p><h2>Slow crawl towards swoleness</h2><p>For the first half of the semester, I continued climbing, something I’d done often during IAP and cut down to once or twice a week when the semester began. Without fail, I walked to Fenway on Saturday mornings and spent a couple hours in the gym; if I felt like it, I went on weekday evenings too. I liked growing as a climber, although I was pretty weak; I liked interacting with other people at the gym; and I liked how this way of spending a Saturday morning set the tone for the rest of the weekend.</p><p>Around the time that I began to stagnate and feel frustrated with my lack of progress, I fell while climbing slab and hurt my foot. After a week it was still the same immobile swollen mass that it had been the day after the injury, so I cancelled my membership.</p><p>My foot is almost back to normal now, and I’m considering getting a gym membership again. I think I need something like climbing in my life—it made me feel capable, and having goals to work towards felt more motivating than just lifting weights does. My weekends for the rest of the semester fell apart after that Saturday morning anchor was lost. Everything points to climbing again.</p><p>But it’s sort of scary, having injured myself once before. Ironically, wanting to develop bodily awareness was part of the reason I began climbing in the first place, so I felt somehow betrayed when this practice led not to a better calibration of risk but to the inability to distinguish between feeling scared because my body was in a new configuration and feeling scared because the situation was legitimately unsafe. Combined with the stagnation that had already made the last few sessions before that injury less enjoyable, I don’t know how getting back into climbing will go for me.</p><p>Still, this spring marked a shift in my mindset towards working out. I realized that I care a lot more about my body being physically able to do certain things—like, over the summer I’d like to run to Revere Beach, and try climbing outdoors, and do a bike trip around Cape Cod, and practice ice skating again—than the aesthetic of lifting a certain weight. I just want to be mobile enough and strong enough to share in the joy of fucking around outside with people.</p><p>In all these things, at one point or another, I’ve felt inept—at academics, research, exercise. I still feel like I’m solidly the single least intellectual physics and math major at MIT. But since last summer this mindset has held less power over me. There are plenty of cool people around, plenty of cool things to do, and it’s stupid to not just go and try to meet everyone and do everything that I want. I only have a year left here and I want to use it well, in every way.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

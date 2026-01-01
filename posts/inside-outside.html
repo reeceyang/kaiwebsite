@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inside, outside - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="#" class="nav-arrow prev-post" style="visibility: hidden;">
+      <span class="arrow">←</span>
+      <span class="nav-title"></span>
+    </a>
+    <a href="another-arctic.html" class="nav-arrow next-post">
+      <span class="nav-title">Another Arctic</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Inside, outside</h2>
+      <span class="post-date">December 23, 2025</span>
+      <div class="content">
+      <p>I’ve been confused about almost everything. The past six months have comprised the most eventful period of my adult life, which I thought would make for great blogging, yet since July I’ve produced just three finished pieces of writing, all of them regarding Past and/or Fictional (as opposed to Current and/or Real) Events. The bulk of those pieces I wrote while still employed, back in September. I’d wake up early, or go to bed late, to write for a few hours some days; I’d feel a little more tired, and a little happier, at work than I would otherwise. </p><p>I would like to begin putting out finished pieces again, but I keep feeling that I should write something about what has happened. So this is that. I spent the summer in South Africa, hung around Kenya for a week, and then drove a two-week loop around Namibia before returning to Cambridge in September to begin my job. At the start of October I quit that job to do computer vision research full-time. I missed every deadline I gave myself to pull something together for that research, and throughout it all, my writing practice consisted almost exclusively of journaling melodramatically and drafting shitty fiction and editing old essays. </p><p>I spent the month I had a job feeling immensely grateful for what it gave me—a 9-to-5 I didn’t have to think about outside the 9-to-5, a solid salary, and most of all, the feeling of being held by some structure, the assurance that I hadn’t graduated just to flounder around and waste away my degree—but then deciding to quit was easy. It was true that having a job dulled my immediate fear of illegibility and incompetence; I could even reasonably claim I was learning about something I really cared about and that would be useful in the future. But I was also spending all this time on the clock thinking: <em>what I believe I really want to do is computer vision research, and I’m not even giving myself the chance.</em> I thought, finally, would I feel fewer regrets about how I was spending my time day-to-day if I quit and put everything into vision? The choice was not only obvious, then, but necessary.</p><p>Being unemployed and broke scared me, but what drove me forward anyway was the far scarier prospect that I would never, in my life, make anything good. It was easy to imagine slowly accumulating knowledge, understanding some field more deeply, gaining comfort with writing software, and still doing mediocre, derivative work until the day I’d be automated away. Similarly, it was easy to imagine reading more books, continuing to write in my journal, and never, ever writing something I was proud of. The fact that I <em>hadn’t</em> made anything good yet increasingly reflected an essential corruption of my person. What kind of person but a fake one—a pretender, an empty husk—could have lived and grown for 22 years, and even graduated from MIT, without outputting anything of value? At first employment provided a close enough proxy for this feeling of having something good and real inside me. Then it didn’t.</p><div><hr></div><p>Of course usually I’m not ruminating over this. Usually I just put my head down and work. When I do feel some particularly bad way, it’s a gnawing conviction that the key to doing the work I want lies <em>inside of me</em>—and if I can’t manage to excavate it, then does nothing good exist inside me?</p><p>On the other hand, when I’m really absorbed in my work, when I feel like something is going right, I’m fixated on something <em>outside of me</em>; it’s nonsensical to assign it a moral value, good or bad, or even to expect a certain trajectory or endpoint; but for some reason I am drawn to it, and I want to understand it—not to excavate it forcefully; not to rearrange it; but to see it, explore it, and become richer in the process.</p><p>Though this latter source of motivation feels more full and more fun to work with, though looking outside myself allows me to let go of self-awareness in a way that numbs insecurity and that brings my work finally into a space that feels sustainable and whole, the dichotomy is false in a fundamental way. Never in the process of exploration do I neglect what lives inside me. At their best, art and science both are processes of discovery, and during discovery it’s your intuition that knows which direction to head.</p><p>Not to start quoting LessWrong posts on this blog, but Eliezer Yudkowsky describes a similar process in <em><a href="https://www.lesswrong.com/posts/xTyuQ3cgsPjifr7oj/faster-than-science">Faster Than Science</a> </em>(emphasis mine):</p><blockquote><p>At the <em>frontier</em> of science—the boundary between ignorance and knowledge, where science <em>advances</em>—the process relies on at least some individual scientists (or working groups) seeing things that are not yet confirmed by Science. That’s how they know which hypotheses to test, in advance of the test itself…The scientist may not <em>know</em> he has done this epistemic work successfully, in advance of the experiment; but he must, in fact, have done it successfully! Otherwise he will not even <em>think</em> of the correct hypothesis. In large answer spaces, anyway.</p><p>So the scientist makes the novel prediction, performs the experiment, publishes the result, and <em>now </em>Science knows it too…<strong>In between was an interval where the scientist rationally knew something that the public social process of science hadn’t yet confirmed. </strong>And this is not a trivial interval, though it may be short; for it is where the <em>frontier</em> of science lies, the advancing border.</p></blockquote><p>You can extend this beyond the rational theory-making process Yudkowsky points to. Scientists move faster than Science as the “public social process”. And at points in the creation of a piece of art, artists move faster than art. Though the making of the artwork is also the discovery of what it’s about, the artist must first be nudged in that direction,<em> from inside themselves.</em></p><div><hr></div><p>Recently I’ve begun learning to oil paint, in advance of an IAP class I signed up for that expects you to know how to oil paint (lol). I’ve painted with watercolor and acrylic before, but there’s much to learn about the handling of a new medium. Trivial things—palette knife to mix, brush only to sample; wipe the brush off aggressively between strokes, don’t worry about wasting paint; need to buy a brush of this size, a tube of that color. </p><p>Deeper things too. Oil takes forever to dry, so everything blends with everything else. This means you don’t get much choice in when to blend vs when to layer. Contrast this with watercolor, which dries in seconds: so blend <em>now</em>, or the edge of your stroke hardens permanently. You need to be decisive, but if you are, the product is straightforward, deterministic. Half the time with oil—granted, it’s because I’m new and not very good—I put my brush down on the canvas and am surprised by the color that I see.</p><p>In theory maybe none of this matters. In theory you can mix the exact color you want, and fill it in, pixel by pixel, regardless of medium. It might be true that <em>humans</em> don’t work like this, but maybe this is a superficial human limitation. Imagine an ideal painting robot who makes tiny dabs on a canvas to reproduce an image. The pixels are super small, it’s a nanobot depositing individual paint molecules, whatever. And forget, for a moment, the possibility of imagination, the notion that your goal as an artist might be anything other than faithfully representing the scene before you. </p><p>Even then, for me, that’s not what painting is really about; painting is only about reproduction insofar as it is about seeking a structure that <em>serves</em> that reproduction well. Sometimes after finishing I think, great, this looks pretty close to what the actual scene looks like—but the satisfaction doesn’t come from the desire for reproduction; it comes from validation that I found a rich structure that, it turned out, I was able to build upon to successfully portray the scene. </p><p>And the limitations of each medium force you to find different structures. Oil asks me to think about the deepest, richest colors first, the tones which permeate the whole piece. As the piece progresses, I apply thicker layers of paint, less likely to blend but also less editable, so that it’s natural to work from the largest to smallest spatial scales. I go for a pomegranate-colored underpainting and wonder why everything feels so warm compared to the reference; I discover that really the shadows are this deep phthalo green, that the entire scene is pinned under jewel tones. </p><p>Watercolor asks me to begin from the lightest suggestions of color, to never commit a stroke I’ll want to remove, to work from lightest to darkest values, so shadows come into view only in the final throes of the piece. Both mediums add definition over time, one by sharpening, one by darkening. I don’t want to lionize a beginner’s observations too much, but even as you improve it remains true that how you begin the piece defines how you can end it, even if you don’t know it yet.</p><p>Often, for me, painting follows this arc: Everything is fun and low-stakes at first; I’m discovering things about placement and color, and making a few bets on what to capture in early layers, what the underlying structure is that I’ll be able to build upon most richly. Slowly the stakes rise. It starts to look like shit. Though I tell myself I’ve done this before and I will do it again, without fail I reach a point of total panic: I’ve ruined the painting forever, irrecoverably! It’s only the anchor in reality—this is what it really looks like, in front of me, all I need to do is make one true stroke<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a>—that bears me through that period of crisis, to the impossible end, when my earlier decisions pay off.</p><p>This crisis of faith is characteristic in general of the short period just before everything coheres. I experience this with writing, though then I’m less successful in pulling off the final 10%, either because I don’t set the foundation well, or because I don’t know how to do the work to find the truest thing. There was a point, with <em><a href="https://goldenblue.substack.com/p/like-magic">Like magic</a></em>, when I was stuck for a month or something, with practically the entire thing written, where still every final draft I attempted felt like a lie. Somehow I managed with that piece in a way I basically never had before (maybe thanks to reading Sontag, who already articulated much of what I was trying to get at in her <em><a href="https://monoskop.org/images/5/59/Sontag_Susan_1964_Notes_on_Camp.pdf">Notes on “Camp”</a></em>) to pull everything together in a way that felt true and satisfying. But it easily could have gone some other way.</p><div><hr></div><p>I shouldn’t draw a line. But if I <em>had</em> to draw a line, I’d say how I begin comes from inside me. I know there’s something I want to write about when I start asking: why am I drawn to this collection of images? Why do I play over this memory like there’s something more to it? I don’t know yet—the art is the process of discovery—but there it is, the compass, the pull inside. </p><p>And how I end comes from outside. Otherwise I’d never manage; I’d get caught in repulsion, disgust, a piercing sense of inadequacy. What’s refreshing about seeing and drawing from the world is that I don’t have to agonize over whether the work is <em>good</em>. Am I making a good decision? This thing inside me, when it comes out, will anyone love it? All the fear that might plague work that comes purely from inside myself (whatever that means) gets washed away when I’m driven, instead, by curiosity, by the desire to discover something, which I can only accomplish by appraising the world with openness and love. Looking outside myself is the only thing that pulls me through.</p><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>From Hemingway’s <em>A Moveable Feast</em>: </p><blockquote><p>Sometimes when I was starting a new story and I could not get it going, I would sit in front of the fire and squeeze the peel of the little oranges into the edge of the flame and watch the sputter of blue that they made. I would stand and look out over the roofs of Paris and think, “Do not worry. You have always written before and you will write now. All you have to do is write one true sentence. Write the truest sentence that you know.” So finally I would write one true sentence, and then go on from there.</p></blockquote></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

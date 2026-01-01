@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kai - Writing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Kai - Writing">
+  <meta name="description" content="Writing by Kai van Brunt">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <style>
+    :root {
+      /* Dark mode (default) */
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      /* Light mode */
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1,
+    h1 *,
+    h2,
+    h2 *,
+    h3,
+    h3 *,
+    h4,
+    h4 *,
+    h5,
+    h5 *,
+    h6,
+    h6 * {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 2.2rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+
+    li {
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    li::marker {
+      content: '✦ ';
+      color: var(--marker-color);
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
+    }
+
+    canvas {
+      position: absolute;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="starfield"></canvas>
+
+  <div class="container header-container">
+    <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
+  </div>
+
+  <nav class="menu-bar container">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
+    <div style="padding: 1.1rem;">
+      <h2>Writing</h2>
+      <ul>
+      <li><a href="posts/inside-outside.html">Inside, outside</a> <span class="post-date">December 2025</span></li>
+      <li><a href="posts/another-arctic.html">Another Arctic</a> <span class="post-date">December 2025</span></li>
+      <li><a href="posts/like-magic.html">Like magic</a> <span class="post-date">October 2025</span></li>
+      <li><a href="posts/time-or-vertigo.html">Time or vertigo</a> <span class="post-date">September 2025</span></li>
+      <li><a href="posts/defying-abstraction.html">Defying abstraction</a> <span class="post-date">June 2025</span></li>
+      <li><a href="posts/sea-creatures.html">Sea creatures</a> <span class="post-date">June 2025</span></li>
+      <li><a href="posts/alone-in-the-sun.html">Alone in the sun</a> <span class="post-date">June 2025</span></li>
+      <li><a href="posts/a-thesean-memory.html">A Thesean memory</a> <span class="post-date">May 2025</span></li>
+      <li><a href="posts/the-better-place.html">The better place</a> <span class="post-date">May 2025</span></li>
+      <li><a href="posts/the-compass.html">The compass</a> <span class="post-date">May 2025</span></li>
+      <li><a href="posts/the-other-name-for-disappointment.html">The other name for disappointment</a> <span class="post-date">April 2025</span></li>
+      <li><a href="posts/seven-scenes-from-paris.html">Seven scenes from Paris</a> <span class="post-date">March 2025</span></li>
+      <li><a href="posts/what-makes-fear-worth-it.html">What makes fear worth it</a> <span class="post-date">February 2025</span></li>
+      <li><a href="posts/how-useful-is-narrative.html">How useful is narrative?</a> <span class="post-date">January 2025</span></li>
+      <li><a href="posts/books-i-read-in-2024-ranked.html">Books I read in 2024, ranked</a> <span class="post-date">January 2025</span></li>
+      <li><a href="posts/parallel-universe.html">Parallel universe</a> <span class="post-date">December 2024</span></li>
+      <li><a href="posts/someday.html">Someday</a> <span class="post-date">November 2024</span></li>
+      <li><a href="posts/love-in-the-time-of-unlimited-data.html">Love in the time of unlimited data</a> <span class="post-date">October 2024</span></li>
+      <li><a href="posts/new-colors.html">New colors</a> <span class="post-date">October 2024</span></li>
+      <li><a href="posts/a-year-of-counting-fish.html">A year of counting fish</a> <span class="post-date">August 2024</span></li>
+      <li><a href="posts/la-la-land.html">La la land</a> <span class="post-date">August 2024</span></li>
+      <li><a href="posts/never-let-me-go.html">Never let me go</a> <span class="post-date">July 2024</span></li>
+      <li><a href="posts/because-its-summer.html">Because it's summer</a> <span class="post-date">June 2024</span></li>
+      <li><a href="posts/only-the-body-speaks.html">Only the body speaks</a> <span class="post-date">May 2024</span></li>
+      <li><a href="posts/junior-spring.html">Junior spring</a> <span class="post-date">May 2024</span></li>
+      <li><a href="posts/what-would-anna-do.html">What would Anna do?</a> <span class="post-date">April 2024</span></li>
+      <li><a href="posts/literary-satisfaction.html">Literary satisfaction</a> <span class="post-date">April 2024</span></li>
+      <li><a href="posts/ode-to-my-ankle.html">Ode to my ankle</a> <span class="post-date">April 2024</span></li>
+      <li><a href="posts/holland-travel-notes.html">Holland travel notes</a> <span class="post-date">April 2024</span></li>
+      <li><a href="posts/like-real-people-do.html">Like real people do</a> <span class="post-date">March 2024</span></li>
+      <li><a href="posts/you-can-do-both.html">You can do both</a> <span class="post-date">February 2024</span></li>
+      <li><a href="posts/moon-song.html">Moon song</a> <span class="post-date">February 2024</span></li>
+      <li><a href="posts/january-in-media.html">January in media</a> <span class="post-date">February 2024</span></li>
+      <li><a href="posts/the-way-things-go.html">The way things go</a> <span class="post-date">January 2024</span></li>
+      <li><a href="posts/adventures.html">Adventures</a> <span class="post-date">January 2024</span></li>
+      <li><a href="posts/autumn-in-the-rearview.html">Autumn in the rearview</a> <span class="post-date">December 2023</span></li>
+      <li><a href="posts/things-that-matter.html">Things that matter</a> <span class="post-date">December 2023</span></li>
+      <li><a href="posts/halfway-there.html">Halfway there</a> <span class="post-date">September 2023</span></li>
+      <li><a href="posts/the-story-of-my-snake-tattoo.html">The story of my snake tattoo</a> <span class="post-date">August 2023</span></li>
+      <li><a href="posts/goldfinch-or-sunflower.html">Goldfinch or sunflower?</a> <span class="post-date">August 2023</span></li>
+      <li><a href="posts/two-weeks-in-august.html">Two weeks in August</a> <span class="post-date">August 2023</span></li>
+      <li><a href="posts/siddhartha.html">Siddhartha</a> <span class="post-date">August 2023</span></li>
+      <li><a href="posts/on-your-own-in-the-unknown.html">On your own (in the unknown)</a> <span class="post-date">July 2023</span></li>
+      <li><a href="posts/what-makes-a-memory.html">What makes a memory</a> <span class="post-date">July 2023</span></li>
+      <li><a href="posts/nambe-falls.html">Nambe Falls</a> <span class="post-date">July 2023</span></li>
+      <li><a href="posts/chinese-breakfast.html">Chinese breakfast</a> <span class="post-date">July 2023</span></li>
+      <li><a href="posts/first-week-of-work.html">First week of work</a> <span class="post-date">June 2023</span></li>
+      <li><a href="posts/magical-places.html">Magical places</a> <span class="post-date">June 2023</span></li>
+      <li><a href="posts/writing-to-iso.html">Writing to Iso</a> <span class="post-date">June 2023</span></li>
+      <li><a href="posts/visions-of-other-lives.html">Visions of other lives</a> <span class="post-date">June 2023</span></li>
+      <li><a href="posts/acts-of-creation.html">Acts of creation</a> <span class="post-date">May 2023</span></li>
+      <li><a href="posts/tide-coming-in.html">Tide coming in</a> <span class="post-date">May 2023</span></li>
+      <li><a href="posts/48-degrees-and-cloudy.html">48 degrees & cloudy</a> <span class="post-date">May 2023</span></li>
+      <li><a href="posts/choosing-communities.html">Choosing communities</a> <span class="post-date">March 2023</span></li>
+      <li><a href="posts/consequences-of-having-a-physical-form.html">Consequences of having a physical form</a> <span class="post-date">March 2023</span></li>
+      <li><a href="posts/thinking-forward-thoughts.html">Thinking forward thoughts</a> <span class="post-date">December 2022</span></li>
+      <li><a href="posts/feelings-on-this-semester.html">Feelings on this semester</a> <span class="post-date">November 2022</span></li>
+      <li><a href="posts/beantown-blues.html">Beantown blues</a> <span class="post-date">August 2022</span></li>
+      <li><a href="posts/paprika.html">Paprika</a> <span class="post-date">July 2022</span></li>
+      <li><a href="posts/closeness-proximity.html">Closeness / proximity</a> <span class="post-date">July 2022</span></li>
+      <li><a href="posts/acadia-adulthood.html">Acadia & adulthood</a> <span class="post-date">June 2022</span></li>
+      <li><a href="posts/summer-updates.html">Summer updates</a> <span class="post-date">June 2022</span></li>
+      <li><a href="posts/yes-im-changing.html">Yes I'm changing</a> <span class="post-date">June 2022</span></li>
+      <li><a href="posts/work-assignments.html">Work assignments</a> <span class="post-date">June 2022</span></li>
+      <li><a href="posts/taking-criticism.html">Taking criticism</a> <span class="post-date">December 2021</span></li>
+      <li><a href="posts/carrying-books.html">Carrying books</a> <span class="post-date">November 2021</span></li>
+      <li><a href="posts/the-weight-of-water.html">The weight of water</a> <span class="post-date">July 2021</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="./starfield.js"></script>
+  <script src="./light-starfield.js"></script>
+  <script>
+    // Theme Toggle Implementation
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      setTheme(savedTheme);
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    // Navigation
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = 'index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = 'likes.html');
+  </script>
+</body>
+
+</html>

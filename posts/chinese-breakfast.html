@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chinese breakfast - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="nambe-falls.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Nambe Falls</span>
+    </a>
+    <a href="first-week-of-work.html" class="nav-arrow next-post">
+      <span class="nav-title">first week of work</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Chinese breakfast</h2>
+      <span class="post-date">July 02, 2023</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!xArb!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!xArb!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 424w, https://substackcdn.com/image/fetch/$s_!xArb!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 848w, https://substackcdn.com/image/fetch/$s_!xArb!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 1272w, https://substackcdn.com/image/fetch/$s_!xArb!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:3652172,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!xArb!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 424w, https://substackcdn.com/image/fetch/$s_!xArb!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 848w, https://substackcdn.com/image/fetch/$s_!xArb!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 1272w, https://substackcdn.com/image/fetch/$s_!xArb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51c4bec3-a068-4b01-b21c-a37a8aa1418f_2048x1536.png 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>A few weeks ago, I went to Chinatown to get dim sum with my grandparents. I am vegetarian, but I make an exception for dim sum, where I consume soup dumplings, chicken feet, and tofu pudding.</p><p>After the meal, we walked around Chinatown for a bit. Surprisingly, everything we saw was familiar, scrounging up my years-buried internal map. I lived in an apartment in Chinatown for two years in middle school, and since then, I only visited Chinatown when passing through on the Metro or the 45 between downtown and East LA. Little Tokyo—which you could get to if you took the 45 just a few minutes longer past Chinatown—became a much more desirable place to congregate in high school, where my friends could buy Yu-Gi-Oh cards and I could stare at anime figurines.</p><p>So it was surprising to me that nothing had changed since I last visited. The bank was still there, in its same old place. So was the library. The stores dotted around the plaza sported their same dull rose-colored banners. Of course, it had only been six years since living there, and that is a short time in the lifespan of any neighborhood.</p><p>It got me thinking about my time in Chinatown. My mother is Chinese and my father is white, so I look only dubiously Chinese, which leads to situations like the following: </p><p>I was getting my hair cut someplace in Chinatown, and the barber’s first impression of me was with my hair wet, so that it looks very dark. As he was cutting my hair, we conversed in Chinese. Then my hair began to dry into its light brown, and he asked me if the color was natural. I said yes, my father was white. </p><p>After this, he spoke to me in English. I tried to respond in Chinese to signal that I was competent enough to converse, but after a few attempts it became clear that being half-white was some sort of dealbreaker, so I gave up and just carried on the whole conversation in English. Probably the guy was just trying to practice his English or something, but situations like this occur all the time. It is mostly humorous.</p><p>Ironically, this feeling of being comically non-Chinese did not spring up until I was about 12. Before then, I lived in places with very few other Asian people, the most notable among them being a rural 3,000-person town in Colorado, where the census officially registered three Asian people in the entire town. Curious kids asked me to say things in Chinese, pulled their eyes back into slits, commented on my accent (which I don’t think was even a Chinese accent—I was just bad at talking for a very long time). Then we moved to Los Angeles and, in the midst of one of the most cosmopolitan cities in America, my Chineseness was no longer notable or often even noticeable.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Y3U-!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Y3U-!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 424w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 848w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 1272w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/f4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png" width="1456" height="1092" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/f4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1092,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:4219066,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!Y3U-!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 424w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 848w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 1272w, https://substackcdn.com/image/fetch/$s_!Y3U-!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4665974-57f6-44b8-8ac5-7eedb97ef480_2048x1536.png 1456w" sizes="100vw"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>I signed up for a Chinese literature class during the freshman fall of college on a whim (because the music class I wanted to take was full). I liked it, so I just kept taking classes after that, in language and fiction and cinema. Much of what I learned felt familiar—it was like this characteristic humor and way of seeing the world had been passed down to me through the warped lens of my hectic childhood, and now I could see clearly all these things that were familiar to me, present in every line of the movies I watched and the fiction I read and the people I met. </p><p>And yet much of what I learned was also completely new, particularly Chinese views on history, family, sexuality. We watched <em>The Wedding Banquet</em> in my modern cinema class, for instance, which is a Taiwanese film about a gay man with a boyfriend in the US who fake-marries a woman to satiate his Chinese parents and the shenanigans that ensue. The ending is very supportive of a nontraditional family, and the whole premise is centered on gay people; both these things surprised me and were entirely at odds with my own family’s views on the matter.</p><p>It wouldn’t be inaccurate to say that <em>all</em> the Chinese media I consumed surprised me with how subversive and complex and often unabashedly cruel it was, especially compared to American media. I’ve watched many Western movies, and few of them left me with the same bittersweet, contemplative emotions that the Chinese films I watched did. They didn’t focus on the pain or sacrifice of individuals so much as that of a whole people: a family, or community, or country. (I don’t want to generalize to all Chinese films here, but this was true at least of the movies we watched in this class.)</p><p>I asked my grandpa whether he knew of <em>To Live</em>, a novel we’d read about a man growing up and raising a family during the Cultural Revolution, which I had found unusually cruel even for Chinese fiction—everyone this man loves dies at the hands of malice or negligence by the authorities, and then he’s just living alone with an ox at the end. My grandpa responded that he had read it, and when I asked what he thought of it, he said, “It was not bad. People have different opinions on it, but we could all agree that it represented life back then pretty accurately.” </p><p>I was stunned. I couldn’t believe my grandparents had lived through this and yet never talked about it, ever. There was this secret history buried just under all our interactions that I had never known about or really given thought to, because I had no reference for what China in the mid-1900s was like. My mom talked sometimes about how my grandma grew up in the city eating rats to get by, but I always thought this was exaggeration; now, I was not so sure.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!WSmq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!WSmq!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 424w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 848w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 1272w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png" width="1456" height="1941" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1941,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:3344316,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!WSmq!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 424w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 848w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 1272w, https://substackcdn.com/image/fetch/$s_!WSmq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46b2ac22-e4df-4a43-ac78-83ae4e2a9b82_1536x2048.png 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div><p>College is also where I met my partner, whose family is from the adjacent province to mine. She had brought a giant wok from her home in Iowa. In this wok, she often cooked bok choy, tomato and egg, and fried rice; in the early days of our courtship, we cooked for each other in the dormitory kitchen, setting down bowls of steaming hot food on the stained wooden tables, sitting across from each other on stools scraping awkwardly across the red tiled floor. It seemed unimaginable to me at the time that other people could cook food that tasted like my family’s.</p><p>Meeting her felt like discovering a layer of my soul that had always been there, hidden under the surface; a piece of gold buried deep beneath dirt and rubble. She was the first person my age I’d talked with at length in Chinese, and so our conversations felt beautifully improbable—like we two children from opposite sides of America had independently constructed the same secret language. More importantly, she recognized me as fully Chinese, and recognized that in all the important ways my person was not “half”-anything; I was a Chinese person <em>and also</em> a white person.</p><p>This has always been true, of course; but the effort I felt driven to put into learning Chinese language and culture because of not always being perceived as such made my Chineseness feel less like a state of being, and more like a process of becoming. This time at dim sum, I was able to help my grandma order, since her eyesight was declining and she couldn’t read the menu as well. That would have been totally unimaginable for me and my meager Chinese skills two years ago. Likewise, the first time I sat in a Chinese language class surrounded by visibly Asian students during freshman spring, I sweated with anxiety and spoke as little as possible; now, I’ll talk in Mandarin comfortably with other people. “How Chinese” they perceive me to be now is still a mystery to me, but I’ve gained confidence that it doesn’t have much to do with what I really am, or what I could become.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

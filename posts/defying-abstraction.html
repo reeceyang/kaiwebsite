@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>defying abstraction - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="time-or-vertigo.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Time or vertigo</span>
+    </a>
+    <a href="sea-creatures.html" class="nav-arrow next-post">
+      <span class="nav-title">sea creatures</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>defying abstraction</h2>
+      <span class="post-date">June 26, 2025</span>
+      <div class="content">
+      <p>A cold front passes over the Cape this week. When people say this to me, <em>cold front</em>, I still picture vaguely an airmass moving south from the Arctic, following the trajectory that carries rain to Boston. But of course the cold fronts here are shaped by Antarctic oscillations, and what they bring is a different kind of rain, lighter and more fickle, coming in thunderous peals and ebbing as quickly as they grow. </p><p>The winds preceding the cold front produced a weekend of ideal surf conditions. Even today, under bolts of lightning, a few surfers surged over the waves. I’d resolved to try and get good at surfing this summer, mostly motivated by how cool people looked in surf videos, and the idea that if I enjoyed swimming in the ocean I would probably enjoy surfing too.</p><p>My attempts to ride a wave in the US peaked with getting on my knees on a board. I was not discouraged—surfing seemed like the kind of thing you had to improve at incrementally, and I wasn’t, to begin with, particularly coordinated or balanced or strong, so I had expected it to take time—but it is also true that I was not heading out to the beach to experience the raw joy of surfing but to practice for when it might become fun at some point in the distant future.</p><p>The beach by my home and workplace is the best beginner surf spot in Cape Town. Still, the waves here rise higher and bear down on me harder than I’m used to when paddling out. For the first time this weekend I gave up before making it past the breaking waves and decided to iterate quickly on the whitewater near shore, caught the smaller waves one after another and tried to stand up on them. </p><p>Popping up on a wave is a decisive movement that I had never successfully completed before. Speeding towards shore, hovering on your stomach in the foam, you grip the edges of the board and push your chest up and swing your hips and feet underneath you to gain purchase on the board. I watched other people perform this move in one single motion in the instant that the wave lifted them up. My problem, I had identified, was that I kept half-assing the transition, taking whole seconds to struggle incrementally to my knees and then getting stuck. The next stage—dragging a foot forward—felt impossible, barred from me by an impenetrable psychic wall; even more impossible was the idea of doing the whole motion at once.</p><p>Finally at some point I don’t know how to explain it other than that I accepted the newness, allowed all the stimuli to flood in, paid real attention to the moment: my hands on the outside of the board, the white and blue surface streaked with dirty board wax in front of me, foam washing around and over. I had assumed I could map the required action to something I had experienced before. Something <em>like</em> getting on a skateboard or <em>like </em>doing a squat. Trying to pop up was a subconscious process of trying to find the thing it was like so I could reproduce it. But some things are not like anything else. I focused on my body on the board and felt, as I did it, <em>I am bringing my feet forward and planting them on the board and standing up even though it feels like nothing I have ever done in my life.</em></p><p>This might sound stupid written out—of course the action is new; you have not done it before—but the assumption of mappability is the default: by the time you’re 21 you have experienced enough that preexisting abstractions cover most of daily life. When you see a big flap on a hinge you don’t recalculate its physics, you categorize it as a <em>door</em> and exert force on the handle accordingly. When you “try new things” they often don’t feel new: you apply the same abstraction transposed into a new location or at a new intensity, stretched a bit to accommodate new information.</p><p>After riding a few more small waves to shore, the barrage of breaking waves quelled and I paddled for a few minutes through peaceful waters until I found myself far out with the rest of the surfers chilling on their boards. (Waves arrive in sets of correlated size, for whatever reason. People paddle out past breaking waves and wait for a set of large waves to catch and ride.) My upper arms burned; I slipped off the board and floated on my back. I remember noting, with the board nestled in my arms and cold water seeping into the neck of my wetsuit, how vivid the moment felt, how each piece of stimulus floated to me individually instead of coalescing into the image of being at sea. My breathing and the tide and the quiet chatter of surfers behind me. The setting sun cast soft light onto the mountains and over the dark surface of the water.</p><p>Then the waves began rolling in. To catch a wave you need to be paddling in the same direction fast enough for the wave to sweep you along with it; otherwise it just rolls past you. The first two waves rolled past me. The third formed a sharp, tall edge that I knew would catch me, and as it did I was lifted above the surface of the sea, my board towering so high, in such a precarious position—just the tail anchored in the wave, the front sitting on two meters of air—that I felt sure I would tip forward and close the vast distance between myself and the cliff of water churning under me, and yet I never did, not for the entire time that I rode it to shore. Soaring on the tide, my mouth opened involuntarily, I laughed and yelled. Some things are not like anything else.</p><p>For a little while afterwards I felt like my mind had been broken. I rested on my surfboard near shore and let the breaking waves bowl me over. Before I had thought, you have to go through so much shit just to get out past the whitewater. Inhaling seawater and getting flipped over and eyes getting stung by salt. But these were nothing—not even a nuisance—compared to the raw joy of being carried by that wave. In a way I guess my mind <em>had</em> been broken—I’d broken through an abstraction, a model of surfing that looked like the image of the thing, as flat as a clip art man balancing static on a board, that had stretched until it snapped.</p><div><hr></div><p>That same weekend I visited Cape Town proper to hang out with some other interns from MIT. After lunch we spontaneously took a cable car up Table Mountain, which is named for its expansive, flat top, lined with paved paths for visitors. The diversity of flora endemic to the Cape is so great that it forms its own floral kingdom, one of six in the world. Despite this claim to uniqueness I thought while walking around that the plant life mostly resembled overgrown succulents. We snapped pictures of the coastline from the edge of the mountain.</p><div class="image-gallery-embed" data-attrs="{&quot;gallery&quot;:{&quot;images&quot;:[{&quot;type&quot;:&quot;image/jpeg&quot;,&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/83f84830-d6cf-46cb-b23b-e2d17cd01b69_2048x1536.jpeg&quot;},{&quot;type&quot;:&quot;image/jpeg&quot;,&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/2495ac20-6d77-422e-ae61-8191c6efbe2e_1536x2048.jpeg&quot;}],&quot;caption&quot;:&quot;&quot;,&quot;alt&quot;:&quot;&quot;,&quot;staticGalleryImage&quot;:{&quot;type&quot;:&quot;image/png&quot;,&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/650614e2-a175-41d8-a413-fda0d181855c_1456x720.png&quot;}},&quot;isEditorNode&quot;:true}"></div><p>It wasn’t until past sunset that I saw—really saw—the landscape. The line for the returning cable car had barely moved and I was shivering from the wind, having neglected to bring a jacket. I told the interns I’d come with that I had to walk around a bit to warm up. I took a loop around the mountaintop.</p><p>The sky was colored bright purple by the recent sunset, and it was this fact that finally cracked the lens of abstractions through which I had viewed the scenery. When I noticed this suddenly the landscape became wholly alien to me, the details came detached from the concepts to which they had previously been bound: tangles of lime green foliage writhing over smooth, moonlike rock, collecting silver puddles under a violet sky. Even that description imposes too much structure on what I saw in the moment—which was stabs of lime and silver and violet, a planetary surface cracked open and spilling colors into space. </p><p>When I tried later to describe this feeling to the other interns I said, lamely, that it felt like being on Mars. I guess it didn’t resemble Mars in any sense. But then it didn’t resemble anything else either.</p><div><hr></div><p>There’s more I could say that has been said before: that seeing with your own eyes is the first step of art, resisting the easy collapse into predefined concepts, taking seriously the deviations from expectation that separate reality from imagination. That I think this is what people mean when they say doing new things slows down your perception of time; it’s this breaking from abstraction that prolongs your experience of life, that unfolds a compartmentalized scene into an experience that balloons with detail. </p><p>Mainly, though, I want to tell you about these landscapes before my mind figures out how to abstract them away. <em>This is how surfing feels. This is what the Cape flora look like. </em>These are useful bundles of information: I can’t be rediscovering surfing strategy every time I go or I’ll never get better, and in practice “overgrown succulents” is a more accurate descriptor of the Table Mountain landscape than “like Mars”. But defiance of abstraction makes for a beautiful memory. Once, my mind had no structure in place to explain and stow away what I was seeing. Once I gave the moment my full attention and it responded in infinite detail.</p><form class="subscription-widget-subscribe"><input type="email" class="email-input" name="email" placeholder="Type your email…" tabindex="-1"><input type="submit" class="button primary" value="Subscribe"><div class="fake-input-wrapper"><div class="fake-input"></div><div class="fake-button"></div></div></form></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

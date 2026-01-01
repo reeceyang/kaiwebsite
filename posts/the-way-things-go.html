@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>the way things go - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="january-in-media.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">January in media</span>
+    </a>
+    <a href="adventures.html" class="nav-arrow next-post">
+      <span class="nav-title">adventures</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>the way things go</h2>
+      <span class="post-date">January 21, 2024</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!yme9!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!yme9!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 424w, https://substackcdn.com/image/fetch/$s_!yme9!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 848w, https://substackcdn.com/image/fetch/$s_!yme9!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!yme9!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg" width="1456" height="895" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:895,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:13998899,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!yme9!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 424w, https://substackcdn.com/image/fetch/$s_!yme9!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 848w, https://substackcdn.com/image/fetch/$s_!yme9!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!yme9!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70379668-93f6-48dd-b7b1-1608d516ffe9_7952x4888.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption"><em>Photo by <a href="https://unsplash.com/@ynsplt?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">yns plt</a> on <a href="https://unsplash.com/photos/woman-rock-climbing-inside-building-NY1D4Zni7fc?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Unsplash</a></em></figcaption></figure></div><p>This weekend I got my first V2s at a bouldering gym in downtown Boston. I’ve flirted with the idea of climbing for a while—it seems like the ultimate manifestation of my fitness goals, having a deep, precise understanding of and control over your body.</p><p>I hadn’t committed to a climbing routine in the past due to a combination of the expense and inconvenience—most climbing gyms were a bit out of the way, and I didn’t have much time to go during the semester anyway. So climbing took a back seat to other priorities for very long, despite the lingering fantasy in my mind of eventually being able to lever my body against the immense forces of rock slabs and gravity. </p><p>I focused on weightlifting instead, and over time I built up my strength a bit. When I perused climbing gyms with friends in Santa Fe this summer, I could do some of the easiest bouldering routes—still only VBs and some V0s. My confidence was buoyed a bit by the fact that the other people climbing there with me were all very nice and supportive.</p><p>Then, the real kicker: a bunch of climbing videos appeared on my Instagram feed! It seems I’m easily influenced by this kind of stuff, since it’s also what got me into lifting consistently. Anyway, I figured that during IAP, when I would be working a regular 9-to-5 with no other commitments, I might as well give climbing higher priority for a bit.</p><p>I got a good deal on a two-month membership at a nearby bouldering gym (I’m sure they were trying to take advantage of the New Year’s resolution people…such as myself), and this Saturday, I went for the third time so far. I decided to take the advice of those Instagram climbers and try higher grades for fun, even though there remained a few V0s I was stuck on. Surprisingly, I made it to the top of about half the V1s and even a couple of V2s. It was fun to see that some boulder problems really did depend more on strategy and careful weight management than brute strength.</p><p>Strength is definitely still the primary limiting factor for me, but to a much lesser degree than before. Back in California with my family this winter break, I showed my mom my biceps and she was shocked—“They’re so much bigger than before!”—while my little brother kept asking to touch them.</p><p>Leaving the gym, I feel some glow that comes from knowing I’m doing things now that I wouldn’t have been able to do a year or two ago, even as I was working towards them and seeing no progress. The first fruits of my consistency are finally beginning to ripen.</p><div><hr></div><p>Two weeks into my job: each day I walk to campus in the cold, pink morning (it’s been below 20 degrees Fahrenheit lately) and start work a bit before nine, usually before anyone else has arrived. The space is lovely, for a graduate student office: windows looking out from the 6th floor over the city; well-tended plants in clay pots; a little bronze teapot I use to brew my tea, courtesy of my PI, who seems to have an affinity for artisanal silverware.</p><p>Here, similarly, I feel like the skills I’ve been honing for years are finally being put to use. In previous research projects—none of which bore any results—I mostly scoured through massive, nonfunctional FORTRAN codes and tried without success to make them functional. </p><p>This week I modified an existing open-source FORTRAN code to do what I wanted, and it worked, after a nontrivial amount of effort. I rode this high for a full day: the notion that I could produce usable code that gave real, significant results!</p><p>I’m also happy that my direct supervisor seemingly trusts me to raise concerns and suggest pathways forward in the project. Originally, to calculate this quantity of interest we’re after, we planned to follow the prescription given by a textbook. The textbook seemed very suspicious to me, though—the relevant sections were littered with references to papers that had nothing to do with the subject at hand—so after some research I proposed an alternative method that my supervisor agreed we’ll try to implement instead.</p><p>This is what I always thought research would be like: mulling over problems even in your off hours because you can’t stop thinking about them, having a real say in how things are done, and every so often making tangible progress. I’m glad I trusted my instinct to work with this professor, and I’m glad I held onto physics research for long enough to come across this project.</p><div><hr></div><p>The past month—the past semester—has impressed upon me the notion that everything is cumulative, everything is about consistency. I knew this before, experienced it intimately throughout high school, but it’s simultaneously validating and surprising to see that it continues to hold true, partly because for nearly a year I had given up hope that my effort would ever actually bring results. It felt like I would always be doomed to benching less than the barbell and working on physics projects that went nowhere. In a way, it’s funny that college has followed much the same arc as high school in this way: a freshman year filled with confusion, grasping at straws of potential futures; a sophomore year defined by decomposing sadly in my room; throughout it all, working, working, for things to finally begin to come together in junior year.</p><p>Looking back, it seems obvious, just the way things go. That the physics and math I learned as a freshman enabled me to understand my graduate-level classical mechanics class this semester, which enabled me to do the research I’m doing now; that looking through broken codes for hours on end enabled me to quickly mesh my methods into a new code; that lifting what felt like practically the same weight for a year finally has enabled me to reach for higher holds, press heavier dumbbells over my head, and watch my body and mind grow.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>what makes a memory - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="on-your-own-in-the-unknown.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">on your own (in the unknown)</span>
+    </a>
+    <a href="nambe-falls.html" class="nav-arrow next-post">
+      <span class="nav-title">Nambe Falls</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>what makes a memory</h2>
+      <span class="post-date">July 16, 2023</span>
+      <div class="content">
+      <p>Back then, August 2021, when everything was normal again except for me, the whole world smelled like summer. I swam at Lincoln Park. Every few laps, I stopped to carry bumblebees out of the water, deposited them in fat, warm puddles on the concrete, and watched ruefully as they dried off in the sun and slowly puffed up and then dunked themselves back in the pool.</p><p>After I swam, my partner at the time would come pick me up with a free cup of boba from where she worked. In those days, when there was no academic pressure left and the pandemic was beginning to ebb, I tried to achieve a summer like you see in the movies. Honey boba on hot summer afternoons, my skin baked in the scent of chlorine, Impossible Whoppers from Burger King after my job as a swim instructor ended. I’d get out of the freezing cold pool, relieved at the end of another shift of holding toddlers up in the water, then go stuff my face in the passenger seat and play Celeste. </p><p>It was the only summer in years that I’d spent outside cooled library rooms, and maybe that’s what made it feel so vivid.</p><p>I don’t regret any of the time I spent studying. At the same time, I don’t wish I had spent <em>more</em> time on my science textbooks or in the practice room for Science Bowl. Those days, as much as I loved living through them, blur together in my memory to vague outlines: my physics textbook propped up in a cafe in front of a latte, stealing moments from the day to read paragraphs of my earth science textbook, practicing buzzing during break and at lunch and after school and on weekends. </p><p>Because of this, high school feels like it takes up a compressed flap of spacetime in my head, where each vaguely similar memory merges into one moment, one place. With nothing to distinguish the days, you could wonder whether I lived through high school at all.</p><p>But of course the flap of spacetime designated for years 2017-2021 is not the only evidence that I lived through high school. There’s all that I learned, which sits scattered in other pockets of memory; there’s the ability to study for hours on end and the ambitions and outlooks on life that I developed. </p><p>Then there are the few times throughout high school that I allowed myself to go out and waste a day away. My friends and I all went to the beach together at the start of each summer. The first time we did this—the end of our freshman year—I had never swum in the ocean before, and I was scared stiff of the crashing waves, insidious in their sheer height and turbulence; yet I felt an unspeakable allure in the water and how it stretched out to the horizon, something promising to engulf me in a force much greater than myself.</p><p>My friends and I edged into the cold ocean—that first time, I kept making them promise to drag my body back to shore if I started to drown—and before long we were diving under roiling waves, breathing in salt and fighting against the currents. Each moment felt like a lifetime then, and in each beach trip after that. I am fairly sure the ocean resides in an artificially large spacetime flap in my head.</p><p>So which is it that life is made of—which form of memory should we chase? Lived stretches of space and time, like a cup of honey boba slipping against your fingers or a fight against the currents; or the rewards you reap and scars you endure afterwards, like all I learned from repetitive days spent studying for Science Bowl?</p><div><hr></div><p>I didn’t realize how badly I craved sensation, physical tendrils to which memory was anchored, until I thought about missing Boston and found with surprise that the fond memories falling into my head were not of cozy evenings in cafes or of laughing with my housemates, but of bitterly cold walks across the Harvard Bridge in the dark, snow stinging my face, boots soaked through. On those winter nights, I would draw my arms beneath my shirt and wrap them tightly around my bare torso to keep warm; my jaw would force my teeth together in bouts of shaking and clattering. Sometimes we braved the bridge at night for boba or food, which was always worth it when we returned to our warm, dry rooms and peeled the plastic bags back to reveal our treasure.</p><p>To chase more life that feels like life, I chase sensation and, in particular, discomfort. The shock of cold water, the pain radiating through my muscles when I climb, the dry heat of the desert. There is nothing that brings me into the moment quite like pain, which demands to be felt. And being brought into the moment by the protest of my nervous system makes me uncomfortably aware of my surroundings, of each detail filling my bubble in spacetime.</p><div><hr></div><p>It wasn’t until a few weeks ago that I finally understood what people meant when they spoke of the scent of pine. I spent much of my childhood nestled in the crook of a Colorado mountain, surrounded by pine trees, yet it was in California that I first thought of pine as anything other than a vague car-air-freshener scent. We were driving down a road, bare against a cliff, with the windows down and my face out the window so that I had to gulp air into my lungs to breathe. The scent and its memory hit me all at once: some quiet, clean feeling, enveloping me in a small Colorado road banked by forest. We’d passed a strip of pine trees.</p><p>Everything about Colorado was felt in my body. The sticky sweet scent of the diseased aspen outside my window. The crisp air, soft against my skin, when I went outside to stare at the stars. Plunging my hands into crystal clear water when I kayaked on the lake facing my house. </p><p>Can you relive a memory that was felt not in your body, but in your mind? I attach meaning to place and sensation—I am an inherently physical creature. Yet there are other types of feeling that burrow into my heart and that carve out a spacetime nook in my brain. There is music; there are stories. Those do not fall so neatly into one category or another of life. Seneca thought we could extend our lives by reading the words of philosophers past, absorbing their lessons so we would not have to spend time relearning them in our own lives. Perhaps listening to Hozier is not what he meant—but it feels the same to me, a musician’s understanding of life and beauty bleeding over into mine.</p><p>This is the promise that math and physics fulfill for me, that make the repetition and the blur of days worth it. Sensation forms a gateway to my connection to the world; so does knowledge and the process of inquiry. It is centuries of scientists’ understanding bleeding into mine to make a richer experience of the world, to look up at the stars on a cold night and to form a memory in which I chase the knowledge of their nature.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!sbur!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!sbur!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 424w, https://substackcdn.com/image/fetch/$s_!sbur!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 848w, https://substackcdn.com/image/fetch/$s_!sbur!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!sbur!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/d1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg" width="1456" height="971" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/d1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:971,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:4438623,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!sbur!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 424w, https://substackcdn.com/image/fetch/$s_!sbur!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 848w, https://substackcdn.com/image/fetch/$s_!sbur!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!sbur!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1e58d4a-a789-465d-8847-30fc276c2973_5472x3648.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/fr/@denisdegioanni?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Denis Degioanni</a> on <a href="https://unsplash.com/images/nature/star?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tide coming in - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="acts-of-creation.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">acts of creation</span>
+    </a>
+    <a href="48-degrees-and-cloudy.html" class="nav-arrow next-post">
+      <span class="nav-title">48 degrees & cloudy</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>tide coming in</h2>
+      <span class="post-date">May 26, 2023</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!VXyc!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!VXyc!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 424w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 848w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg" width="1456" height="997" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:997,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:2281026,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!VXyc!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 424w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 848w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!VXyc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c7a83ae-3faf-4a29-9661-d8163b0253cd_3274x2242.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@arstyy?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Austin Neill</a> on <a href="https://unsplash.com/s/photos/tide?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure></div><p>The academic year has just ended. By many measures, I became a better version of myself this year: I swim or lift every day now; I go to around 80% of my lectures and prepare in advance for each one (a huge improvement from before); I am rush chair for my frat, and have done lots for the house beyond simply facilitating rush; I eat breakfast almost every day; I’ve started taking iron supplements to increase my ferritin levels (which I just found out are really low, and which may have contributed to the extreme fatigue I’ve felt for the past year).</p><p>But throughout the year I was suffering academically and, consequently, emotionally. Any stability I gained seemed fragile—I always felt like I was paddling against a whirlpool, moments away from a spiral into apathy and hopelessness. I tried to mitigate this: when I saw the sadness coming on, I’d go work in a cafe, or do a workout, or make myself some food, in an attempt to ward off those feelings.</p><p>By the end of the year, the only short-term fix I had to make myself push through to the end and salvage my grades to some extent was to increase my dose of antidepressants. Now I’m up to 40 mg from my original 20. It annoys me a little bit since I don’t want to be dependent on medication. But there are no ill effects, and it works well, and I’m fortunate for that.</p><div><hr></div><p>My friend Vi from LA is visiting Boston for the summer. I’ve known them for eight years now, which is absurd. We have both changed since high school: they have become more open-minded; I have become someone who stands their ground. So much is familiar with them, and this is comforting, as I always feel I am navigating new ground with my friends at MIT. It also feels like the little piece of myself from high school is still here, alive in our shared memories and inside jokes.</p><p>Anyways, the point is that talking with them puts into perspective how much things have changed. I moan about how hard my physics psets are. I dance at parties and sometimes even look good while doing it. I go out for a coffee and talk to the barista without feeling nervous. My time with my friend has reminded me that it’s true, I have grown.</p><p>Vi is beginning to study math again after a long hiatus and tells me how frustrating, yet satisfying, it is. “Sometimes it makes me feel better, though, to do some math that would’ve been hard for me years ago and find that it’s so easy for me now,” they say.</p><p>I think about it for a second and I realize that this is true for me, too. The classes I’m taking now, the workouts that have become routine, my social obligations for the house, all would have been massively out of reach for me as a freshman. I ache for the progress that I made in high school, and often I glamorize those days when I had clear goals and clear structures and felt fulfilled in what I was doing—but I am still making the same progress, and really it still <em>feels</em> the same, just with fewer tangible benchmarks (like a yearly competition to mark myself against). It’s still a string of little failures, of feeling stuck and dumb and inept, and then looking back and thinking that you have made it.</p><div><hr></div><p>Of course, sometimes it is not so simple, because you don’t always make it. I failed my quantum mechanics class—8.051—this semester. I needed a 30% on the final to pass, but in the morning as I was studying it dawned on me that there was very little I <em>truly</em> understood about the past month of content. I could probably cheese a 30% and barely pass, but I would go on to future courses in quantum mechanics without really understanding this one. And—more than that—I wanted an A, wanted to be proud of what I accomplished in a class I cared about; I thought it was achievable, had I not sunk into a pit of depression this semester, had I known how best to prepare beforehand.</p><p>So I emailed my professor and did not take my final. I will use a P/NR to remove it from my transcript; then I will retake this class in the fall. I expect it will be easier, since I’ll have knowledge of the full class from the spring, but I also plan to practice and study a lot this summer.</p><p>I still feel strangely about this choice—it’s my first definitive, <em>big</em> failure since beginning college. It makes me feel better that my professor said he thought this was a good plan; that other MIT students, and my own experiences, have reminded me that one failure teaches you and builds you up much more than one success; and that, of course, an A on my transcript will look much better than a P if I decide to apply for graduate school. But I still feel twinges of regret and uncertainty and shame; I feel like I’m falling behind, even though these years in college have taught me what droves of self-help influencers could not, that the notion of “behind” and “ahead” is nonsensical on such a nonlinear path as life.</p><div><hr></div><p>Halfway through college, this is the first time I’ve felt like my feet are on the ground. I flailed around in the water for the first two years, wondering: what makes me happy? What do I want to do with my life? With the rest of college, even? Am I wasting my time? Am I cut out for any of this?</p><p>I loved taking functional analysis this semester—and look forward to complex analysis in the fall—so much that I am now convinced my enjoyment of math alone is enough to get me through the rest of college. Doing math makes me happy, talking with my friends at tEp makes me happy, watching my tortoise grow makes me happy. There are more, but three things are enough.</p><p>I still don’t know what I want to do with my life, but I am finally feeling okay with that. I think I will find out soon what I might enjoy doing long-term: I’m doing a real, structured research project this summer (studying turbulence in rotating magnetic stars!), and I’m hoping to do more applied research in the fall, and I want to learn more CS and see if that appeals to me. These goals are enough to propel me forward in the absence of a real Life Mission.</p><p>After struggling hard to try to achieve a semblance of stability for the past few years, churning my limbs just to keep my head above water, now suddenly with failing a class and seeing Vi and loving math, my feet hit the sand and I find that—slowly, imperceptibly, steadily, then all at once—the tide has brought me in to solid ground.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

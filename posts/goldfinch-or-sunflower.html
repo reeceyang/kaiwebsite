@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>goldfinch or sunflower? - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="the-story-of-my-snake-tattoo.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">the story of my snake tattoo</span>
+    </a>
+    <a href="two-weeks-in-august.html" class="nav-arrow next-post">
+      <span class="nav-title">two weeks in August</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>goldfinch or sunflower?</h2>
+      <span class="post-date">August 17, 2023</span>
+      <div class="content">
+      <p>Yesterday everyone from my internship gave their final presentations at a company-wide meeting in the auditorium. In that massive room, standing onstage with well-functioning laser pointers and slide clickers in front of a high-res screen, we all did well, much better than in our dry runs. </p><p>After that we went out for burritos and I had the best vegan burrito of my life by asking for no meat no cheese on a regular burrito. Usually at restaurants when you ask for no meat no cheese, they just subtract the volume of the meat and cheese from the total volume of the meal, and you end up with something that is only half as filling. Not so at El Rigoberto’s, which people at my internship have taken to calling “El Rig’s”, “the ELR”, “the Bert”—they packed that burrito full of tomatoes and beans and lettuce in lieu of the meat and cheese.</p><p>Then we went next door to have coffee. I got a matcha latte and was sipping at it slowly while everyone else gulped down the horrifying-sounding “quad lattes” they’d collectively peer-pressured themselves into buying, which each contained four (4) espresso shots. I felt like I did enough recreational caffeine-induced lifespan-shortening during the school year, so I opted not to join them.</p><p>Out the window there was this patch of sunflowers growing tall enough that they blocked the view through the bottom half of the glass. Beneath the flowers darted little birds which looked not too far from sunflowers themselves: jet-black with bright yellow bellies, or else mottled patterns of ink and sunshine. They were as small as the little flower heads and hung upside down on the stems, pecking at the flowers for seeds.</p><p>That’s what I really love about bird-watching here. If you stay still for just a moment, allow the world to come to you, you’ll no doubt be greeted by a beautiful little creature lurking somewhere, happy to show himself to you if you are happy to watch and listen.</p><p>I recently downloaded an app called Merlin, developed by researchers at Cornell University, which takes recordings of bird sounds or pictures of birds and uses AI and information about your location to identify them. When I first got this app, I was walking around downtown Santa Fe and so the only birds it identified for several days were house finches and American crows, which I had already been able to identify myself.</p><p>A month later, and here are the additional birds I have confirmed sightings of: red-tailed hawk; hairy woodpecker; Woodhouse’s scrub-jay; Western wood-pewee; Say’s phoebe; American robin; bushtit; mountain chickadee; pygmy nuthatch; yellow-breasted chat; song sparrow; canyon towhee; spotted towhee; house sparrow; lesser goldfinch. I’m quite confident that I’ve seen many more species of bird than this: for instance, there are lots of hummingbirds around that I can’t quite figure out the names of, and every so often I come across an elusive blue fellow who is silent and stealthy and flies away before I can identify him.</p><p>Birds are all over the place. At first it was just their sounds, picked up through Merlin. Over time I became better at spotting birds out of the corner of my eye, perched on a tree branch, easily mistaken as a large, dark leaf. When I see one it’s impossible for me to not slow down—not too fast so the bird isn’t scared away—even if I’m in a big group of people who are rushing somewhere—and look at the bird until it gets weirded out by my persistent stare and leaves.</p><p>I think there’s something special about birds beyond them being cute and small. Unless you’re a professional bird photographer, you can’t capture birds in the wild, especially small and fast ones, very well on photo or video. The prettiest bird you’ve ever seen will end up as an unimpressive little blur of maybe twenty pixels once you try to snap a picture. The only joy you get from seeing a bird is the few moments you get together, which you can’t communicate to anyone who’s not with you in those moments.</p><p>I didn’t realize it at first, but there is so much variation between different species and even within the same species. Each species of bird has many distinct calls: songs, chirps, trills. It’s insane to me that their vocal cords are able to produce such disparate sounds.</p><p>And the biggest thing is that they are everywhere. They’re more ubiquitous than any other animal large enough to be visible to us. Wherever there are people, there are also birds, nestled in nooks and crannies of city buildings, suburban labyrinths of fencing and shrubbery. Perched, waiting.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!RWl6!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!RWl6!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 424w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 848w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg" width="1456" height="476" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:476,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:808961,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!RWl6!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 424w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 848w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!RWl6!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2426237b-b24e-49aa-8660-1922a6c99368_2848x931.jpeg 1456w" sizes="100vw" loading="lazy"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@crawford?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Crawford Jolly</a> on <a href="https://unsplash.com/photos/-gFxMygtgsg?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure></div><p>There’s this persistent narrative that college is where you’ll find your people. I would certainly say that I get along significantly better with the average student at my college than the average person not at my college. But relationships don’t really operate on averages, and on a deeper level, it seems to me that “you’ll find your people in college” is not true at all. Not because I haven’t made close friends who understand me well, but because I think this is not particularly correlated with the college I attend or the fact that I’m attending college at all, even though it’s often made out to be so.</p><p>This summer I have made some very good friends over the course of ten weeks while working a 9-to-5. I’ve connected with people on a far deeper level than I did during my first ten weeks at MIT, and really, over my whole first year there. Why is this? Why was I able to communicate so well and so immediately with a bunch of math and physics grad students from locations randomly distributed all over the country, while at college surrounded by people hand-picked to work well together with me, I’ve <em>still</em> failed to accumulate any semblance of a friend group?</p><p>Maybe this summer the biggest difference was that I came in with no expectations of making close friends or of finding people who understood me on a deep, profound level. Or maybe the biggest difference was that I’m in an 80,000-person town and you have to be a certain kind of person, one that I vibe fairly well with, to want to spend a summer in an 80,000-person town. </p><p>Maybe the deciding factor was that I was open to doing random shit with random people without the backdrop of academic and professional pressure that belies all my interactions at college. I only recently admitted this out loud: something that makes me feel fully like a fake physics student is that when someone brings up an interesting technical topic or problem, instead of feeling excited, I feel a pit of dread open in my stomach. What if I cannot understand the technical details—what if everyone else has a level of intuition totally out of reach for me—what if they are expecting more of me. That’s how MIT feels to me a lot of the time: a pool of wonderful people I can strive to be like, but whose standards I will never reach. </p><p>I like to study physics on my own, but I hate talking about physics with other people. Here, I don’t have to. I’ve spent almost every weekend going out with the people I’ve met here: hiking, swimming, camping, ice skating, climbing, stargazing, bookstore-cafe-sitting, baseball-game-watching. I went climbing with people who had been climbing for years, who were muscled, tan, lifting themselves seemingly effortlessly to the top of the wall; I struggled to lift my own body weight, fell on my ass numerous times, couldn’t perform basic moves that others could. But they were encouraging and patient and demonstrated moves for me over and over (and even offered me a share of their chalk bag).</p><p>At work, people smile at me, say hi happily, scoot over to make room for me at the lunch table. They offer to drive me home. They remember the sort of music I like and give me recommendations. They are up to fifteen years older than me, but gratefully, it doesn’t seem so from the way we interact—I’m reminded that we are all adults, that as much as I can learn from them, they can learn from me. Often I still sort people into boxes in my mind, and then I talk to them and always there is a surprise that flips the archetype on its head irreversibly, like unexpected birdsong coming from the same bird with a shrill, sharp trill. </p><p>I love that as I become older it grows more and more clear that with the right person, there is no pretense behind a relationship. If you enjoy each other’s company then maybe you will go out for a drink together or make a random trip to a waterfall together. You don’t need to be in love with each other, you don’t even need the expectation of a continued friendship. You just need to both be open.</p><p>Realistically, I doubt that I will stay in touch with any of the people at my internship, and this fact brings some tumbling feeling to my heart when I think of how we will all leave this place in a day or two and probably never see each other again. It’s impossible for me to capture this experience to other people who are not here with me. Not that this story is particularly unique when painted in broad strokes: go to your internship, make friends, leave your internship. </p><p>But it’s the details that are unique to me, that can’t be communicated without reducing them to the conversational equivalent of a bird-shaped blur. Seeing Orion in the sky when we went to Cosmic Campground as a group, and next to it, a vaguely similar constellation we dubbed Fucked-Up Orion, as the Perseids shot past us in blue flashes. Blasting obnoxious trance music as we marched past bears in single file on our way back from the reservoir. Getting beaten repeatedly by Sophie at every card game you can play on a tabletop. Playing Hangman on the whiteboard when the computers were down. Losing at cornhole against random guys at the Albuquerque baseball game.</p><p>Being open, unassuming, unconcerned with your image and your self. When you are constantly striving for progress, always squashed between deadlines, this is difficult. But this summer it has been easy. It turns out that forming genuine connections, receiving human generosity and kindness, is not as complex as I imagined; that if you sit quietly and keep your eyes open, then in a field of sunflowers, it is not so difficult to find a goldfinch.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

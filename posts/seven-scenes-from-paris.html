@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>seven scenes from Paris - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="the-other-name-for-disappointment.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">the other name for disappointment</span>
+    </a>
+    <a href="what-makes-fear-worth-it.html" class="nav-arrow next-post">
+      <span class="nav-title">what makes fear worth it</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>seven scenes from Paris</h2>
+      <span class="post-date">March 31, 2025</span>
+      <div class="content">
+      <p><em>(ONE: Seeing my friend again after two months, the unexpected warmth, all old things returning.)</em> We walked to a <em>boulangerie</em> and ate the best pastries I’d ever had: croissants, a baguette, a squishy thing, a glazed honey thing. “I would never even consider going vegan if I lived in Paris,” I told Uzay, sitting there next to him in the park, breaking off bits of the loaf to share, letting its flakes fall to the ground between us. We made conversation, I can’t imagine what about, mainly to feel the rhythm of speaking to your best friend again, after forgetting—but not really, for how quickly it was dredged up again, like the structure of a dream you’re reminded of after waking—how the back-and-forth of our voices sounded together.</p><p><em>(TWO: Giving up on stepping around puddles, my socks soaked through, the Seine dark and gray.)</em> It was evening, everything had closed, even the great facade of the Notre Dame was obscured by the massive clouds of dust being whipped around by the wind. Every other building looked like a monument. I gasped aloud when the Eiffel Tower emerged from behind granite, so much taller and darker than I ever imagined I’d see it. Later I’d go up close on a sunny day, note the trusses (more bronze than silver, in real life) stretched between arcs of steel, hundreds and hundreds of interlocking bars—but it was this first glimpse of the tower in the dusk that I remembered. We padded through the courtyard of the Louvre; through its great windows sculptures danced in candlelight. “Let’s go back,” I said, cold and drenched even underneath my giant flapping poncho. We ducked into a bar first, sipped warm cinnamon wine and cracked a fork into the surface of creme brulee. How warm I felt then, and how content.</p><p><em>(THREE: Wandering around Montmartre, stone walls twisting around me, trying to find lunch.)</em> Oil painters displayed their works along the cobbled streets, depicting Paris in grayscale vignettes, impressionist flairs, slabs of pure color spread by a palette knife. I couldn’t see the Eiffel Tower from the top of that hill—the whole skyline was blocked by the walls and buildings crowding the narrow roads—yet most of the painters I saw were working on a new rendition of its elegant figure to stack onto those already sitting on their fold-out racks. I wondered if they’d seen it so often they no longer had to reference it, or if they climbed the steps to Montmartre, easel in hand, dreading the next ten towers they’d have to draw, or if they saw their home in a new light, with sharper colors, from higher angles each time they filled a canvas.</p><p><em>(FOUR: Entertaining my impulses towards tourism, being swept with the crowd through the Louvre, swarming over marble stairs.)</em> I’d heard seeing the Mona Lisa was underwhelming, depressing even. But I found myself in that room anyway, gridlocked in a crowd pulsing and throbbing with phones held in the air like teenaged concertgoers. I have almost no memory of her face, nor of what it felt like to see her apart from my annoyance at the bodies pushing firmly against me and the unreality of standing five meters away from such an iconic painting, before the museum staff unhooked the rope and waved us towards the exit. I was fed up with Paris at the end of it all. Though I knew it was an oversimplified story, that of capitalism run amok, it was amplified with every twinge of repulsion I felt at shops selling T-shirts with Mona Lisa dabbing (a surprisingly common motif) or collages of stylistically-mismatched clip art: <em>PARIS</em>, coffee, baguette, beret. </p><p><em>(FIVE: Turning my phone off in the morning, tourist desires quenched, thinking of what Uzay had told me, how “the city rewards spontaneity.”)</em> I took the train into town and wandered into a coffee roaster and successfully ordered a cappuccino in French. The joy from that single sustained interaction buoyed me through the whole day, the ecstasy from speaking to the brown-haired girl behind the register in another language and hearing her respond in the same language, even if I was just saying stupid small things: <em>lait normal </em>(“normal” because I didn’t know how to say “oat” or “soy” or “whole”), <em>pour ici, merci beaucoup. </em>There was nothing extra behind my words, I mean, no management of tone or idiom, because I wouldn’t know how to manage those things in French anyway. There were just the bare meaning of the words and laughs exchanged and the coffee poured into a ceramic cup for me to sip at the window, paging through <em>Swann’s Way </em>and feeling little pings of recognition at the Parisian locations Proust mentioned, now that I’d actually visited some of them. </p><p><em>(SIX: Following map routes to the Pantheon, a building commemorating the people behind the Enlightenment and the French Revolution, its tall dome rising above tall pillars.)</em> The walls were covered with murals. I skimmed over most of them but stopped before one which depicted Saint Genevieve’s death, her eyes clouded over with blindness, thin arms outstretched to bless the crowd around her. It was painted on a scale larger than life, its vertical span more than twice my height, thick strokes layered to shape the frocks of the men and women standing around, the dirty feet of a woman kneeling at the foot of the bed, the naked torsos of the people who had removed their clothing to receive her blessing. We told such a simple story now—of a religious figure and her audience—but, standing there, it felt no less true than the individual stories of all those who had walked to the saint’s bedside centuries ago to watch her passing, who had felt so moved as to take off their shirts and reach their hands out and hold up their babies, hoping for more.</p><p>Underneath the Pantheon a crypt held the remains of renowned French scientists and philosophers. I recognized a few of their names. In one chamber, Marie and Pierre Curie were buried in adjacent stone coffins. Against Marie Curie’s coffin leaned a small metal placard tied to a rose. The placard was engraved: <em>Je vous admirez Madame Maria Sklodowska-Curie. </em>It was signed by a ten-year-old in 2024.</p><p>What a simple story I would tell years later. I went to Paris to see my friend. I went to Paris to find myself. I went to Paris to clatter through the streets on a heavy e-bike and fumble through conversations in French and read the words of a child whose life had once perhaps been changed by the simple story of a woman working in her laboratory many years ago, taking measurements alone at night.</p><p><em>(SEVEN: The city illuminated and alive at night, a street choir singing, buildings twinkling amber above the Seine.)</em> I bought tickets to a jazz club and walked there, crossed the river, wove through a district of glowing dance clubs and bars. I had never been to a jazz club before—had never even really listened to jazz—and didn’t know what to expect, whether my fantastical idea of musicians improvising together in a dimly lit club in the 60s could possibly be realized before my eyes in 2025.</p><p>After entering, I nestled with my drink into a seat against the wall of the small brick cave underground where the jam session would be held. Over the next few minutes people crowded against the corners of the room chatting to their friends. Slowly the music started. There was an old man jabbing the synth experimentally in a stuttering, nervous rhythm of high notes. After a few minutes the drummer would shift his pattern, the bassist would follow, the synth would consider for a bit and then begin pressing chords again; finally after fifteen minutes it seemed they had entered a groove, this fast high-energy sprint octave over octave that had the bassist nodding his head and the drummer sweating and smiling and the synth player bending over the keys, rocking back and forth. </p><p>Players swapped, a guitarist joined, one saxophonist joined and then another—(the drums went silent suddenly, in the middle of a saxophone run; one of his hi-hats had fallen off; he and the bassist shared a glance, he kept thumping the bass drum while screwing the hi-hat back on, the bassist kept the rhythm meanwhile; finally the drums re-entered)—the music built and built, saxophones soaring together (both of them, you could tell, trying not to smile around their reeds), the synth deciding to glissando down the same time the saxophones climbed up, the drummer’s mouth open in an <em>oh</em> at the punch that resulted, the bassist shaking his head grinning in disbelief, the guitarist’s head jolting up, the gorgeous twenty seconds of symphony that followed, my heart fluttering in my throat, then finally, the saxophone’s high note ending the song. We clapped, cried out, raised our glasses, stomped in passion and joy.</p><div><hr></div><p>In fewer than 24 hours from that moment in the small brick cave with the sweating musicians and the applauding listeners, I would be on a train to Berlin. In a few days I would bring the Fujifilm disposable camera I’d taken pictures on to CVS and get its film developed, in another week I’ll receive the printed photos and remember moments in Paris that I’m sure I’ve forgotten even now. Maybe then these scenes will coalesce into a story. It’s too simple a story, I know—of a city that lives for passion, for love, for the kind of expression that only comes through intense refinement of your own art—the kind of story you tell small children, or travelers searching for meaning—but still something true lives in the simple story, no less true than the collection of scenes painted side by side.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

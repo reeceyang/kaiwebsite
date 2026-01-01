@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>someday - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="parallel-universe.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">parallel universe</span>
+    </a>
+    <a href="love-in-the-time-of-unlimited-data.html" class="nav-arrow next-post">
+      <span class="nav-title">love in the time of unlimited data</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>someday</h2>
+      <span class="post-date">November 11, 2024</span>
+      <div class="content">
+      <p>This summer, my friends in LA kept telling me I hadn’t changed at all since high school. I expected to feel annoyed: in an objective sense, I’m a lot better adjusted now than I was in high school, and I might have wanted this to be recognized. Instead I just felt relieved that there was some core part of myself they could still easily reach out and touch, unaltered by three years of transcontinental distance.</p><p>It was my first time really hanging out with them in about three years: my family moved out of LA when the pandemic started, so I had barely been back since then. Actually it was wonderful to see how many things had stayed the same, little things I’d forgotten and felt a warm surge of familiarity upon recognizing. Los Angeles is filled with murals sprawling over twenty-story-tall brick buildings and stout concrete drugstore walls alike. Saints, women, flowers, eyes, music, all awash in rainbow. All of us sweating under one sun. Whenever I saw a mural I’d passed by a million times back then, I felt a jolt of sweet memory. There were new murals, too, blooms and shoots where the city had grown since my last visit. Coming back together, we both had something new to give.</p><p>My friends owned cars and had deeper voices. They all looked thicker, sturdier. I thought I did too: finally over the past year I’d achieved a consistent workout routine and diet that lent some volume to my upper body. “There’s something weirdly satisfying about Kai being athletic now,” S said. I thrilled at the idea of one of my old friends, who’d known me back when I failed each and every single one of the state fitness tests (underweight; zero push-ups; zero squats; zero sit-ups), calling me <em>athletic</em>. I was surprised, too, that S and I could now joke about our coursework with each other, when our high school interests had been so disparate. We’d both taken the long way around to computer science at our respective colleges.</p><p>We swam at the beach and went to J’s place afterwards. During the early pandemic I had lived with J’s family for a few months. Since then they had renovated their kitchen and bathroom and adopted a dog, and his sister was about two feet taller. But the house smelled just the same as it had when I stayed there. Actually I was struck by how immediate it was—crossing the threshold, I mean, of the door to his house, and how rapidly it transported me to that period four years ago when on weeknights I would make a lava cake and he would pull up <em>Attack on Titan</em> and we would watch and do our calculus homework and talk about life.</p><p>We played Terraforming Mars in the garage until J had to catch his flight. Then A drove me back to his house to spend the night. It was early morning—something like 4 a.m.—when we shuffled sleepily from his car to his apartment, enveloped in gentle southern Californian warmth. He had moved since high school to a new place that smelled different. (I knew the smell of his old place very well: we were often build partners for Science Olympiad, so I was in his garage all the time, arguing about designs and rationing our remaining solder, always in a delirium of sleep deprivation and cold in the nights before competition. After competitions we mostly played Black Ops 2 in his living room and blew up MOSFETs.)</p><p>In the morning when his mom saw me she began reminiscing on my and A’s high school days. “Do you remember when I would take you guys to UCLA for chemistry lectures?” I did—and remembered her buying us tamales on the way there every month for two years, always trying to convince me of the merits of eating meat after I went vegetarian but switching to buying me tamales filled with chili and cheese instead of pork anyway. “Do you still have your Spanish?” I didn’t; I had spoken maybe three full sentences in Spanish since graduation.</p><p>She put hot chocolate on the stove and began making a tall stack of toast with butter for me and the rest of her children. A’s little brother, who had barely been able to say a complete sentence the last time I saw him, was now explaining his Pokemon collection to me. Finally just before I left, his mom gave me a hug: “You’re mostly the same as you were in high school. You’re less shy, though, no?”</p><div><hr></div><p>Maybe it speaks to the morbid weirdo I was as a child, but I’ve never related to the saying “you don’t know what you have until you lose it.” During recess I hovered at some removed vantage point, sometimes on the swings or else behind some bushes or under the low canopy of a tree, where I could see everyone else but no one would notice me, and narrated the scene in my head. Many times I thought, <em>life will only get worse from here, so I should always appreciate the moment</em>. I have no idea why I was this down on life when I was, like, ten years old. But in any case, I was always soaking in nostalgia for the present. Dreading the decay that would come with time passing.</p><p>Only recently have I felt that, although the moment is worth giving yourself over to, so is the passage of time. I live at pika now, a co-op at MIT. A few weeks ago a small contingent went apple picking at an orchard and brought back bags and bags of the crispest, sweetest apples I had ever eaten. By chance three pika alumni were visiting that week; one of them works at a cider brewery. So the following Friday night I walked into the CGE<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a> and found people squeezing the liquid from apple pulp into a funnel while alumni gathered, reminiscing over their days at pika: <em>Wow, I remember this. But so much has changed.</em></p><p>When I come home, someone’s cooking dinner for the house, playing Charli xcx over the speakers; each painting hanging on the wall of the staircase up to my room is one I recognize every stroke of. Now after I’m away for a week, when I step over the threshold to the foyer once again, the smell of the house hits me all at once and I remember what to expect: my roommate’s jacket draped over his swivel chair, one housemate’s piano notes floating up the stairwell, another’s distinctive whistling through the window.</p><p>All around pika hang reminders of past lives: the murals washing over walls, a poem written in sharpie next to the bathroom mirror, another printed out and taped between the ceiling and the doorframe. I’ve never considered myself big on poetry, but this autumn is convincing me otherwise. It turns out I love poetry when I know it meant something to someone, when it’s not just an abstract stream of verse that I feel pressured to “get”, when instead it’s a diaphanous hand reaching through space and time to show me a slice of its world. I like the poetry plastered around pika because it shows the love people had for their housemates then, and how similar it is to the love I have now.</p><p>Love is closing my eyes just to forget if each breath of air is mine or yours. Love is a deal, you sit on the couch scraping a spoon around your bowl and I lie in bed falling asleep to the sound of someone else choosing to crumble to entropy in the same space as me. Sitting in the living room together, you’re plucking at your bass, I’m palming a glass of juice I won’t finish. At the end of the night I’m thinking—when someone asks me, as a joke, what I’d do if I dropped out of school now—the answer is to be with my friends, to sit together leaning softly on each other’s tired bodies, to keep crystallizing a core I’ll hold on to forever, so that in four years I will reach out and find the same person you are now, a little older and wiser and sturdier but you just the same.</p><p>To ask where you are and feel happy when you say you’re enjoying your date. To be under your silk touch light eyes struck like a guitar string by your voice. To feel sorry when I say the wrong thing; to feel the opening of a waterfall when I make you laugh. To laugh and laugh and laugh and to know that makes nothing between us less valuable. To be there someday in your living room while your mom puts hot chocolate on the stove for me. For some time I had forgotten the simple, warm glow of friendship; now it wells over everything else.</p><iframe class="spotify-wrap" data-attrs="{&quot;image&quot;:&quot;https://i.scdn.co/image/ab67616d0000b27313f2466b83507515291acce4&quot;,&quot;title&quot;:&quot;Someday&quot;,&quot;subtitle&quot;:&quot;The Strokes&quot;,&quot;description&quot;:&quot;&quot;,&quot;url&quot;:&quot;https://open.spotify.com/track/7hm4HTk9encxT0LYC0J6oI&quot;,&quot;belowTheFold&quot;:true,&quot;noScroll&quot;:false}" src="https://open.spotify.com/embed/track/7hm4HTk9encxT0LYC0J6oI" frameborder="0" gesture="media" allowfullscreen="true" allow="encrypted-media" loading="lazy" data-component-name="Spotify2ToDOM"></iframe><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>Communist Gastrointestinal Experiment; our dining room</p><p></p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>because it's summer - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="never-let-me-go.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">never let me go</span>
+    </a>
+    <a href="only-the-body-speaks.html" class="nav-arrow next-post">
+      <span class="nav-title">only the body speaks</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>because it's summer</h2>
+      <span class="post-date">June 26, 2024</span>
+      <div class="content">
+      <p><em>all names &amp; places changed. sorry this post is kind of weird</em></p><div><hr></div><p>Maryland was a different place. After getting off the train there for a two-week summer workshop, I only had to walk a few minutes before this became clear—there I was studying a car with a decal applied backwards on its hood, which, once I parsed it, advertised <em>If You Can Think It, We Can Do It!</em> in loopy cursive. This self-evident falsehood became more concerning when I noticed that the other decals on the side of the car advertised plumbing and AC installation services.</p><p>The new climate was one of burning sunlight and bright skies. The air weighed on me, dense and humid. Big bushy trees leaned over the streets. I understood now the classic representation of a tree that we had been taught to draw in kindergarten: a thick, sloping, concave trunk, topped by a round green scrunch. Where I’d grown up on the west coast, the trees didn’t look like that, so from childhood I’d considered this a poor abstraction of a tree. But here, that’s what they really looked like.</p><p>I passed an election sign reading JESUS CHRIST FOR EVERYTHING. Historical schools for Black and Indian children. A man with snakes and pentagons tattooed all over his body; passersby gave him a wide berth. I tugged my sleeve down over my own snake tattoo.</p><div><hr></div><p>Our lecturer, Prof Florescu, was a gray-haired Romanian man who stood at the podium each day relaying his stream of consciousness to us. On the first day he explained Python classes. “Classes have attributes and objects which you can use to perform various functions,” he said in monotone, “much like a kitchen pantry from which one draws ingredients.” <em>What</em>? After plowing uninterrupted through a topic he would say, “I hope that if anyone has questions you will let me know.” Then, without looking up or pausing, he would scroll down on the Jupyter notebook and keep talking.</p><p>To be fair to Florescu, he had a lot of content to get through. The two-week AI workshop was meant to be friendly to Python beginners (which I guess is why they included a rushed explanation of classes) but covered a ridiculous amount of content, at least that of a first-semester ML course in breadth.</p><p>But the first couple of days were boring—repeats of concepts I’d already learned and implemented before, delivered in an unenlightening manner. So I sat in the back of the lecture hall trying to do work. I finished annotating data for the research I’d done over the fall and spring semesters, using computer vision to count salmon.</p><p>Then I tried to go through the onboarding process for my summer research in neutron scattering. I had liked the salmon project a <em>lot</em>, but I felt that as a physics major I should be doing physics research if I wanted to be taken seriously and to have any chance at graduate school, and thus had wormed my way into a kind-of-experimental physics project that I felt would lend me legitimacy. I really didn’t care about neutron scattering, though, so I sat there for a couple days fiddling with the onboarding pages before giving up and just paying attention to the lectures, which by that time had become more interesting.</p><p>I’d never considered myself enthusiastic about AI, but now at this workshop I spent my time daydreaming about my computer vision research, or about applying AI towards turbulence modeling. I’d also never met another student interested in turbulence. But Dylan—a student at that college who was a physics and math major, like me—had the same thoughts about turbulence that I did. “I think there must be a more beautiful way to treat the problem,” I told them as they lounged on the top bunk in my dorm room. “Kolmogorov is the only guy who ever made progress in treating it elegantly.”</p><p>“Kolmogorov is the only man I trust,” Dylan agreed, swinging their legs off the bed and leaning over the edge to look at me. “I think it’s got to be fractals. Someone’s going to come up with a way to mathematically represent fractals in some way that allows us to just figure out turbulence.”</p><p>“Maybe it’ll be you!”</p><p>“Maybe. First I’m gonna build a house in the woods and live off the grid. I think you would have to do something like that to figure out turbulence.”</p><p>I nodded sagely. In my mind I would be on an ocean vessel instead, not in a house in the woods, but the principle was the same. </p><div><hr></div><p>I had noticed Noah and Dylan immediately. They looked to me like woodland creatures who’d melted out of the thick forest permeating the campus. “We’re the same archetype,” Noah told me, and it was true—brown shoulder-length hair, dressed in loose, faded clothing, clutching tattered bags at their sides, always crouching over something on the ground.</p><p>They were looking at a big spider together when I first approached them during a break when everyone else was chatting over coffee. Dylan looked up and said, “A biped!” as I knelt down next to them. After that, it felt like we knew each other.</p><p>Noah and Dylan had a sedative effect on me. Dylan had these really calm eyes. And Noah was always smiling in a sort of dazed manner, as if caught in a daydream. “Do you want to hear a riddle?” they whispered to me once as we walked to lecture. I nodded.</p><p>“It’s about a secret place in the woods. We have to tell people about it as a riddle, because otherwise too many people come. We started doing this after last time when the cops showed up.” They never told me the riddle, nor what had drawn the cops.</p><p>But Noah did ask me later whether I had encountered the Contraption yet. They and Dylan both said it like that, with an emphasis that clearly capitalized it in my mind, the Contraption in the woods. “You’ll see,” they murmured while we sat together on the grass. “You can find it.” They showed me a beetle wing. “Do you want it?”</p><p>I took the beetle wing between my fingers and pressed it against my skin. It was thin, flimsy, but flexible like plastic wrap. Its creases shimmered with gold. I hoped Noah had just picked it up from a dead beetle on the ground. The paths twisting through campus were littered with these things, big and orange, all dead or else in the throes of death, getting thrashed around by wrens or dragging themselves along the dirt in sputtering agony. Everything here was being beaten to death by summer. Clumps of algae clawed at the edges of the lake; ladybug carcasses speckled the soil, bleached of color by the sun; later, deep in the woods, I found dark turtle shells rotting under a canopy of leaves.</p><p>I asked Noah to show me the Contraption. They looked at Dylan and said, “Maybe later today. After our classes.” Dylan shook their head: “I have a meeting. We can go tomorrow.”</p><p>But I found it that day anyway, although I hadn’t gone looking for it. It was my first time venturing into the dense, tall woods which choked the campus and formed a band around the shining lake. I followed a trail around the lake and noticed what, indeed, could only be described as a contraption—a rusted mess of giant gears and levers, long drained of purpose.</p><div><hr></div><p>I kept asking Noah and Dylan to show me things in the woods. After a few days it became routine for us to lounge on the grass outside during break and to sink into the forest together after class, joined by Isaac, who, like me, came from a different college. After lunches we took what was meant to be a shortcut through the woods to get back to class, but always we got distracted by some ordeal once the trees surrounded us densely enough to remove any sense of nearby civilization—like me and Dylan jumping on opposite ends of a wobbling fallen tree to try to find its resonant frequency, or doing the abandoned ROTC obstacle course sprawling in the branches above us—that made the shortcut take longer than the regular paved path.</p><p>With each trip to the woods I felt myself splintering further from the versions of me that had existed before. It didn’t seem real that the same person who bought bubble tea and studied in cold white libraries in Boston could simply come to Maryland and spend days lounging on tree trunks and tramping through the woods. But of course it had not felt real last summer when the depressed, fatigued sophomore version of myself moved to Santa Fe and began looking forward to each day. And it only recently began to feel real that I had once moved from Los Angeles to Boston and sprouted a self who was the kind of person to use words like “nontrivial” or “orthogonal” in everyday conversation.</p><p>I couldn’t imagine Noah and Dylan existing in Boston, either—what would they do if placed on Newbury Street? I never wanted to find out. To me they felt like a part of the woods. “It’s true—if I go too far north, I despawn,” Noah told me solemnly when I mentioned this to them once.</p><p>One day, as we worked on our final project for the workshop, we lost track of time and the dining hall closed. Dylan offered to drive me to a nearby Thai restaurant for dinner; they lived nearby, so they commuted every day from home and parked at school. I shuffled into the frayed passenger seat of their dented gray car. The interior smelled like my father’s old Saab, leathery and sweet; everything was the muted beige or dark brown of early-2000s car interiors; the dashboard was filled with physical buttons and knobs.</p><p>Dylan pushed a Crystal Castles disk into the CD player. They opened the windows once we rolled out of the parking garage and into the streets, and then we were driving through trees and between lakes, synths pulsing from the speakers and spilling out onto the crosswalk. Dylan had one hand on the bottom of the steering wheel and the other resting out the window, tapping the car door to the rhythm of the song. I closed my eyes and tilted my head into the breeze. This was it, I thought—my forever.</p><div><hr></div><p>Never before had I felt so resistant to taking photos on a trip. I didn’t want a picture of Noah or Dylan or Isaac—or the barred owl we once saw hooting at us in a tree before it flew away silently in a single fluid motion; or the algae-covered turtles slinking through mud; or the cardinals pecking at bugs. </p><p>In fact I felt physically repulsed by the idea of trying to take a good picture. By impulse my fingers would spring to my phone and then I would feel a wave of nausea. A photo sealed a lie, rendered a shallow cut of the moment immobile in time while letting the rest of it fall away. I didn’t want a watered-down memento; I wanted to really be there until death, with my palms cut open and pressed against the earth, rivulets of blood streaming along the ground.</p><p>Meanwhile death mounted around us as a reminder that this could never be so. Deer splayed out on the highway. Mice and birds with bites taken out of them. Vultures crouched over bodies. A juvenile hawk took its last breaths with us standing around it, Noah laughing and me crying and Isaac silent, the bird’s chest rising and falling in slow strokes as flies crawled into its sad eyes. There in the undergrowth, its beak opened and closed hopelessly.</p><p>I knew I would have to leave, but I couldn’t remember: how had I ever left before? All the times I had said goodbye to something I loved—I could not imagine it now, the seat I would occupy on the Amtrak back, the fact that I would be essentially unchanged then from the person I was before Maryland. I would bring some things back with me—a $5 silk shirt from Goodwill; postcards from the science museum—but my body would be the same, I would have left nothing for the woods.</p><div><hr></div><p>The workshop organizers held a social at a brewery one evening. We sat in a poorly formed circle outdoors, most of us underage, so that only the professors and grad students bought beers to drink and the rest of us tapped our feet idly. When Florescu learned the reason for our awkwardness he was outraged. He shook his head, sitting at the opposite end of the circle from me: “In America, it is possible to join the military but you cannot even have a beer while you are there. If any of you want a drink”—he raised his glass to us—“I shall not interfere.”</p><p>Dylan and I shot each other the same amused glance we did in classes when Florescu spouted another of his aphorisms (“let us cook a fresh function”; “I will tell a story to humanize the subject”; “it stands to reason…”). Florescu went on:</p><p>“In Europe everything is legal. If you are an alcoholic it is not glamorous—it is like, okay, you are destroying your body. You are killing yourself. It is fine, you can go do that.” He sighed.</p><p>“Drugs should not even have a price. Then the cartels would go out of business. Drugs are poison, and poison has no value. Like rat poison at the store. I mean, why don’t you go to Home Depot and buy some rat poison and kill yourself?” He really said it like that, those words in that order, in the same monotonous, steady tone that he used to talk about neural networks. I almost cried laughing. In classic Florescu fashion, he moved swiftly to the next topic: “I believe education should be free.”</p><p>When Florescu finally ran out of based political takes, the rest of the brewery conversations died out too, and we slunk away. “Do you guys want to go to the beach?” Dylan asked me and Noah as we walked through the parking lot towards their car.</p><p>I’d never been to a freshwater beach before and was expecting it to be underwhelming. But when we got there and stepped out onto the sand, even though the opposite bank was visible, it was far enough away that the water felt as expansive as the ocean and provoked the same sense of awe.</p><p>(In the car Noah had told us that once their teacher forbade the class from saying the word “awesome” because it invoked God’s name in vain. “That’s silly, you can feel awe for things other than God,” I laughed. Dylan said, “Actually, I think I only feel awe towards God. But not in a religious way.” It was another one of those things that made perfect sense the moment they said it, and that I never would have said out loud myself, not trusting that others would understand it. How often did I collapse my beliefs in this way, making them smoother to avoid conflict, until the false belief rose to my mind before the true one? It was something I couldn’t imagine Dylan doing.)</p><p>The sun hung low in the sky. We took off our shoes and stuffed our phones and wallets inside, and stowed them all in a bush. Rolled our pants up and waded in. The water felt as warm and soft as it looked; later, when I swam and submerged myself, I tasted it on my lips and felt pleasantly surprised at the freshness—subconsciously I’d expected the acrid sting of seawater.</p><p>We dragged our feet through the water all the way to the end of the beach and then crawled under the bridge that cut it off. Tiny crab parts poked out of the sand: a pincer here, a breastplate there. Bird bones, too, hollow and light. Climbing up tree roots and crouching barefoot through a small wood, we made our way out to a rocky peninsula, where against the glow of the horizon we watched waves lap at the shore and eyed a large bird feeding a chick while its partner sat in the nest offering no help.</p><p>On our way back we encountered a precarious spot where the water had eroded away sediment until bare tree roots were suspended in the air, supported by a chunk of dirt that jutted out six feet above the ground. Faced with this drop, Dylan just jumped down. Noah lowered themself using the roots. I stood there, indecisive; I wanted to jump, to knock down the barrier between myself and the motions I’d always deemed impossible. In every iteration of such a choice before I had relented to fear and chosen the safe path, chosen to be apart from the body that screamed for movement.</p><p>Now Dylan was looking at me with such encouragement that I felt I would jump off a bridge if they asked. One moment I didn’t know if I would really do it and the next moment I did it. Before my feet thudded surely on wet, firm sand, before they pushed off the higher ground, before I even began to lunge forward, in that instant, Dylan saw that something deep inside had made up its mind and started clapping for me.</p><p>I stood up and smiled at them. They grinned back: “That was awesome.”</p><p>We watched a heron, tall and blue, gulp fish out of the water. We watched a turtle chill in the middle of the river. And then we watched the sun disappear from the world, its red streak left on my retinas.</p><p>In the car on the way back, Dylan rolled down the sunroof and looked at me, in the passenger seat, with my arm out the window cupping the breeze in my hand. At their glance I unbuckled my seatbelt and lifted myself up through the open sunroof, pressing with my palms on the top of the car. I felt the car accelerate with Dylan’s sudden push on the pedal, felt the grand arcs of trees and clouds passing by faster and the wind pressing harder on my face, and began to laugh with sheer joy.</p><p>What I liked about Dylan was how little we had to speak. It began to make sense to me later that night when they were explaining how a trip felt. “Normally you’re really locked in to this way of thinking and communicating that’s dependent on language,” they said, “but during a trip you realize that language is meaningless—what matters is right <em>here</em>.” They made a motion as if to tug at a string running between my eyes and theirs, and I felt a real, <em>physical</em> tug in my abdomen.</p><p>It was how I thought of language, too—as more of a mask over communication than the real medium. But I had never met someone who could tap into real communication so freely, whose eye contact felt like a tether to life.</p><p>“I need to try getting drunk and high,” Noah sighed from the backseat. “That could fix me.”</p><p>“Maybe do ketamine,” said Dylan.</p><div><hr></div><p>We had to present our project results on the last day of the workshop, so on the days leading up to it, we grudgingly took time out of our adventures to train some machine learning models on the data they’d provided for us. Noah made a baseline random forest model. Dylan trained a neural network that performed really well. I tried to generate synthetic data, which didn’t work so well because we didn’t have much data to begin with, but it was cool to implement.</p><p>The night before our presentation, we went out on the lake. You weren’t really supposed to do this, so all the boats at the main dock were locked up. Even the boats inside the boathouse were tied together with heavy cables when we shined a flashlight through the gate. “Let’s go to a different dock,” Dylan said. “That’s where I did this last time.”</p><p>They led us through the woods, sweeping away cobwebs in our path. At one point when we neared the edge of the forest Dylan spied two wooden planks lying against a table and darted out to retrieve them for use as oars. Our path ended at a small, dimly lit dock.</p><p>There was only one untied boat, a flimsy metal thing that clanged when we pushed it off the shore and began filling with water immediately. “I think this one sinks,” Dylan observed. “We should go out two at a time.”</p><p>Isaac and I went out first; we stepped into the boat, then each took a plank from Dylan and began to paddle. The water had looked pitch black through the trees on our way here. But once we rowed to the middle of the lake, its surface formed a shimmering gray lagoon shouldered by dark forest. “Wow,” I breathed. There was nothing more to be said.</p><p>Next Dylan and Noah went out. Isaac and I sat on the dock waiting for them. “Have you ever gone sailing?” I asked. Isaac shook his head. “When you’re in Boston, I’ll take you out on the Charles,” I promised. He would be doing research at MIT for the rest of the summer—the only one of the three friends I’d made in Maryland whom I could hope to see again soon after the workshop. But even as I said those words my heart clenched. Boston seemed a million miles away.</p><p>When Dylan and Noah returned, they were smiling. “I knew it would all work out,” Dylan said as we trudged back to the dorm, shoes wet from lakewater, “the moment I saw those planks. I knew they had been put there for us.”</p><div><hr></div><p>We crafted the worst Google Slides presentation ever. I had not known it was possible to seriously stand up and give a presentation that looked like this. We considered making it better, but then we didn’t. In my totally unbiased opinion we ended up being the group with the best and coolest model, which I thought was really funny, standing there presenting this terrible set of joke slides with explosion GIFs and My Little Pony graphics. At least I’d never see these people again—Dylan’s summer PI was in the audience.</p><p>I expected Dylan to be a great presenter and they were. We had speculated before the presentation about Noah: “I can only imagine them clicking through the slides silently,” Dylan laughed.</p><p>“Yeah, and then when they’re done they’ll go like—” I made the ASL sign for “all done”, which Noah often did when they finished eating. Their mom had taught them sign language as a toddler so that they could communicate before learning to speak. They showed us some signs: <em>stop</em>, <em>thank you</em>, <em>all done</em>. (“You make those motions a lot. Maybe you don’t realize it,” I said. “No way!” Noah cried.)</p><p>Anyway, during the actual presentation Noah just stepped forward and talked through their slides like nobody’s business, exuding this unexpected, effortless charisma. They didn’t stutter once. They were so witty that I was there clutching my sides trying really hard not to laugh.</p><p>After presentations, the workshop was over. Noah left first for their plane to Ohio. We took a group selfie before they left, a photo where none of us looked at all like ourselves.</p><p>Dylan and Isaac and I got tacos and talked for a few hours. Then Dylan drove us in their car to one final body of water. A river closer to the ocean, slightly salty. It was nearly midnight. White lights twinkled in the distance along what looked like an airport runway. Ropes of black water collided and broke on their way up the gentle, sandy shore. For the hours that we stayed there, watching the water, the rhythm of the waves reverberated like tides crashing on rock. In the darkness and the quiet noise, there was no distance between us.</p><p>We were silent on the drive back. When Dylan slowly rolled to a stop in front of our dorm, no one moved for a second. Then, hesitantly, methodically, I undid my seat buckle. Opened the door. Picked up my shoes from the floor of their car. Stepped outside onto the asphalt. Closed the car door.</p><p>They rolled down the passenger window all the way. I leaned down and looked through it. My eyes met Dylan’s one last time—the first time that I couldn’t read them at all. I didn’t say any of the things that had been surfacing like foam in my mind.&nbsp;<em>Please stay in my life. There’s an image of you burned on my retinas.</em>&nbsp;<em>I think the Earth turns just for you</em>.&nbsp;</p><p>Instead I said, “I’ll see you.” I meant for it to be an assured farewell, a promise, but coming out of my mouth, it sounded like a pathetic plea—the end of the sentence just upturned, its meaning made uncertain.</p><p>“See you,” they said. Then I turned around and walked to the door with Isaac, looking back just in time to see Dylan’s car driving away.</p><div><hr></div><p>My train back to Boston leaves at 9 am. On my way to the Amtrak station, I see the JESUS CHRIST FOR EVERYTHING sign again. That’s how I know I’m on the right road. For the first time I notice my feet aching from the hours I’ve spent walking barefoot the past few days.&nbsp;</p><p>On the air-conditioned train, I open my book and try to read, but my eyes feel out of focus; I try to write, but words feel empty and useless. Some spastic energy courses in my chest. For a couple of hours I just sit there looking out the window, watching the landscape drain of leafy green and fill with concrete gray.</p><p>Finally I open my laptop. I draft a Slack message to the computer vision lab I worked with over the fall and spring semesters. <em>Will you fund me over the summer? I'll quit my current research,</em> I tell them, <em>and come back and work with you.</em>I spend a few minutes fretting over wording, but I know all of that is secondary. I know I'll send the message, that if I don't click send I'll wonder forever, <em>what if?</em></p><p>What if I had not let go of what I loved? What if I had held on tight instead, taken the risk and accepted the vulnerability that came with it? What if I had trusted my instincts and let my body move where it was pulled? </p><p>Later, I seal the deal and send an email to the summer lab—the neutron scattering people—telling them I’m quitting. I wouldn't mind much if I got blacklisted from the neutron scattering community, but still—the moments before sending the message are like the moments before leaping off the edge at the beach, the same lurch of fear in my stomach.</p><p>But at the beach, in the woods, on the boat, there was always only one choice. Only one path forward exists. What else can I do? I used to doubt my judgment, but now I know: when I love something it is clearer than anything else in the world. And I should be grateful for a signal so clear, when our time together is so short.</p><div><hr></div><blockquote><p>you say&nbsp;<em>thank you thank you thank you</em></p><p>because you haven't learned the purpose</p><p>of&nbsp;<em>forgive me</em>&nbsp;because that's what you say</p><p>when a stranger steps out of summer</p><p>&amp; offers you another hour to live.</p></blockquote><p>— Ocean Vuong, <a href="https://genius.com/Ocean-vuong-because-its-summer-annotated">“Because It’s Summer”</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

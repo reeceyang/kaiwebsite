@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Better Place - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="a-thesean-memory.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">a Thesean memory</span>
+    </a>
+    <a href="the-compass.html" class="nav-arrow next-post">
+      <span class="nav-title">the compass</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>The Better Place</h2>
+      <span class="post-date">May 09, 2025</span>
+      <div class="content">
+      <p>When the clouds above me split apart and poured sunlight like honey into a world of shining concrete, I knew I had arrived in a better place. I took a moment to compose myself amidst the crowd rushing around me, throbbing with life. Then I stepped off the train platform into the city.</p><p>You can’t imagine how bright everything felt at first. So bright it hurt: sunlight, mirrors, the occasional blinding glitter of a cross in my periphery. I lathered myself in sunscreen, pulled a baseball cap over my hair, wore shades constantly until I couldn’t tell whether my head was pounding from the sun or from the frames squeezing behind my ears. But under the oppressive light of those first few weeks still I remember how the gleaming key to my apartment felt, pressing into the pads of my fingers for the first time. In those days, all the empty space filling my room felt like possibility: the thrumming of hope, warping around the stained futon in the corner that had come with the place, my MIDI keyboard and laptop, a humidifier spewing enough fog to make the air in the room opaque.</p><p>In the evening, I returned from my internship at the recording studio and inhaled all that had shifted in my absence. Turkish spices from the dinner my roommate Devany cooked, whom I’d met in a Facebook apartment search group; cherry blossom incense smoldering in the living room; whiffs of her perfume hovering in the doorway to the kitchen. Without fail each night she brewed chamomile tea and offered me a cup. It was almost unbelievable, my inhabiting the same space as someone who shone as brightly as the actual angels I had met before, someone who wore white knit sweaters and thrifted light-wash jeans and spent her days, so I imagined, lounging in the sunlight that pooled in cafe seats, dragging boxes around in Figma.</p><p>That’s how my life in the city began: with the foam on my lattes, the tops of buildings, the sheen of Devany’s neck. All shining bright.</p><div><hr></div><p>Every weekend Devany had her parents on FaceTime propped up against the kitchen wall while she cut vegetables for dinner. Between the thuds of her blade on the cutting board their phone-garbled laughter rang a quarter second delayed from hers. After a few weeks I decided I didn’t want to be one of those kids who fucked off the moment they entered their twenties and never called their parents again. So I phoned my mom, too.</p><p>“It’s Octavia,” I said when the call went through.</p><p>“I thought I’d never hear from you again.” Her voice felt jarring, alien, a sharp black gash tearing through my glowing, diffuse reality. “I had to explain your whereabouts to Christine. You know how obstinate she can be. You haven’t made it easy for me, darling.”</p><p>“Sorry,” I said, meaning it. “Everyone else in that coven is a bitch.”</p><p>She was silent for a moment. “Well, she quite lamented our loss of your ability. When are you going to stop playing around?”</p><p>“What?”</p><p>“You heard me. Are you practicing piano? Don’t let yourself lose it, Octavia. One day it will be your only lifeline.” She was always saying ominous shit like that.</p><p>“I’m practicing,” I assured her. I cast around for something amicable to say to put her at ease, to make her feel like she could offer me help. “Did you ever get headaches when you left?”</p><p>My mother laughed loudly, then ripped me open, her voice stretching high and thin: “Headaches so early? I can arrange for you to come back anytime.”</p><p>With great effort—knowing still that she could hear my voice tremble with heat—I said, “I was just wondering. I’m doing fine.”</p><p>My mom’s not why I left, I explained to Devany later as we drank her chamomile tea, sitting on the same side of the kitchen table. I left because no one understood me there, in that creaking town of rusted, shuttered bungalows. The slow, complacent bodies of cows weighed down every hill for miles. And it was cloudy all the time. Maybe that’s why my mother liked it, a simulacrum of the place she had worked so hard to leave, the underground coven she grew up in.</p><p>Devany hummed in acknowledgement. “That’s the kind of vibes-based psychoanalysis I apply to my coworkers,” she said dryly.</p><p>I laughed. “But you’re doing it based on seeing them five minutes a day on Zoom.” When I leaned my knee against hers, lightly enough that it could have been accidental, she didn’t move away.</p><div><hr></div><p>Though my internship barely qualified as employment—each rent payment dug a deeper hole into the few thousand dollars of prize money I had saved up over the past decade—I loved going to work. While running between errands through the dimly lit halls, my fingers reacted to the music by instinct, tapped out polyrhythms on the piles of cables or steaming mugs of coffee I carried for the sound engineers. In exchange for being a liability around the equipment and hovering awkwardly over the shoulders of the engineers as they cut vocals, I played piano for the bands who came in with ideas too complex for their own players.</p><p>For the past month this band had been coming in nearly every day to record their second EP. They asked me to play the synth for them often enough that I knew by now to have it set up and tuned to their settings before their scheduled sessions. For their music, which sounded simultaneously ethereal and grungy, I switched between two custom-made settings: a soft, almost ambient hum; and a dark, buzzy, guitar-like sound.</p><p>I pressed the chords they asked for; I added little flourishes when I felt confident they would sound good; mostly, I was happy to bear witness to the magical moments when the band arrived at the same decision together with no words exchanged. At times I had the sudden sense of being a voyeur, smiling stupidly when the bassist and drummer devolved into improv together or when the vocalist and guitarist conversed in low tones between takes. Always I left satisfied by how the last take reliably felt more cohesive than the first. “We’ve been playing together a long time,” the vocalist, Ben, told me when I commented on how in-sync they seemed.</p><p>One day as they were packing up to leave, Ben said to me: “Via, we’re working on a new song. I know it’s not really in your job description. But you could come write it with us.” He paused. “Since you’ll be playing synth for it anyway.”</p><p>I told Devany that night over tea. She had just come in from the kitchen and set the kettle down on the table when I finished my account. “You’ll say yes, right?” </p><p>That was the obvious choice. Yet now I felt I’d rather crystallize Ben’s offer just as it stood, neither rejecting nor accepting it, instead holding this prism of possibility in my head where it could not shatter.</p><p>“There’s nothing to be afraid of, Via,” said Devany when I didn’t respond. “I can’t imagine who wouldn’t want to work with you.”</p><p>I looked up at her attentive face, the life pulsing behind her jugular. My palm reached up around the nape of Devany’s neck, where an unfathomable warmth lay, the gentle jut of vertebrae through soft skin. She bent down—or I tugged her close to me—and by some agreement I barely understood, by some law of nature uncovered anew, I tasted then the sweet opening of her mouth. The liquid surface of her tongue pressed against mine. Something opened and trembled and collapsed inside me. Like a wave rushing to scrape the shore. A flame rushing to lick the wind. The knowledge that she, too, held a dark expanse, rushing to meet mine.</p><p>After that night I sought out her company more often. We went to the local theater’s Anime Weekend showings. We took walks on evenings that spilled gold over the street. I watched as she set out arrangements of fruit, clipped photographs to her easel, once had her friend David lie down naked in the living room, then copied these pictures to canvas in the deep indigoes and violets she mixed. Despite all those scenes I could hardly believe were mine to remember, despite the images that made me swallow and bend over at work, that easily rivaled my thirst in terms of their intensity and urgency—her fingers’ insistent passage through my hair; every broken sound she made; her writing and squeezing around my tongue, her blood a capillary wall away—I found the idea of living with her for much longer unthinkable at times.</p><p>We tried to cook together, for instance, but I always got bored and distracted halfway through. Devany’s roasted chickpeas and homemade seitan and fruit-filled salads failed to satisfy something primal, the part of me that yearned to grip a whole animal in my hands and rip sinew from bone, to exert real torque from where my jaw met my throat to tear into bundles of fibers and flesh. But she had a moral objection to me bringing entire cuts back from the butcher shop, so instead I emptied my wallet for the butcher’s overpriced pulled pork sandwiches.</p><p>And when one day the butcher offered me a cigarette, I discovered I loved them. Unlike coffee or cooked meat or alcohol I could count on their effect. You sucked on it and then it burned. Standing outside in the autumn cold watching plumes of smoke braid into the wind. The little bit of strain that left your body afterward. “At least it looks cooler than vaping,” Devany sighed when she came home clutching a bursting paper bag from Whole Foods and saw me sititng on the apartment steps with a Marlboro hanging from my mouth. She slipped back outside a few minutes later, arms empty, and sat beside me on the edge of the step.</p><p>Leaning forward, hands cupped over elbows, she sang: “My painting got taken by a magazine.”</p><p>“Oh, that’s awesome,” I said. “Which one?”</p><p>“It’s like, themed around futuristic theology,” she said. “I don’t know. I guess it’s a bunch of people reinterpreting the Bible.”</p><p>“I can see that,” I hummed. The painting she spoke of was a small portrait of her friend David, shirtless, wearing a pair of mechanical wings. “What else are you working on right now?”</p><p>“Julia and I are going to try out cyanotyping on Sunday. I’m excited. I’ve never done it before.” Devany poked a shy finger into my side. “You should try and join a <em>scene</em>, Via. You do everything alone. It really changes how you make art.”</p><p>“I don’t know what I’d do in a scene until I make some good music first.”</p><p>“The scene is supposed to help you do that.”</p><p>“How are other people going to know what I even want out of my music until I’ve made some that I like?”</p><p>“Hello? You talk to them! Your mouth isn’t just good for—you know,” she laughed.</p><p>I smiled and wondered what I could say to that. Nothing came to mind. The plane of orange sun cast on the opposite building receded until it faded into gray. Next to my feet, a pile of ash grew.</p><div><hr></div><p>The band’s writing process turned out to feel nothing like their recording process. Empty cans of beer lay scattered around the garage. The guitarist had been sulking in the corner for half an hour. My only suggestion had been scrapped almost immediately.</p><p>“Maybe we should finish up another time,” said Ben.</p><p>I glanced at the clock. It was nine. “Yeah,” I said, “it’s late. Sorry.”</p><p>“No, it’s fine,” he said. “Really. I’m just tired. It’s been a lot of work lately. Doing promo and stuff.”</p><p>“Yeah, I get it.” Was I imagining the drummer’s breathing coming in sharper bursts? Or the bassist tapping his foot faster? My neck and armpits began to sweat. My cotton shirt prickled at my back. I realized my presence was the obvious disruptive factor, the barrier to the synchronicity and immediate mutual understanding the rest of the band normally shared. Suddenly I could not ignore the guitarist’s steely gaze, which had been fixed on me for half the session in what I had initially interpreted as benign interest but which I understood now to carry disgust.</p><p>“I’ll see you at the studio?”</p><p>“See you,” I mumbled, my head spinning.</p><p>When I overslept my shift for the first time, stupidly, having stayed up late making close to zero progress on a song, I heaved loud sobs in front of the bathroom mirror. <em>You fucking idiot. Undereating and sunbathing and not practicing piano</em>. Bowing to instinct, strung tight from weeks of eating almost nothing but pulled pork sandwiches, throat dry and skin burning, I fell to my hands and knees and raked a claw through the trash bin until the skin below my nails scraped against the moisture of one of Devany’s tampons. I pulled it out and sank my fangs into squelching cotton and sucked, hard. It wasn’t fresh, it was barely even liquid, but it had been so long since my last taste of human blood that I gasped out loud, my supporting arm buckling with the jolt of carnal gratification that ran through my body. I squeezed the tampon between my tongue and the top of my mouth, crushed it between my molars, soaking up all the savory fluid I could. In the end, I let its shriveled remains flutter back into the trash. Then I texted my boss to apologize.</p><p>At night my stomach twisted with guilt when I smelled smoke in Devany’s hair. Hadn’t we all come from eggs, one way or the other? Why had millions of years of evolution failed me in particular? <em>Me</em>, and not Ben, or Devany, or even my mother, who had for all her failings carved out a peaceful enough life, dating human men and sending her daughter to piano lessons and sidling up to coven leadership?</p><p>Trancelike my fingers moved over keys like a fog while I sank into visions of showing my music to a random band or the engineers or even the studio head and the outpouring of praise that would result. These daydreams all culminated in the wild joy of recognition but revealed nothing about the kind of music I actually wanted to make. I couldn’t tell why before, music had felt so alive, so full of promise to me—those days when I had listened to the same albums on repeat on my bed as rain pounded against the metal casing of my windowless room, the thrills they’d sent through my heart at this stunning sense of understanding, and the conviction, deep and true, that I had to join the people who had somehow without even meeting me achieved a deeper connection than I’d ever felt to another vampire—but now, no matter how meticulously I layered my 808s and bells and synths, no matter which album I turned to for inspiration, what I produced all sounded cheaply wrapped and near-plagiarized, no substance at all.</p><p>In desperation and boredom one Saturday I threw together a freakish 600bpm atonal beat and sat listening to it pump out of my speakers like an ambulance siren. After a few seconds I heard the clicking of Devany’s mouse stop from behind me, where she was doing her graphic design work. “Can you turn it down a bit?” she said, lightly. She was trying not to hurt my feelings, which horrified me—the idea that she thought my prospects so bleak that I would seriously transition to producing shitty speedcore. In a flash of rage I saw myself slashing her neck right then and there.</p><div><hr></div><p>I got free tickets to performances sometimes from work, so Devany and I saw a ballet together with a live orchestra. She glanced at me disdainfully when I lit a cigarette outside. “Jesus, Via, can you give it a break?” I couldn’t. Not when the room darkened or when the curtains opened or even after the first act was over, some medieval fantasy arc I hadn’t really followed, with the protagonist, a silver-armored knight, flitting between the maidens he courted and the dragon he slayed. The dragon made progressively louder roaring noises, then fell in an anticlimactic death; then the lights came back on for intermission and people began milling about. I kept wondering if I could sneak out for another cigarette, but at the sight of Devany turned away from me scrolling on her phone, jabbing her thumb into the screen with unnecessary force, I decided it was better not to risk it. Instead I looked up at the ceiling, wondering if the bulbs could burn through my retinas, until finally intermission ended and the lights faded into little red splotches on my vision and the cello sounded out low and deep once more.</p><p>In the middle of the second act, the knight ventured into the woods and was set upon by vicious creatures. Shadows came dancing and howling out on stage, tearing at his limbs with a genuine intensity that almost frightened me. Accompanied by frantic stabs of the violin, high and reedy and desperate; a jutting cello, discordant, sharp, subtle; and <em>there</em>, the piano, sinister, haunting, a sound as old as history. My mouth filled with saliva. The knight’s body crumpled to the floor, his guttural shriek piercing the chamber. I wanted to reach for Devany’s hand, but the thought of confirming the distance between us was too much to bear, the possibility of a moment’s tension in her muscles, jerking away by just a millimeter as my cold fingers wrapped around them.</p><p>An icy current flashed through my abdomen. No wonder that my mother had fed on each boyfriend just as their relationship blossomed, to preserve that shard of joy, to ensure he died in love with her, to cast in her eternal memory a bond as certain as his mortality. Had I missed that window of infatuation? Surely it was not too late—what I would say to Devany’s body, drained, flesh without blood!—did you know that I used to command crowds in my black dress long fingers hair tied in a bun, I was the best pianist six covens over, even pit up against fucking Ophelia who’d been practicing for half a millenium? Yes, even then, people wanted to see <em>me</em>, wanted <em>my</em> interpretation of their soulless existences, <em>my</em> arrangement of history into feeling, melodies from Mozart and Liszt but also from far earlier, from the depths of childhood for some of the elders whom I saw in the audience buckle to their knees weeping. There is nothing now like before, receiving standing ovations at recitals, me and ivory keys spanning octaves of tone and feeling that you wouldn’t imagine could spring from the undead.</p><p>I see it now, Devany, that the only thing that makes me feel alive is the darkness no one else sees, that I could wait your whole life hoping you would understand, that darkness flickering behind candlelight; draped by black veil; pierced by star-studded pupils. I miss my home—not the company, not the caverns, but the dark, dark yearning. Back then I was always thinking, <em>When can I board the train? Where is its next stop? </em>I just knew it had to be a better place than wherever the hell I was, when visiting family meant being surrounded by those dank stone walls. I serenaded their rituals and drank ceremonial blood from bronze goblets and listened to strained diplomacy at coven dinners and watched my mother twist herself into knots for the people she hated most, but looking back I miss all that hope, knowing someday someone might respond to one of my cold emails begging for studio jobs, and then I would buy a train ticket and I would make it out there. The rails formed a straight line rising into a beacon of light. Now what? If only art had kept its promise of tying me to humanity. If only making it to heaven felt less like dying.</p><p>Suddenly I felt warmth envelop my hand and trickle down my wrist. Devany had clasped her palm—soaked in, I realized, her tears—over the back of my hand; her eyes were fixed, too, on the body of the knight lying prone in the dark.</p><div><hr></div><p>The face of the mountian glided close enough to the open window of the train that if I wanted I could have reached out and skimmed my fingers over rock. Instead—to avoid any commotion from the three tiny, squirming children across the aisle from us, who had piled over each other gawking at Devany when she took out her crochet hooks in an attempt to continue her half-woven beanie until she finally sheepishly put the hooks and thread away—I put in my earbuds and closed my eyes to listen to the demo of the new song that Ben had sent me.</p><p>Nothing had seemed to work at his house that night. The audio still sounded rough, off tempo at times. But now he had selected and spliced the fuzzy recordings of our parts together to achieve a tentative cohesion I hadn’t been able to spot then. My heart clenched to hear my own part in the background—now, removed from the anxiety of the moment, nestled within the raw, scratchy soundscape we had created together, I realized I liked it.</p><p>The recording ended in abrupt silence. I looked up. Devany’s eyes were closed; windows of daylight shining in from the other side of the train moved over her face, straddling the freckled bridge of her nose in soft flashes. Goosebumps dotted the sides of her arms. I shrugged off my jacket and placed it over her.</p><p>Outside the window, the body of the train curved ahead of us. It was a short, squat train with ornamental, 20th-century-style platforms made to please tourists embarking on a weekend trip like ours. Even so, the front cabin was too far for me to properly see.</p><p>We flew past trees and stone. My lungs filled with clear mountain air. I hadn’t been on a train since coming to the city months ago—my first and only time. </p><p>Maybe what I was feeling then was just nostalgia. But there was something heavy about it—not a burden overhead, but an anchor. The memories I’d made after that train ride to the city. And the memories of everything before, back in the coven when I constantly felt I was waiting for rebirth. But of course there had been light from the moment I hatched. Of course I could do all the shedding in the world, the shedding of the layers of fear I accumulated in the coven and of the layers of self-hatred I accumulated in the city, and still there at the center of it all there was only myself, all of myself.</p><p>Ahead of me, the outline of the train faded into white, diffuse light. Devany’s eyes fluttered open. My life was beginning now, in every instant. My life had begun long ago.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

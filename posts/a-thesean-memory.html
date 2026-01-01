@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>a Thesean memory - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="alone-in-the-sun.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">alone in the sun</span>
+    </a>
+    <a href="the-better-place.html" class="nav-arrow next-post">
+      <span class="nav-title">The Better Place</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>a Thesean memory</h2>
+      <span class="post-date">May 15, 2025</span>
+      <div class="content">
+      <p><em>cw: mentions of sexual assault</em></p><p><em>I’d like to be able to make and publish art about heavy stuff without having to censor myself or having it be treated as confessional; here’s an attempt at that. I’m chilling lol. just putting this here because some people who read this know me personally</em></p><div><hr></div><p>The same <a href="https://goldenblue.substack.com/p/the-better-place">short story</a> sat in my drafts for a year. At its conception it was called “The Sewer Monster”, an 800-word piece I wrote, but never finished, for a flash fiction contest run by a magazine I subscribed to. </p><p>In some ways the evolution of the story was more interesting than any iteration of the story itself. “The Sewer Monster” was about a descendant of an amorphous ooze from the sewers. It boards a train to the city hoping for a happier existence and finds that its own noxious nature has not changed at all with its arrival in the metropolis—finds, in fact, that the burn of the sunlight and the misunderstanding by its peers force it back into the shape of what it ran away from. It shuttles through the city pipes, hopeless and alone. In the end it can’t even bring itself to board the train towards a possibility of a better place, as it once had before.</p><p>That story was about loss of ambition; about complacency; about regression to an ingrained, pathetic nature. At the time I was wondering if I’d ever again feel the obsessive drive, sustained over the years of high school, to become someone better than what I came from—a drive that gave shape to my vision of the future, saturated my dreams with hope. </p><p>But the inspiration for the story came from one simple scene in my own life, repeated over many days: how it felt to leave my house in the early morning before anyone else woke. I always packed the night before. At five I moved quietly through the kitchen to the door, past furniture edges lit blue by the glow of the WiFi modem, cringing at the creak I could never suppress when I opened and closed the front door behind me. A puffing cargo train wound through the city and cut across the path between my house and my high school. Annoyingly, it stopped in the middle of this path often enough and for long enough durations that I and the other students who took this path to school grew accustomed to climbing over the train instead of waiting for it to start up again. The soot covering the railings blackened the skin of my hands for hours after.</p><p>Every time I climbed over this train, I thought about staying on it, tacking my wishes to its destination, watching the world pass by on this soot-stained platform. But of course I never gave in to this thought. Of course I climbed down the other side of the platform and went to sit at the Starbucks next to my school, opened a textbook, waited for the bell. </p><p>Over the year that I edited and printed and annotated and retyped this story, it molted, morphed, grew new legs. The sewer monster became a vampire, which allowed me to lean on existing tropes for characterization. The vampire was assigned a gender and got a girlfriend and an internship at a recording studio. I toyed with the idea of her killing her girlfriend or her boss or her mom. But by this time I had become happier, too. I had more friends; I liked my job. There was much I had forgotten about the total despair I’d first channeled, back when my fingers routinely felt around the edges of oblivion.</p><p>Once, months ago, I handed a copy of the story to my friends for their feedback. “This doesn’t make any sense,” one of them said. “The ending is too nice.” I was baffled. At the time, the ending read:</p><p><em>All those months ago, had I really boarded a train carrying cargo boxes standing so high, on wheels spinning so quickly? I knew, even with sunburn-scarred skin and a mind faint from anemia, even if one day I smoked cigarettes until they scorched my insides too, I would never board the train again. </em></p><p>It didn’t seem nice to me. The train, I had established, went to a better place. Amidst all the other revisions the ending remained its original dismal self: my protagonist, sewer monster or vampire, had forgotten even how to hope. But my friend, ignorant of the revision history, had interpreted that the train went back home. That is, in the protagonist’s choice not to board the train, she was deciding to stick it out in the hope that she would adjust and grow. </p><p>Without realizing it, in the months since starting to write the story, I had come to hold this viewpoint as well, and the story had ticked steadily towards a more optimistic tale. I had lost some ambition, some drive for escape, since coming to Boston, and had in its place found a self-acceptance which at times presented as a nauseating stagnation. In the final iteration of the story, then, the ending swings opposite to its original position, becomes a statement of continued, steady hope: <em>My life was beginning now, in every instant. My life had begun long ago.</em></p><p>The imagery had morphed in meaning too. The protagonist’s smoking habit feels like an edgelord move now, something I left in the story only because it ached to remove, because the ubiquity of cigarette smoke, and how I had linked that smell for the longest time to my stepfather’s Chinese six-foot-two frame punctured by two watery drunken beady eyes, and the grime that stuck to my neck for the rest of the day, blacker in my mind than soot, if I hadn’t left the house by the time he emerged from his room, grime and the ash he flicked into a pot that had once carried my mother’s snake plant before it withered to brittle sand, the pale ash that now, six years later, I associated instead with sitting on my windowsill blowing smoke into the cool night—because the ubiquity of cigarette smoke, and all it represented, recalling the stickiness of his fingers and the stickiness of personal history, had morphed into a symbol of, well, I don’t know if it was the nicotine or the act of breathing in and out of a little tube like meditation that eased the tension in my stomach, but either way the dark gritty paper cylinder began in Boston to evoke a real fondness for me when its embers lit up from within—but still it ached to remove, so I left it in, the ubiquity of cigarette smoke which had once signified something real and then, divorced from its original position in my life, been flattened into a vestigial artifact. </p><p>Motif for its own sake. My inability to draw out the real thing I had felt once. Instead I fabricated a character whom I lorded absolute power over, could slot into any fantasy I liked, could stack image after image on top of, and yet whom I could not place into that earlier void in my memory. In telling the story again and again the planks peeled off its deck and its masts were renovated one at a time and its hull was stripped of paint and without realizing it a new story stood in its place, one where all the pain had been smoothed over in service of an arc towards my dream of success, where a cigarette was an aesthetic choice and the insides of a sleek passenger train left no imprint on my character’s palms and live plants hung everywhere in her apartment, thriving under her roommate’s care, where I was sure the bathroom was clean and the floors and walls were smooth, not pockmarked with dents or punched clear through in some places where drywall had failed to withstand human violence, a nicer story being all I could write now that each image in my memory had twisted, over the years, into a picture of redemption.</p><p>This rewriting might have begun during college essay season, during which I did not write about these events, but did think about them while constructing a narrative of self. Or it might have begun as a re-remembering from the moment they occurred. In any case, I no longer think of the events themselves but the stories I told about them. The only thing I remember clearly now, the thing I had to get away from and yet which I feel a strange nostalgia for, is that blue glow from the WiFi router. Most of my vision was blacked out by his chest and shoulder. But in the corner of my field of view, what I focused on while it happened, was that blue light. Dark walls, border of the fridge. I don’t know why it stuck with me for so long, this irrelevant illumination. I don’t remember, for example, the details of all the dreams I had afterwards, though I haven’t had a sexual dream without him in it since then, though they were vivid enough that I woke up feeling sick for years, though only in my third year of college did the sleep paralysis ebb which had occurred basically every other dawn since those first mornings. In fact, I don’t even recall where on my body I was touched or how long it really lasted. For in my memory it lasts one single instant—one instant which I never figured out how to stretch over a narrative. The instant is three quarters black and one quarter unblinking blue.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

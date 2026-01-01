@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>like real people do - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="holland-travel-notes.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Holland travel notes</span>
+    </a>
+    <a href="you-can-do-both.html" class="nav-arrow next-post">
+      <span class="nav-title">you can do both</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>like real people do</h2>
+      <span class="post-date">March 02, 2024</span>
+      <div class="content">
+      <p><em>I keep trying and giving up on writing about my thoughts on relationships, and my recent trouble with forming them. This is partly because people are complex, so it’s inherently difficult to write something generalizable about them on a deep level, and my thoughts keep changing. I think it’s also a little bit because I haven’t been very good at maintaining relationships—which is why I’ve been thinking about this, and wanting to write about this, so much lately.</em></p><p><em>I tried really hard to write this without including my negative experiences with past/present living groups, but it just felt disingenuous since they are such a large part of how I think about relationships now. So, as a disclaimer, I don’t actively dislike <strong>anyone</strong></em> <em>in these living groups—I actively like and admire some of them; this post reflects more of a mismatch of priorities/goals than, say, a difference in character.</em></p><div><hr></div><p>One thing I like about my Chinese class is that I don’t feel apprehensive about talking to people. Everyone in the class understands Chinese to the extent that they can express themselves accurately, but the conversational blueprints we follow in English, the subtle displays of decorum and formality, are totally scrapped.</p><p>This results in some humorous scenarios. The entire class is basically us having an extended chat while trying to use the grammatical structures and vocabulary words that we’re supposed to. When describing why I liked working in cafes, I said, “I like listening to other people’s conversations because it feels like I have friends. Of course, I do actually have friends.” (It sounded funny in Chinese, I swear—the only class clown moment in my life.) </p><p>The other day, we were supposed to talk about furniture, and someone said, “I bought this lamp to read under when I relax, but whenever I have free time I just go on my phone instead, so I never use the lamp.” Even little things—people going “thank you, teacher” after our professor hands out snacks, detailing what they like about their favorite restaurant—feel so much more <em>genuine</em> to me in Chinese.</p><p>It’s difficult to express in English how candid these statements feel in Chinese, stripped back of the conversational flourishes we’d impart upon them in a language we’re more fluent in. The best way I can put it is that it feels like talking to children. Without the knowledge of how to say something politely or the exact right word to use in some scenario, we resort to simpler, more direct methods, with the trust that the other person will understand we are trying to connect. In a sense, it shows vulnerability; more potently, it shows an effort to understand another person.</p><p>Lots of people say this got better for them at MIT, that people say what they mean here and you don’t have to beat around the bush, but for me it got worse. In some unfortunate way, it seems like I just have trouble connecting with the average MIT student. I don’t know how to bridge the gap between us unless we are both speaking in Chinese, it seems.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a></p><p>(I also think this is evidence that I’m not just intrinsically bad at talking to people! I never had trouble finding people I cared about and could have long conversations with in high school, or even over the summer at my internship. So the issue isn’t that I’m just an incel or something. [This paragraph would be better as a footnote, but I was worried people wouldn’t read the footnote and would think I was an incel.])</p><div><hr></div><p>I didn’t realize how achingly absent this element of effortful conversation felt in my own life—the feeling that someone else was giving me their full attention and really cared about what I was saying—until late November last year, when I spoke with one of my professors about my final project for his class, and he gave me his undivided attention, waited for me to finish my sentences, looked me in the eye (something I usually avoid but which felt natural in this case), asked questions about what I was saying. After I left the meeting, I felt so happy that I started to cry on the way down the stairwell. </p><p>This is an extreme case; I later did research for this professor over IAP and I think he’s exceptionally good at listening to people and digesting what they say in a way that makes them feel heard. (In fact, this seems like a common trait in professors in general, which makes sense.)</p><p>But it was notable to me because it made me realize the extent to which this sense of care is missing from the rest of my life. The places I’ve lived at MIT—first East Campus, and now an off-campus fraternity—advertise tolerance, acceptance, personal freedoms. I think in general this is accomplished: no one will bat an eye if you’re dating multiple people, or walk around with holes in your shirt, or want to convert your room to a slingshot shooting range.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-2" href="#footnote-2" target="_self">2</a></p><p>But acceptance isn’t care. In some cases it is actively antithetical to care. East Campus is where you go to be accepted, but it is also where people will look past each other’s substance abuse because they want to be supportive of how others cope.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-3" href="#footnote-3" target="_self">3</a> At my living group’s dinner table, people routinely disengage from conversations in the middle of sentences because they have something to say that they feel is more fun or interesting. I rarely have meaningful conversations with other people in my living group, often because it feels like I’m scrambling to get my words out before they interrupt me or their attention is diverted elsewhere.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-4" href="#footnote-4" target="_self">4</a></p><p>This feels like a marked shift in culture from when I first joined my frat. I felt disconnected from my hall in EC for exactly this reason, and at first, this frat was a breath of fresh air. I even enjoyed attending house meetings because people would just joke with each other and it felt like a little gathering of friends. Now, almost the entire initial population of the house has graduated. Now, in the interest of saving time, if you say something irrelevant to the house meeting goals, several people at once will tell you to wait until after the meeting.<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-5" href="#footnote-5" target="_self">5</a></p><p>Recently, we were trying to come up with ways to advertise our living group to potential new members. People listed a lot of things, like our communal dinners and personal freedoms and many cats. Then someone noted that it was great that we had those things but shouldn’t we also say something about the joy of actually interacting with each other? No one had any suggestions on this front. </p><p>If the only purpose to your interaction is to support some abstract institutional goal of acceptance instead of actually caring for each other as individual people, if everyone is constantly nodding their way through conversations just waiting for the next thing, what is the point?</p><div><hr></div><p>In theory, a community of any kind is a shortcut to real connection, because it promises: hey, these people all care about each other, their genuine bonds are what hold the group together, and if you feel a genuine bond to us, we are willing to make this commitment to you too. The same goes for a community centered around a shared goal, like an engineering team or a theater cast. These people all promise to care about a shared goal, and in turn to care about each other. Community is sacrifice; care is sacrifice.</p><p>And despite what I said before, it’s not true that people in my frat <em>don’t care</em>. Our rush chair slept only four hours a night for the entire week of spring rush and pushed off all their homework to run events. When someone on a dinner clean shift felt overwhelmed with work, other people stepped in to help them out. Those are manifestations of effort towards building and maintaining relationships within the context of institutional longevity.</p><p>I can’t imagine doing any of these things…unless I also care about the <em>individual people</em> involved. And I want the people I befriend to care about <em>me </em>in kind, not only about some higher ideal that binds us, like the survival of our fraternity. I want to give them my attention, and have theirs in return; I want to trust that we are both making an effort to connect with each other as real people, not as parts of an abstract institution.</p><iframe class="spotify-wrap" data-attrs="{&quot;image&quot;:&quot;https://i.scdn.co/image/ab67616d0000b2734ca68d59a4a29c856a4a39c2&quot;,&quot;title&quot;:&quot;Like Real People Do&quot;,&quot;subtitle&quot;:&quot;Hozier&quot;,&quot;description&quot;:&quot;&quot;,&quot;url&quot;:&quot;https://open.spotify.com/track/57V4uc2b2diZ4RPHXWecb9&quot;,&quot;belowTheFold&quot;:true,&quot;noScroll&quot;:false}" src="https://open.spotify.com/embed/track/57V4uc2b2diZ4RPHXWecb9" frameborder="0" gesture="media" allowfullscreen="true" allow="encrypted-media" loading="lazy" data-component-name="Spotify2ToDOM"></iframe><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>joking, and not trying to overstate my Chineseness here lol…I think it would be the same way for any foreign language I was moderately competent at, or any situation in which some obstacle is introduced and we have to give up some pretenses in order to communicate well</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-2" href="#footnote-anchor-2" class="footnote-number" contenteditable="false" target="_self">2</a><div class="footnote-content"><p>these are all real examples if you were wondering</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-3" href="#footnote-anchor-3" class="footnote-number" contenteditable="false" target="_self">3</a><div class="footnote-content"><p>ok obviously this does not generalize to all of EC! but this was like the entirety of my EC experience. after moving out, I slowly realized there were only 3-4 out of 10 halls on which this was prevalent, including the two I interacted with most.</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-4" href="#footnote-anchor-4" class="footnote-number" contenteditable="false" target="_self">4</a><div class="footnote-content"><p>again, I don’t want to generalize to <em>everyone</em> who lives in my frat, but I think this is true in my interactions with roughly half the people there. and I don’t think they’re being intentionally disrespectful, they just get distracted or have a lot on their mind. but idk — if you don’t care about our conversation enough to not at least apologize for getting distracted and circle back to it, it’s exhausting to try to keep it up</p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-5" href="#footnote-anchor-5" class="footnote-number" contenteditable="false" target="_self">5</a><div class="footnote-content"><p>not exaggerating; this happens often enough that people get rightly annoyed because they were actually trying to say something relevant but didn’t get to it in, like, the first five words</p><p></p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

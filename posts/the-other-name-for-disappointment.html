@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>the other name for disappointment - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="the-compass.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">the compass</span>
+    </a>
+    <a href="seven-scenes-from-paris.html" class="nav-arrow next-post">
+      <span class="nav-title">seven scenes from Paris</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>the other name for disappointment</h2>
+      <span class="post-date">April 03, 2025</span>
+      <div class="content">
+      <p><strong>I.</strong></p><p>I don’t remember when I realized we would all die, but it must have been before I was four. I know this because I wrote a card to my mother at that time which I found years later. It went like this:</p><blockquote><p>How I feel about u:</p><p>Love</p><p>Pretty</p><p>Sad dat u will die :’(</p></blockquote><p>Back then the world was always pressing in on me, and being incapable of explaining this feeling to anyone, instead I cried about everything. Fabric and hair felt too thin, my dreams assaulted me with too much texture, I sobbed when I had to hold something in my mouth for too long (ranging from chewy candy to toothpaste). The world’s worst oppression, one which led to this same overstimulation and fear, was the fact of death. Most adults didn’t understand; they thought I was being dramatic when I refused to nap at school, or when I cried and cried about the black holes I had read were coming to swallow up the Earth. </p><p>But my mother had the same preoccupation with death. She understood. She plugged in nightlights and played CDs at night in service of her fear of ghosts, of darkness, of the sound of wind outside. To fall asleep I asked her to sing a lullaby while I imagined a technicolor world on the Moon. My mother and I would travel there in rockets and live forever. Our bodies radiated rainbow light. The surface of the Moon glowed stark white.</p><p><strong>II.</strong></p><p>I recall no such sentiment toward my father, who was a difficult man to feel sentimental about. I was constantly calculating, around him, how to appear as the most inoffensive and normal human being possible. He was entirely impenetrable to me. A few times, I glimpsed something under that charred exoskeleton, sitting on a sofa reading parenting books and then approaching me as he might approach a business partner, the creaking chitin armor that I only began to understand when I started growing into it.</p><p>Once, when I was nine, I had eaten something bad and spent the night throwing up. Now I lay on the bed crying in discomfort. In the darkness, outlined by amber light from the bathroom, my father touched my hand. An unmistakable expression of emotional reassurance. It so surprised me that I stopped crying and went still, with no idea how to react. What my nausea-riddled body drank from that slice of amber light—what it locked into memory—was not my pain or my tears, but his unsure, hovering warmth.</p><p><strong>III.</strong></p><p>Instagram is full of accounts featuring pet birds who are very much in love with each other. Look how Lucy kisses this picture of her former lover, now passed, every night before bed. Yes, the comments chime, I had a pair of lovebirds just like this, and when one passed, the other moped for a month before going too.</p><p>Recently I encountered such a pair of birds in love for the first time in real life. My friend’s grandfather kept a blue bird and a green bird. They talked to each other and pecked each other’s faces all day. When I approached their cage, they shuffled away from me, throwing shady glances at each other and twittering quietly.</p><p>“I got the blue one after the last one died,” my friend’s grandfather said. Indeed, the blue one looked more slender and small. “They only live for two or three years.”</p><p>I peered into the innocent round-cheeked face of the green bird. Did it remember? All those dawns revealing the other bird perched still, returning its pearly-eyed devotion, until the thousandth sunrise, when night made a stiff blue carcass?</p><p><strong>IV.</strong></p><p>I was thinking lately about how I identify love. This is a pragmatic question, not a philosophical one. With a friend I feel happy, light, content. With someone I love I hear the coming of a creature in the night, I draw you closer even knowing it will find me—wrap its bony fingers around my wrist—thread a long, curved claw through the gaping hole burned by the shaft of moonlight that once pinned my artery to your palm and started its watch.</p><p>The hurt is not a symptom. The hunger—after Ocean Vuong, “giving the body what it knows it cannot keep”<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a>—is not a symptom. It’s the real thing that I call love.</p><p>Your back. Amber light. Sliced. Pinned. Hurt, flayed open. A mound of blue. Soft lullaby on lunar dirt. A hand touching mine in the dark. A promise that can only be broken. Inertia that can only collapse. No other word but disappointment. </p><p>Maybe one other word. I’m far from the first to notice: “The other name for disappointment, after all, is love.”<a class="footnote-anchor" data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-2" href="#footnote-2" target="_self">2</a></p><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p>from <em>On Earth We’re Briefly Gorgeous</em>: <a href="https://www.poetryfoundation.org/poetrymagazine/poems/57586/on-earth-were-briefly-gorgeous">https://www.poetryfoundation.org/poetrymagazine/poems/57586/on-earth-were-briefly-gorgeous</a></p></div></div><div class="footnote" data-component-name="FootnoteToDOM"><a id="footnote-2" href="#footnote-anchor-2" class="footnote-number" contenteditable="false" target="_self">2</a><div class="footnote-content"><p>from Andrea Long Chu’s <em>On Liking Women</em>: <a href="https://www.nplusonemag.com/issue-30/essays/on-liking-women/">https://www.nplusonemag.com/issue-30/essays/on-liking-women/</a></p><p></p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>two weeks in August - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h1 {
+      font-size: 13.2ch;
+      text-shadow: 0px 0px 5px var(--glow-color);
+      padding-top: 0.55rem;
+      padding-bottom: 0rem;
+      margin-left: 3px;
+    }
+
+    @media screen and (max-width: 80ch) {
+      h1 {
+        font-size: 19.25vw;
+      }
+    }
+
+    .red-drop {
+      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
+    }
+
+    .red-raise {
+      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
+    }
+
+    .header-container {
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="writing-btn" class="active">writing</button>
+    <button id="gallery-btn">gallery</button>
+    <button id="likes-btn">likes</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="goldfinch-or-sunflower.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">goldfinch or sunflower?</span>
+    </a>
+    <a href="siddhartha.html" class="nav-arrow next-post">
+      <span class="nav-title">Siddhartha</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>two weeks in August</h2>
+      <span class="post-date">August 11, 2023</span>
+      <div class="content">
+      <div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Zl_K!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Zl_K!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/c30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg" width="1456" height="972" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/c30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:972,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:8112887,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!Zl_K!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Zl_K!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30ad1ae-47d3-4a5d-a402-c055b23c32e4_7360x4912.jpeg 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@hieudoquang?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Hieu Do Quang</a> on <a href="https://unsplash.com/photos/KmWuKJAkalU?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure></div><p>I walked to Whole Foods on Sunday morning to buy ingredients to make a curry: vegan, with coconut milk and chickpeas. As I crossed the street I noticed someone pulling dead hollyhock stalks out of the dirt next to the sidewalk and piling them in a bin. Removed of the shadow of the flowers, the asphalt looked bare and white.</p><p>I had loved ducking under the drooping hollyhocks on my walk to the bus station for work, or on my way to the grocery store, or at the beginning of a run. Bees clung to their papery petals with their legs doused in pollen. Towhees pecked at the base of their stems.</p><p>It was only two weeks before I would have to leave this place, and that thought, coupled with the hollyhocks being carted away, like a premonition of the end of summer, bathed me in melancholia for the rest of my walk.</p><p>Nowadays, each day of work blurs into the next. The students in my internship program are all giving talks and poster presentations next week. Then we have a final report to write; then the program is over. Alex leaves the morning of the 18th, so I’ll be alone for a full day; I’ll pack my things, then leave for Colorado the next morning.</p><p>It feels like just a couple of weeks ago that I came to Santa Fe. I know the city will stay with me for far longer. In some senses this summer has brought me greater clarity about my future. The work I learned about that intrigued me most was regarding turbulence—so ubiquitous and fundamental, yet conventionally treated in such a brutal, messy way. Beauty is truth, I’ve come to believe; and I want to find the beauty in this near-infinite, self-similar stretching and folding that drives so much of our world. I added 8.09—Classical Mechanics III, which covers fluid dynamics and turbulence—to my courseload for the fall, in lieu of a class on probability I felt obligated to take. Plasmas, turbulence, exploding stars. Somehow, I’m carving out a little spot in physics for myself, where I know if I leave it alone it will tug on my mind like an unfinished tale until I come back to it.</p><p>In some other sense, I feel more lost than ever. I buy collections of short stories and scour through them; I read Joan Didion, James Baldwin, Haruki Murakami, searching for meaning in their passages. But I find it impossible to wrap my mind around their words. It seems like I will reread the same paragraph forever without the author getting through to me. I watched <em>Perfect Blue</em> recently; it’s a Japanese animated film from 1997. Rationally, I knew it was stunning, but I felt very little at the end. I watched <em>Asteroid City, The Truman Show, Barbie, Oppenheimer</em>, and kept on feeling nothing.</p><p>I have written more consistently this summer than I have in a long while; in the meantime, stories have fallen apart before me. I keep thinking about <em>The Idiot</em> by Elif Batuman, which I read at the start of June. I didn’t understand what Batuman was trying to get across when I first read it, but now it lingers in my brain, the shape of a mystery taking form. The protagonist is a freshman at Harvard concentrating in linguistics. Over the course of the year, writing and reading hundreds of pages of stories and essays, the words begin to lose their meaning to her. She only becomes more confused as the year wears on, and finally, after a summer in Hungary, she changes her concentration from linguistics.</p><p>At the time this sort of confusion seemed abstract and artificial to me. I had never experienced anything like it. But now I feel the same frustration towards language, towards the very concept of narrative, even as I narrate my days in the same voice I find myself writing in.</p><p>Language is not the only thing I am confused about. Before this summer, it seemed like there were some things totally outside the realm of possibility for me. For example, if I were driving a car on a long, straight road surrounded by bristling plains, I would not think to stop the car and get out and walk into the grass. Despite being physically capable of doing this, it simply would not occur to me. There was a layer of separation between me and some parts of the world.</p><p>Now this layer has dissolved. It is me, the world, and nothing between us. I went to the reservoir again yesterday with friends from my internship. On the walk back to the car, we saw two bears, one black and then one brown. They were lumbering through the grass and looking right at us. I didn’t feel any fear or surprise. Instead I was just impressed by their physicality, the sheen of their fur and the fluidity with which they moved. It was entirely possible that the bears could come towards us and touch us. There was no glass wall separating us, and I had expected this—I did not feel the glass breaking, it had already shattered quietly a few weeks ago.</p><p>Me, the world, and nothing in between. I spent many years of my life searching for that feeling. In Santa Fe it comes every day. I walk back from Trader Joe’s at night with ingredients for a seitan stir fry in my bag. It begins to rain, hard, but it had already rained earlier in the day so I’m fine—I had the foresight to wear waterproof boots. Now I walk down the middle of the street alone, one foot after another between thickly painted yellow lines. It’s dark—the starlight alone lights the sky more brightly than the few sparse streetlamps manage to illuminate the ground. But I can raise my hand to the sky and feel the rain; my eyes can adjust&nbsp;and guide me back to the casita.</p><p>A few days later I try to recreate this scene: back to the middle of the street, late at night, Trader Joe’s bag slung over my shoulder—no rain, though. And I only make it a few steps before I hear a car revving a few hundred feet behind me, killing my fantasy. I’m forced back onto the barren, flowerless sidewalk. <em>Don’t get too attached</em>, the car warns as it speeds by, sweeping its headlights over my eyes, no doubt making my pupils constrict. <em>This will all end.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script src="../light-starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+        window.starfield.stop();
+        window.lightStarfield.start();
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+        window.lightStarfield.stop();
+        window.starfield.start();
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    initTheme();
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('likes-btn').addEventListener('click', () => window.location.href = '../likes.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
