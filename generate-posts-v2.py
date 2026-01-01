@@ -64,6 +64,7 @@ template = """<!DOCTYPE html>
       color: var(--text-color);
       padding: 0;
       margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }}
 
     h1, h2, h3, h4, h5, h6 {{
