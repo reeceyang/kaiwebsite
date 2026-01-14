@@ -93,8 +93,8 @@
         this.vx = (Math.random() - 0.5) * 0.003;  // much slower lateral
         this.vy = 0.005 + Math.random() * 0.005;   // much slower downward
         // Arc acceleration perpendicular to initial velocity
-        this.ax = 0.00001 * (Math.random() - 0.5);
-        this.ay = 0.00001 * (Math.random() - 0.5);
+        this.ax = 0.00002 * (Math.random() - 0.5);
+        this.ay = 0.00002 * (Math.random() - 0.5);
       } else {
         // Spawn from left
         this.x = -20;
@@ -102,8 +102,8 @@
         this.vx = 0.005 + Math.random() * 0.005;   // much slower rightward
         this.vy = (Math.random() - 0.5) * 0.003;  // much slower lateral
         // Arc acceleration perpendicular to initial velocity
-        this.ax = 0.00001 * (Math.random() - 0.5);
-        this.ay = 0.00001 * (Math.random() - 0.5);
+        this.ax = 0.00002 * (Math.random() - 0.5);
+        this.ay = 0.00002 * (Math.random() - 0.5);
       }
       this.path = [];  // Array of {x, y, birth} objects
       this.birth = performance.now();

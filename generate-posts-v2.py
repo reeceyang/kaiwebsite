@@ -32,7 +32,7 @@ template = """<!DOCTYPE html>
   </script>
   <style>
     :root {{
-      --bg-color: black;
+      --bg-color: #0a0a0a;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;

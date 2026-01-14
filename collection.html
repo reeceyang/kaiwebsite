@@ -11,7 +11,7 @@
   <style>
     :root {
       /* Dark mode (default) */
-      --bg-color: black;
+      --bg-color: #0a0a0a;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -45,6 +45,14 @@
       padding: 0;
       margin: 0;
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    i {
+      font-style: italic;
+    }
+
+    .star {
+      color: var(--marker-color);
     }
 
     h1,
@@ -224,13 +232,43 @@
 
   <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
     <div style="padding: 1.1rem;">
-      <h2>Things I like</h2>
-      <p>
-	This page is in progress.
-      </p>
+      <h2>Music</h2>
+      <p style="font-style: italic; font-size: 0.95rem; color: var(--date-color);" id="lastfm-updated">Loading...</p>
+      <ul id="lastfm-tracks">
+        <!-- Tracks will be inserted here by JavaScript -->
+      </ul>
     </div>
   </div>
 
+  <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
+    <div style="padding: 1.1rem;">
+      <h2>Literature</h2>
+      <ul>
+        <li><i>The Remains of the Day</i> <span class="star">✦</span> Kazuo Ishiguro <span class="star">✦</span></li>
+        <li><i>Fun Home</i> <span class="star">✦</span> Alison Bechdel <span class="star">✦</span></li>
+        <li><i>Pale Fire</i> <span class="star">✦</span> Vladimir Nabokov <span class="star">✦</span></li>
+        <li><i>Oblivion</i> <span class="star">✦</span> David Foster Wallace <span class="star">✦</span></li>
+        <li><i>The Unconsoled</i> <span class="star">✦</span> Kazuo Ishiguro <span class="star">✦</span></li>
+        <li><i>Twice Alive</i> <span class="star">✦</span> Forrest Gander <span class="star">✦</span></li>
+        <li><i>Giovanni's Room</i> <span class="star">✦</span> James Baldwin <span class="star">✦</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
+    <div style="padding: 1.1rem;">
+      <h2>Movies</h2>
+      <ul>
+        <li><i>Mishima: A Life in Four Chapters</i> <span class="star">✦</span> 1985 <span class="star">✦</span></li>
+        <li><i>C'e Ancora Domani</i> <span class="star">✦</span> 2023 <span class="star">✦</span></li>
+        <li><i>Blade Runner</i> <span class="star">✦</span> 1982 <span class="star">✦</span></li>
+        <li><i>Parasite</i> <span class="star">✦</span> 2019 <span class="star">✦</span></li>
+        <li><i>Perfect Blue</i> <span class="star">✦</span> 1997 <span class="star">✦</span></li>
+        <li><i>Farewell My Concubine</i> <span class="star">✦</span> 1993 <span class="star">✦</span></li>
+      </ul>
+    </div>
+  </div>
+  
   <script src="./starfield.js"></script>
   <script src="./light-starfield.js"></script>
   <script>
@@ -271,6 +309,134 @@
     document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = 'collection.html');
+
+    // Last.fm Integration
+    const LASTFM_API_KEY = '7b2ad996af54c0a21b1c291e72607cc3';
+    const LASTFM_USERNAME = 'tidalove';
+    const CACHE_KEY = 'lastfm_cache';
+
+    function getTodayDateString() {
+      const today = new Date();
+      return today.toISOString().split('T')[0]; // Returns YYYY-MM-DD
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    function getCachedData() {
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (!cached) return null;
+
+        const data = JSON.parse(cached);
+        if (data.date === getTodayDateString()) {
+          return data;
+        }
+        return null;
+      } catch (e) {
+        console.error('Error reading cache:', e);
+        return null;
+      }
+    }
+
+    function setCachedData(tracks) {
+      try {
+        const data = {
+          date: getTodayDateString(),
+          tracks: tracks,
+          timestamp: Date.now()
+        };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.error('Error saving cache:', e);
+      }
+    }
+
+    function renderTracks(tracks, updateDate) {
+      const tracksList = document.getElementById('lastfm-tracks');
+      const updatedElement = document.getElementById('lastfm-updated');
+
+      // Clear loading state
+      tracksList.innerHTML = '';
+
+      // Render tracks
+      tracks.forEach(track => {
+        const li = document.createElement('li');
+        li.innerHTML = `<i>${track.name}</i> <span class="star">✦</span> ${track.artist} <span class="star">✦</span>`;
+        tracksList.appendChild(li);
+      });
+
+      // Update date
+	updatedElement.innerHTML = `top tracks from the past 30 days <span class="star">✦</span> last updated ${formatDate(updateDate)}`;
+    }
+
+    function showError() {
+      const tracksList = document.getElementById('lastfm-tracks');
+      const updatedElement = document.getElementById('lastfm-updated');
+
+      tracksList.innerHTML = '<li>Unable to load music data</li>';
+      updatedElement.textContent = 'Error loading data';
+    }
+
+    async function fetchLastFmData() {
+      const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&period=1month&limit=10&format=json`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.message || 'Last.fm API error');
+        }
+
+        const tracks = data.toptracks.track.map(track => ({
+          name: track.name,
+          artist: track.artist.name,
+          playcount: track.playcount
+        }));
+
+        setCachedData(tracks);
+        renderTracks(tracks, getTodayDateString());
+      } catch (error) {
+        console.error('Error fetching Last.fm data:', error);
+
+        // Try to use cached data as fallback
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          try {
+            const data = JSON.parse(cached);
+            renderTracks(data.tracks, data.date);
+            return;
+          } catch (e) {
+            // Fallback failed
+          }
+        }
+
+        showError();
+      }
+    }
+
+    function initLastFm() {
+      const cached = getCachedData();
+
+      if (cached) {
+        // Use cached data
+        renderTracks(cached.tracks, cached.date);
+      } else {
+        // Fetch fresh data
+        fetchLastFmData();
+      }
+    }
+
+    // Initialize Last.fm integration on page load
+    initLastFm();
   </script>
 </body>
 
