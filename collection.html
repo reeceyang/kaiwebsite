@@ -11,7 +11,7 @@
   <style>
     :root {
       /* Dark mode (default) */
-      --bg-color: #0a0a0a;
+      --bg-color: #121212;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -21,6 +21,8 @@
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
       --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
     }
 
     :root[data-theme="light"] {
@@ -35,6 +37,8 @@
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
       --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
     }
 
     * {
@@ -87,17 +91,14 @@
     }
 
     h1 {
-      font-size: 13.2ch;
+      /* one line at every width: 13.2ch is the design size, and 15.8vw is the
+         largest that still keeps the red drop shadow inside a 320px screen */
+      font-size: min(13.2ch, 15.8vw);
       text-shadow: 0px 0px 5px var(--glow-color);
       padding-top: 0.55rem;
       padding-bottom: 0rem;
       margin-left: 3px;
-    }
-
-    @media screen and (max-width: 80ch) {
-      h1 {
-        font-size: 19.25vw;
-      }
+      white-space: nowrap;
     }
 
     ul {
@@ -224,7 +225,6 @@
 
   <nav class="menu-bar container">
     <button id="home-btn">home</button>
-    <button id="writing-btn">writing</button>
     <button id="gallery-btn">gallery</button>
     <button id="collection-btn" class="active">collection</button>
     <button id="theme-toggle">☀</button>
@@ -265,35 +265,27 @@
         <li><i>Parasite</i> <span class="star">✦</span> 2019 <span class="star">✦</span></li>
         <li><i>Perfect Blue</i> <span class="star">✦</span> 1997 <span class="star">✦</span></li>
         <li><i>Farewell My Concubine</i> <span class="star">✦</span> 1993 <span class="star">✦</span></li>
+	<li><i>Mulholland Drive</i> <span class="star">✦</span> 2001 <span class="star">✦</span></li>
       </ul>
     </div>
   </div>
   
   <script src="./starfield.js"></script>
-  <script src="./light-starfield.js"></script>
   <script>
     // Theme Toggle Implementation
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
 
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      setTheme(savedTheme);
-    }
-
     function setTheme(theme) {
       if (theme === 'light') {
         root.setAttribute('data-theme', 'light');
         themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
       } else {
         root.removeAttribute('data-theme');
         themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
       }
       localStorage.setItem('theme', theme);
+      window.starfield.refresh();
     }
 
     function toggleTheme() {
@@ -302,11 +294,10 @@
     }
 
     themeToggle.addEventListener('click', toggleTheme);
-    initTheme();
+    setTheme(localStorage.getItem('theme') || 'dark');
 
     // Navigation
     document.getElementById('home-btn').addEventListener('click', () => window.location.href = 'index.html');
-    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = 'collection.html');
 

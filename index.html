@@ -11,7 +11,7 @@
   <style>
     :root {
       /* Dark mode (default) */
-      --bg-color: #0a0a0a;
+      --bg-color: #121212;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -20,6 +20,9 @@
       --backdrop-brightness: 0.5;
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
     }
 
     :root[data-theme="light"] {
@@ -33,6 +36,9 @@
       --backdrop-brightness: 1.5;
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
     }
 
     * {
@@ -77,17 +83,14 @@
     }
 
     h1 {
-      font-size: 13ch;
+      /* one line at every width: 13.2ch is the design size, and 15.8vw is the
+         largest that still keeps the red drop shadow inside a 320px screen */
+      font-size: min(13.2ch, 15.8vw);
       text-shadow: 0px 0px 5px var(--glow-color);
       padding-top: 0.55rem;
       padding-bottom: 0rem;
-      margin-left: 7px;
-    }
-
-    @media screen and (max-width: 80ch) {
-      h1 {
-        font-size: 19vw;
-      }
+      margin-left: 3px;
+      white-space: nowrap;
     }
 
     ul {
@@ -225,7 +228,6 @@
 
   <nav class="menu-bar container">
     <button id="home-btn" class="active">home</button>
-    <button id="writing-btn">writing</button>
     <button id="gallery-btn">gallery</button>
     <button id="collection-btn">collection</button>
     <button id="theme-toggle">☀</button>
@@ -236,7 +238,7 @@
     <div class="flex-grid-col container dashed backdrop">
       <div>
 
-        <p>I'm Kai. I studied physics at MIT and now work on computer vision for ecology in the <a href="https://beerylab.csail.mit.edu">Beery Lab</a>. Computer vision is interesting to me as a probe into the question: how do different forms of life learn to organize raw stimuli into a meaningful perception of the world around them?</p>
+        <p>I'm Kai. I studied physics at MIT and now work on computer vision for ecology in the <a href="https://beerylab.csail.mit.edu">Beery Lab</a>.</p>
 	<p>Before this, I worked on nuclear security at <a href="https://lnsp.mit.edu">MIT LNSP</a>, simulated core-collapse supernovae at <a href="https://lanl.gov">LANL</a>, and did plasma physics research with Nuno Loureiro.</p>
         <p>
 	  I like <a href="https://goldenblue.substack.com">writing</a>, making <a href="https://kai.bleebo.dev/gallery">visual art</a>, bouldering, the ocean, Kazuo Ishiguro, ice skating, musical theater, and <a href="https://kai.bleebo.dev/collection">many more things</a>.
@@ -255,30 +257,21 @@
   </div>
   </div>
   <script src="./starfield.js"></script>
-  <script src="./light-starfield.js"></script>
   <script>
     // Theme Toggle Implementation
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
 
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      setTheme(savedTheme);
-    }
-
     function setTheme(theme) {
       if (theme === 'light') {
         root.setAttribute('data-theme', 'light');
         themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
       } else {
         root.removeAttribute('data-theme');
         themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
       }
       localStorage.setItem('theme', theme);
+      window.starfield.refresh();
     }
 
     function toggleTheme() {
@@ -287,19 +280,35 @@
     }
 
     themeToggle.addEventListener('click', toggleTheme);
-    initTheme();
+    setTheme(localStorage.getItem('theme') || 'dark');
 
     // Navigation
     document.getElementById('home-btn').addEventListener('click', () => window.location.href = 'index.html');
-    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = 'collection.html');
 
     // Tortellini functionality
     const torty = document.getElementById('torty');
     const sayHi = document.getElementById('say-hi');
+    // A shuffle bag rather than a fresh coin flip: every photo comes up once
+    // before any repeats, and a refilled bag never opens on the photo the last
+    // one closed with.
+    const TORTY_COUNT = 22;   // torties/0.jpg … torties/21.jpg — bump when adding
+    let bag = [];
+    let lastTorty = -1;
     const randomizeTorty = () => {
-      torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
+      if (!bag.length) {
+        bag = Array.from({ length: TORTY_COUNT }, (_, i) => i);
+        for (let i = bag.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [bag[i], bag[j]] = [bag[j], bag[i]];
+        }
+        if (bag.length > 1 && bag[bag.length - 1] === lastTorty) {
+          [bag[bag.length - 1], bag[0]] = [bag[0], bag[bag.length - 1]];
+        }
+      }
+      lastTorty = bag.pop();
+      torty.src = './torties/' + lastTorty + '.jpg';
     };
     sayHi.addEventListener('click', () => {
       if (sayHi.innerText === 'bye torty') {
@@ -307,7 +316,6 @@
         sayHi.innerText = 'torty is resting';
         sayHi.disabled = true;
         randomizeTorty();
-        torty.src = './torties/' + Math.floor(Math.random() * 22) + '.jpg';
         for (let i = 1; i <= 3; i++) {
           setTimeout(() => {
             sayHi.innerText = 'torty is resting' + '.'.repeat(i);

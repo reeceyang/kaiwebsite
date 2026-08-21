@@ -16,7 +16,7 @@
   </script>
   <style>
     :root {
-      --bg-color: #0a0a0a;
+      --bg-color: #121212;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -26,6 +26,8 @@
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
       --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
     }
 
     :root[data-theme="light"] {
@@ -39,6 +41,8 @@
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
       --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
     }
 
     * {
@@ -57,32 +61,6 @@
       font-style: normal;
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: var(--heading-stroke);
-    }
-
-    h1 {
-      font-size: 13.2ch;
-      text-shadow: 0px 0px 5px var(--glow-color);
-      padding-top: 0.55rem;
-      padding-bottom: 0rem;
-      margin-left: 3px;
-    }
-
-    @media screen and (max-width: 80ch) {
-      h1 {
-        font-size: 19.25vw;
-      }
-    }
-
-    .red-drop {
-      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
-    }
-
-    .red-raise {
-      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
-    }
-
-    .header-container {
-      padding-bottom: 0;
     }
 
     h2 {
@@ -284,8 +262,7 @@
 
   <nav class="menu-bar container" style="margin-top: 1.65rem;">
     <button id="home-btn">home</button>
-    <button id="writing-btn" class="active">writing</button>
-    <button id="gallery-btn">gallery</button>
+    <button id="gallery-btn" class="active">gallery</button>
     <button id="collection-btn">collection</button>
     <button id="theme-toggle">☀</button>
   </nav>
@@ -379,37 +356,20 @@
   </div>
 
   <script src="../starfield.js"></script>
-  <script src="../light-starfield.js"></script>
   <script>
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
-
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      if (savedTheme === 'light') {
-        themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
-      } else {
-        themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
-      }
-    }
 
     function setTheme(theme) {
       if (theme === 'light') {
         root.setAttribute('data-theme', 'light');
         themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
       } else {
         root.removeAttribute('data-theme');
         themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
       }
       localStorage.setItem('theme', theme);
+      window.starfield.refresh();
     }
 
     function toggleTheme() {
@@ -418,10 +378,9 @@
     }
 
     themeToggle.addEventListener('click', toggleTheme);
-    initTheme();
+    setTheme(localStorage.getItem('theme') || 'dark');
 
     document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
-    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
     document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));

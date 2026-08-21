@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>In relief - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="twice-alive-portrait-of-an-angel.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Twice alive, Portrait of an angel, Sea wall</span>
+    </a>
+    <a href="glass-cathedrals-and-tonight-its.html" class="nav-arrow next-post">
+      <span class="nav-title">Glass cathedrals & Tonight it’s 1990</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>In relief</h2>
+      <span class="post-date">April 25, 2026</span>
+      <div class="content">
+      <p><em><strong>Outside</strong></em></p><p>More and more I view painting as a deeper way of seeing. Something in a scene or a photograph catches my interest; through painting I discover what it is. Towards the second half of my oil painting class this semester I completed the painting I’d been working on. When I thought about what I’d paint next I became thrilled by those photos which caused some vital sensation that only grew deeper as I went on looking. My mouth watered and real tears gathered behind my eyes when I found a photo of the Cuernos del Paine and imagined contouring the shadow cast by an arete. It looked brown and gray to me now, but I knew if I painted it then I would not be able to keep myself from seeing every color strewn in its profile forever.</p><p>Before painting forced me to really look, I always thought, what’s the point of painting a landscape? Sure, the end result is beautiful, but it’s just a lot of detail work. Now a field of grass has a deep red undertone, a sky wisped over by cloud shifts from purple to blue. Basic, basic things that I never saw before. More and more what’s interesting to me is just the details of our own world, the one we live in. I want to paint landscapes. I want to paint the shadows of your body under light. Plain, clean, no frills. I just want to paint how it really looks.</p><p>My favorite visual artists aren’t big on realism. They all peel away from reality in ways that make me feel like I’m discovering something as I view their work: they reproduce, in a way, the feeling I love from painting. The first time I found myself truly captivated by a museum visit was the MFA’s special exhibition on Dali two years ago. It singlehandedly turned me into someone who doesn’t read museum plaques, which is to say, someone who believes only in the power of the art itself to stun me. There was nothing that any of the plaques could say that could have either intensified or diluted the power of looking at Dali’s paintings, most of which I had of course seen before, in textbooks or on little screens.  </p><p><span>Yet the experience of standing before his paintings in real life was not even vaguely comparable to those previous glimpses of thumbnails. To me the power of Dali’s art lies in its scale—not only its sheer physical size (many of the canvases measured once or twice my height) but the interactions of scale </span><em>within</em><span> the painting. Most paintings I had seen before seemed to set a default spatial scale and mostly operate there, which is also how we tend to perceive the world around us. Hence the dizzying vertigo of experiencing a new landscape, being thrown suddenly into perception of a much larger scale than is relevant in one’s familiar surroundings. An extreme example of this is Impressionism: small scales are taken much less seriously than large scales; almost all that is interesting or serious or meaningful takes place on large scales. On the other hand Dali’s paintings take every scale seriously. During the special exhibition I was constantly shuffling closer to and farther away from the canvases, craning my neck, observing as my perception oscillated between multiple representations of reality: oh, that’s true—and that’s true too. In the physical world there’s no such concept as an inherent scale to reality: there’s just the one that we learn is most relevant for us.</span></p><p>The idea of subtly perturbing a representation away from how we usually experience it, invoking a sense of strangeness or surrealism in order to force us to get closer to the real thing, is at the core of what Dali’s art does for me, and in general is what the visual art I like from other people does. And it also feels like the process of making visual art. Recently I was working on a short animation. Before then I’d worked only on very simple scenes and motions, and didn’t spend much time at all on the “craft” of animation. This time I wanted to animate something more interesting, and the obvious wrongness of my first attempt at the motion made it finally click for me, that motion happens along arcs in space, that every point on a surface needs to move along this arc, and that your eyes will sense immediately (even in a set of frames that, seen one after the other at a slow pace, look like a perfectly physically reasonable trajectory) when there is something off—when a part no longer moves as a rigid body—the moment you play back the frames fast enough to evoke a real impression of motion.</p><p>While Kenneth was in Boston, we went to the art studio while it was empty and together unhooked the burlap curtain from the window, filling the room with white. We set up easels, I worked on my painting, he followed the assignments in his “Drawing on the Right Side of the Brain” book. I had made progress with pushing my sky from gauzy blue and white to a scene with more structure: little rivulets and puffs of greater definition punctuating towering, luminous swathes of gray. But then texturing the grass was driving me mad. So I asked Kenneth, who had been working on copying down an outline upside-down, if he’d sit still for me on the floor—positioned him at an angle so the sun washed gentle over his face—and then I went to the work of bringing his face out of a dark smear of charcoal.</p><p>The sun entered at an angle and threw his features into soft relief. I remembered why I loved drawing from life. Kenneth’s nose was straighter and narrower, and his eyes longer, than I first thought. His top lip thinner and wider, the crests of his eyes farther towards the center of his face, his Cupid’s bow flatter. All of this I discovered over the half hour I spent on him by paying attention to which strokes pushed the image towards coherence and which threatened to pull it apart. </p><div><hr/></div><p><em><strong>Inside</strong></em></p><p><span>When you paint, you may just be looking. You may not know anything except that a certain scene strikes you in some way and you would like to discover why. But when you write, shouldn’t there be something you want to say? Shouldn’t there be a scene </span><em>inside</em><span> you? I kept coming back to a Joan Didion quote which I’d always found beautiful and true but which now hung curselike over my pen. </span></p><blockquote><p>All I know about grammar is its infinite power. To shift the structure of a sentence alters the meaning of that sentence, as definitely and inflexibly as the position of a camera alters the meaning of the object photographed. Many people know about camera angles now, but not so many know about sentences. The arrangement of the words matters, and the arrangement you want can be found in the picture in your mind. The picture dictates the arrangement. The picture dictates whether this will be a sentence with or without clauses, a sentence that ends hard or a dying-fall sentence, long or short, active or passive. The picture tells you how to arrange the words and the arrangement of the words tells you, or tells me, what’s going on in the picture. Nota bene: It tells you. You don’t tell it.</p></blockquote><p><span>A picture appeared as a rhythm; a pivot segmenting a sentence, into </span><em>before</em><span> and </span><em>after</em><span>, into </span><em>still</em><span> and </span><em>instead</em><span>; an arc of motion that would reveal its truth or its wrongness, when I read it back, by the vital sensation of being carried in the right direction, or not. What should I have done, then, when I began to cycle through pictures? Last autumn, my impulses could still be spun into new images and new arcs. But in the months that followed I looked upon my love for so long—exposed it, again and again, its unchanging gray face, refusing to touch it—that writing became painful: whenever I wrote I found the same thing coming out, over and over, and each repetition unearthed less and less that was unknown to me. All I wanted, towards the end, was to look outside myself. As a result I read more and painted more and wrote much less, and what I did write was all fiction. </span></p><p><span>And then this period ended in a violent tear. I called Renee saying </span><em>I don’t know what I can do</em><span>. I sat in Kenneth’s room drinking yuzu soda, too nauseated to eat. I met new people in whom I caught glimpses of myself while passing by, angled reflections off dark windows. More intense than me; more open than me. They made me ask: how do I want to fill my waking moments? What kind of life do I want; with what kind of person?</span></p><p><span>The thing is that I thought I knew everything about myself. And it’s true that when I finally looked inside again—</span><em>really</em><span> looked, in the way I need to look to complete a painting, not as an indifferent observer but as someone affected, moved, placed in danger of being pulled apart, someone </span><em>being</em><span> pulled apart, even—I was not at all surprised by what I saw; rather, I had a feeling of insight, of precipitation. </span></p><p>I knew that it caused me great distress to act against my heart. So I’d trusted that any misunderstanding of self would spontaneously appear to me, self-evident, unavoidable, as it had so many times before. But like that which forms on a pool of water undisturbed for too long, what I’d found glancing inside was just the surface of an oilskin. Once perturbed, other colors rippled into sight—a piercing humiliation, yes, but also a desire for reciprocity; a hunger for intensity; a kind of recursive relief at allowing myself to realize these things. In that way it felt like the same kind of miracle as painting. A disturbance, the opening of a small window, the shifting of tides around a foreign object plunged inside, revealed a sense of wrongness that my prolonged, disinterested observation above the surface of a still lake had failed to unearth.</p><p>A week later I flew to California, saw my friends under the sun. On the morning that I left San Francisco, I sat in a cafe to while away the time until my train to Bakersfield. After churning through a group of customers, the lone barista sat, hunched over, behind the counter wolfing down a sandwich. Outside a woman held her phone to her face with one hand while performing a maneuver to light a cigarette pinched between the same hand’s pinky and ring fingers. The sun was warming my legs on one side. </p><p>It was true that all these things happened outside me. And why would having looked inside myself change how I looked at the outside world? But somehow it did, somehow I could not separate them after all, somehow I saw the barista and the woman and the sun as parts of a world created anew. When finally the waters of the lake settled and I came out the other side of my heartbreak and looked with wide eyes at what had pooled out from inside me, I found, for perhaps only the second time in my life, a sense of truth, even a sense of beauty, my self in relief.</p></div></div><div class="visibility-check">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

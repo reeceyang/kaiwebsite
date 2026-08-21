@@ -6,12 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="title" content="Kai">
-  <meta name="description" content="Gallery">
+  <meta name="description" content="Writing and art by Kai van Brunt">
   <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function () {
+      if ((localStorage.getItem('theme') || 'dark') === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <style>
     :root {
       /* Dark mode (default) */
-      --bg-color: #0a0a0a;
+      --bg-color: #121212;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -21,10 +29,16 @@
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
       --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+      /* the comet field, drawn to canvas */
+      --comet-core: rgba(255, 255, 255, 0.92);
+      --comet-soft: rgba(178, 198, 255, 0.30);
+      --comet-head: rgba(255, 255, 255, 1);
     }
 
     :root[data-theme="light"] {
-      /* Light mode */
+      /* Light mode: the same sky, reverse-coloured */
       --bg-color: #f5f5f5;
       --text-color: #1a1a1a;
       --border-color: #333;
@@ -35,6 +49,11 @@
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
       --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+      --comet-core: rgba(244, 50, 8, 0.62);
+      --comet-soft: rgba(244, 90, 50, 0.20);
+      --comet-head: rgba(214, 34, 0, 0.92);
     }
 
     * {
@@ -44,30 +63,18 @@
       color: var(--text-color);
       padding: 0;
       margin: 0;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
     }
 
     h1,
     h1 *,
     h2,
-    h2 *,
-    h3,
-    h3 *,
-    h4,
-    h4 *,
-    h5,
-    h5 *,
-    h6,
-    h6 * {
+    h2 * {
       font-family: "waters-titling-condensedpro", sans-serif;
       font-weight: 600;
       font-style: normal;
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: var(--heading-stroke);
-    }
-
-    h2 {
-      font-size: 2.2rem;
     }
 
     .red-drop {
@@ -79,41 +86,14 @@
     }
 
     h1 {
-      font-size: 13.2ch;
+      /* one line at every width: 13.2ch is the design size, and 15.8vw is the
+         largest that still keeps the red drop shadow inside a 320px screen */
+      font-size: min(13.2ch, 15.8vw);
       text-shadow: 0px 0px 5px var(--glow-color);
       padding-top: 0.55rem;
       padding-bottom: 0rem;
       margin-left: 3px;
-    }
-
-    @media screen and (max-width: 80ch) {
-      h1 {
-        font-size: 19.25vw;
-      }
-    }
-
-    ul {
-      list-style-type: none;
-      padding-left: 2.2rem;
-      padding-top: 0.55rem;
-      padding-bottom: 0.55rem;
-    }
-
-    li {
-      padding-top: 0.3rem;
-      padding-bottom: 0.3rem;
-      font-size: 1.1rem;
-    }
-
-    li::marker {
-      content: '✦ ';
-      color: var(--marker-color);
-    }
-
-    p {
-      font-size: 1.1rem;
-      padding-top: 0.55rem;
-      padding-bottom: 0.55rem;
+      white-space: nowrap;
     }
 
     a {
@@ -121,21 +101,10 @@
       text-decoration-color: #F43208;
     }
 
-    .post-date {
-      font-style: italic;
-      color: var(--date-color);
-      font-size: 0.95rem;
-      margin-left: 0.5rem;
-    }
-
-    canvas {
-      position: absolute;
-      z-index: -1;
-    }
-
     body {
       overflow-x: clip;
       background-color: var(--bg-color);
+      transition: background-color 0.3s ease;
     }
 
     .container {
@@ -155,25 +124,12 @@
       cursor: pointer;
       margin-top: 0.55rem;
       margin-bottom: 0.55rem;
-      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     button:hover:not(:disabled) {
       background-color: var(--button-hover-bg);
       color: var(--button-hover-text);
-    }
-
-    .dashed {
-      border: 1px dashed var(--border-color);
-      box-sizing: border-box;
-    }
-
-    .backdrop {
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
     }
 
     .header-container {
@@ -184,16 +140,22 @@
       display: flex;
       justify-content: space-between;
       gap: 0.55rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0;
       flex-wrap: wrap;
       padding-top: 0;
       padding-bottom: 0;
     }
 
+    /* Filled, not transparent. The menu bar has no void, so the field runs
+       straight behind it — an opaque button is what keeps the label legible over
+       a couple of hundred comet trails, and it reads as a solid block sitting on
+       the sky rather than a hole punched in it. The gaps between buttons still
+       show the field through, which is the point. */
     .menu-bar button {
       flex: 1;
       margin-top: 0;
       margin-bottom: 0;
+      background-color: var(--bg-color);
     }
 
     #theme-toggle {
@@ -204,74 +166,247 @@
     .menu-bar button.active {
       box-shadow: 4px 4px 0px 0px #F43208;
     }
+
+    /* ---- the field and the voids share one coordinate space, so the carved
+       holes always line up with the text sitting in them ---- */
+    #stage {
+      position: relative;
+    }
+
+    #field {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    #field.ready {
+      opacity: 1;
+    }
+
+    #live {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #stage > .container,
+    #sky {
+      position: relative;
+      z-index: 5;
+    }
+
+    /* ---- filters: links, not buttons ---- */
+    .filter-row {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 0.9rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem 1.05rem;
+    }
+
+    .filters button {
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      padding: 0 0 3px;
+      margin: 0;
+      font: inherit;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .filters button:hover:not(:disabled) {
+      background: none;
+      color: var(--text-color);
+      opacity: 1;
+    }
+
+    .filters button.on {
+      opacity: 1;
+      border-bottom-color: #F43208;
+    }
+
+    /* ---- the voids ---- */
+    #sky {
+      width: 100%;
+    }
+
+    .void {
+      position: absolute;
+      z-index: 10;
+      display: block;
+      padding: 1.2rem 1.5rem 1.3rem;
+      text-decoration: none;
+      transition: opacity 0.4s ease,
+        left 0.5s cubic-bezier(.2, .7, .3, 1),
+        top 0.5s cubic-bezier(.2, .7, .3, 1);
+    }
+
+    .void.gone {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* added once the fade above has finished: a filtered-out void is absolutely
+       positioned, so while it is still in the flow it keeps overflowing #sky and
+       padding out the page's scroll height */
+    .void.out {
+      display: none;
+    }
+
+    .void span {
+      display: block;
+    }
+
+    /* the body serif, just larger — the titling face is left to the hero. Brigade
+       ships one weight (500) and no italic, so size and leading do the work; no
+       text stroke either, since 0.5px of it fills in the serif's hairlines. */
+    .v-title {
+      font-size: clamp(1.2rem, calc(.95rem + .62vw), 1.55rem);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+    }
+
+    .v-fav {
+      display: inline !important;
+      color: #F43208;
+      font-size: 0.75em;
+      margin-right: 0.3em;
+      vertical-align: 0.15em;
+    }
+
+    .v-sub {
+      font-size: 0.82rem;
+      font-style: italic;
+      opacity: 0.85;
+      line-height: 1.3;
+      margin-bottom: 0.45rem;
+    }
+
+    .v-meta {
+      font-size: 0.72rem;
+      color: var(--date-color);
+      letter-spacing: 0.03em;
+    }
+
+    .void:hover .v-title,
+    .void:focus-visible .v-title {
+      text-shadow: 0 0 22px var(--glow-color);
+    }
+
+    /* art: the only kind of piece that renders itself in the clearing */
+    .void.art {
+      padding: 1rem;
+      cursor: zoom-in;
+    }
+
+    .void.art img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .void.art:hover img {
+      transform: scale(1.03);
+    }
+
+    .void.art .v-title {
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+
+    .void.art .v-meta {
+      text-align: center;
+    }
+
+    /* ---- lightbox ---- */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      background: rgba(10, 10, 10, 0.95);
+      padding: 2rem;
+      cursor: zoom-out;
+    }
+
+    #lightbox.open {
+      display: grid;
+    }
+
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 84vh;
+      object-fit: contain;
+    }
+
+    #lightbox .cap {
+      text-align: center;
+      margin-top: 1rem;
+      color: #eee;
+      font-size: 0.85rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .void {
+        transition: opacity 0.3s ease;
+      }
+
+      #field {
+        transition: none;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <canvas id="starfield"></canvas>
+  <div id="stage">
+    <canvas id="field"></canvas>
 
-  <div class="container header-container">
-    <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
+    <div class="container header-container">
+      <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
+    </div>
+
+    <nav class="menu-bar container">
+      <button id="home-btn">home</button>
+      <button id="gallery-btn" class="active">gallery</button>
+      <button id="collection-btn">collection</button>
+      <button id="theme-toggle">☀</button>
+    </nav>
+
+    <div class="container filter-row carve" data-pad="6">
+      <nav class="filters" id="filters" aria-label="filter by category"></nav>
+    </div>
+
+    <div id="sky"></div>
   </div>
 
-  <nav class="menu-bar container">
-    <button id="home-btn">home</button>
-    <button id="writing-btn">writing</button>
-    <button id="gallery-btn" class="active">gallery</button>
-    <button id="collection-btn">collection</button>
-    <button id="theme-toggle">☀</button>
-  </nav>
+  <canvas id="live"></canvas>
 
-  <div class="container dashed backdrop" style="margin-bottom: 2.2rem;">
-    <div style="padding: 1.1rem;">
-      <h2>Gallery</h2>
-      <p>
-	This page is in progress.
-      </p>
+  <div id="lightbox" tabindex="-1">
+    <div>
+      <img alt="">
+      <div class="cap"></div>
     </div>
   </div>
 
-  <script src="./starfield.js"></script>
-  <script src="./light-starfield.js"></script>
-  <script>
-    // Theme Toggle Implementation
-    const themeToggle = document.getElementById('theme-toggle');
-    const root = document.documentElement;
-
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      setTheme(savedTheme);
-    }
-
-    function setTheme(theme) {
-      if (theme === 'light') {
-        root.setAttribute('data-theme', 'light');
-        themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
-      } else {
-        root.removeAttribute('data-theme');
-        themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
-      }
-      localStorage.setItem('theme', theme);
-    }
-
-    function toggleTheme() {
-      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      setTheme(current === 'dark' ? 'light' : 'dark');
-    }
-
-    themeToggle.addEventListener('click', toggleTheme);
-    initTheme();
-
-    // Navigation
-    document.getElementById('home-btn').addEventListener('click', () => window.location.href = 'index.html');
-    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = 'writing.html');
-    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = 'gallery.html');
-    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = 'collection.html');
-  </script>
+  <script src="./gallery-posts.js"></script>
+  <script src="./gallery-art.js"></script>
+  <script src="./gallery.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monsoon season - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="waking-is-dreaming.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Waking is dreaming</span>
+    </a>
+    <a href="9010.html" class="nav-arrow next-post">
+      <span class="nav-title">90/10</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Monsoon season</h2>
+      <span class="post-date">August 10, 2026</span>
+      <div class="content">
+      <p>Remembering the summer I turned twenty brings me into a whirling heat as distinctive in my memory as any nostalgia. One part must have been the physical beauty of Santa Fe. The sky stretched out flat and blue and pressed down low against adobe houses, baked into shades of terracotta and tangerine. Bunches of chili peppers hung from the roofs and glittered under direct sun. A hot, stagnant day, every day, a picture which you thought had never changed and would never change. Then in a flash, even before the oncoming clouds could occlude the sun’s rays, the cool rush of rain would begin to pour and pour and darken the landscape. And for those few minutes of water streaming down around you and rivering the roadbed, that crashing volume was all there was, drowning all the delicate everyday scenes—the fat bees bumbling across flowers, finches chirping, oblong beetles scuttling over sidewalk cracks, hollyhocks swaying in a slight convective breeze—under the force of the monsoon.</p><div><hr/></div><p>In the morning I rose from my floor mat at the foot of my roommate’s queen sized bed which took up most of the space in the casita. The night before I had packed a hard-boiled egg and nuts and a CLIF bar into a Tupperware which I ate from as I walked. The air was so dry that, on my walk through the sunrise to the gym at the top of the hill, my skin warmed in patches, just where shafts of sunlight rested, while those parts of my body thrown into shade by distant roofs remained cool. It was the first summer I got to know the smell which permeated that gym—and which later I found in every gym—of alcohol wipes and sweat on metal.</p><p>By then it’d been three years of sporadically mustering up the willpower to try to establish an effective strength training regimen before inevitably sinking back into inactivity. My gym-going anxiety was previously so intense I was often brought to tears mid-workout; and at the gym I could not bear to raise my gaze to the floor-to-ceiling mirrors where I might catch a glimpse of my body, which was a repulsive, incapable arrangement of bones and fat. </p><p>Things changed that summer: I had been scrolling Instagram Reels for months. Though the “Types of Gym Bros” videos that dotted my feed stopped being funny after the first or second appearance, I watched them as attentively as I watched the inevitable variations on “Is Squatting HARDER For People With Long Femurs?” and “How I Eat 160 Grams Of Protein A Day,” and they were probably more effective at making me feel like I understood the social landscape of the gym well enough to navigate it, to move between lifts seamlessly, to competently exercise on basically any piece of equipment, and most importantly, to be broadly confident I was not doing something stupid. </p><p>Still, I avoided barbell lifts entirely. I had the feeling that—with the amount of weight on the barbell so publicly visible—it would be obvious to everyone else in the gym that I who could only lift Light Weight was taking up a spot better deserved by those who could lift Heavy Weight. So I worked out exclusively on the machines, where the amount of weight you lift is mercifully hidden inside a little vestibule unless some asshole decides to actually check; and with dumbbells, which at first I always moved to some discreet corner. For at least the first month, my main positive feeling regarding the gym was just that I was finally doing it, and some satisfaction in the routine of it, with little feeling of joy for the activity itself.</p><div><hr/></div><p>I finished my morning workout in time to catch the bus from Santa Fe to Los Alamos which stopped out front at 7:54 a.m. and drove between high-rising cliffs and pine trees on the way to the lab. I thought often, while waiting for the bus, that existing in the desert was a different feeling. In the mornings the air felt so sweet and sparse; at the top of that hill the light would flood in near-horizontally, the sun having just risen, so that there was no shade under the awning where I waited. While sweat cooled off my skin, a ten-lined June beetle following a sidewalk crack paused intermittently to shake off large ants from each of its legs in turn, spasming the leg in the air while ants crawled up its other legs. Across the road from me, prairie dogs stood erect in their burrows, facing the sun.</p><p>That summer I began reading and writing in earnest: on the hour-long bus ride I’d kick my knees up and read of Didion’s year of magical thinking, Lynne Cox’s swim to Antarctica. I wrote throughout the week, often while I was meant to be working. I still have these notebooks—the very thin kind, from Muji—whose pages mostly are filled with notes on the numerical techniques that were relevant to my work but which occasionally digress, in the same slanted, thick strokes of black pen, into some account of how a scene from earlier in the week had played out. Reading back those passages now, they feel choppy, like they’re trying too hard to be profound; but I remember how it felt to write them, and the urgency with which they came out.</p><p><span>I mostly wrote down observations I made about the city, which were so easy to make because it’s easy to pay attention to surprising things, and everything in Santa Fe surprised me. On day one, when my mom and younger brother were still in town, we went to a Chinese restaurant. All day we’d spent walking through the streets downtown between markets displaying one piece of colorful bird decor or another. At some point a man with a large blue macaw on his shoulder entered the restaurant. Next to me, my brother spluttered and pointed at him. The man noticed this and smiled and said hi; the blue macaw followed suit. I thought: </span><em>This place is wonderful.</em><span> Then: </span><em>Is this what life will be like in Santa Fe?</em></p><p>Well, yes. Somehow the place’s magic only grew. The railyard was my favorite place to spend time. Just a ten-minute walk from the casita, crowded concentric around a looming, wooden water tower, bands set up for live music; artists filled the cafe; people brought their kids and dogs to the ice cream shop; occasionally the train, sometimes a freight line and sometimes the tourist line painted with a cerulean dragon’s scales, trundled over the rails. </p><p>I discovered my first week there that it delighted me to pick out vegetables and pay for them in cash at the farmer’s market which sprang up in the railyard every weekend. I looked forward to this physical exchange as much as I enjoyed the process, undertaken Sunday nights, of using those luminous, bulbous squash and thick-leafed greens to cook and pack up some sort of protein-rich stew for the week. In my determination to become physically fit, I also became, over weeks of trying to hit a hundred grams of protein a day on a mostly-vegan diet, extremely good at estimating the amount of protein in a dish. The key to hitting this number sustainably and veganly, I concluded by the end of the summer, lay in combining legumes with meat substitutes in every meal, which gave a sufficient illusion of variety even if every day I was basically eating some kind of beans-and-soy-product slop. </p><p>It was the first summer I spent so preoccupied with such details. And it was my exact halfway point through MIT and I was breaking off the end of a fantasy and entering—something else; something still a mystery to me at the time. </p><div><hr/></div><p>I worked a loose nine-to-five and usually had something going on with the other students in my internship on the weekends. Occasionally Ivan, who worked part-time as a figure skating instructor back in Kansas City, took some of us to the ice rink, where I wobbled around painfully while everyone else made arcs over the ice and checked in on me every few laps. </p><p>Even on weekdays we sometimes took off from work early to go swim in the reservoir a ten-minute drive and subsequent half-hour walk away, in the woods. I explored the reservoir’s edges. As you paddled close to a bank the ground sloped up beneath you invisibly until you touched some boulder or tree root or the slimy vegetation I always felt too ill at ease with to investigate properly. At one of the banks, a rope swing hung from the branch of a tree high overhead. Ivan and Sophie and John took turns, taking a running start with it, letting it fling them high into the air and into the water. I really wanted to go on the rope swing, too. But I couldn’t grip it strong enough to hang my body weight on it even when it was stationary. In every attempt I slipped off even before properly entering a run.</p><p><span>At some point about halfway through the summer, I noticed in the mirror that when I bent my arm, there was a change in shape of my bicep—the slight protrusion of muscle into an arc such that my upper arm actually appeared convex, as opposed to concave, which was the only shape I’d ever seen it take. I was transfixed. I showed my roommate; I looked at it almost every time I passed by the mirror from then on. Next I noticed this dip in the side of my knee when I tensed my leg, which meant I had quadriceps. And there grew a shadow on my lower leg which suggested I was developing calves. I had seen all these things on other people before but had never taken seriously the possibility that they could manifest on </span><em>my</em><span> body—that my body had the capacity to surprise me.</span></p><div><hr/></div><p>I was by far one of the youngest at the internship. Most other interns had graduated from college already; some were in grad school. A bunch of people had taken time off school and were in their thirties. They were relaxed, assured, and capable. This was a slice of the population I had never been exposed to before. In fact it was a slice I might have privately derided before the summer.</p><p><span>Before the summer I was obsessed with becoming </span><em>good</em><span> at something. My idea of </span><em>good</em><span> did not consist of a general competency or even a general above-average-ness but of the mouthwatering beauty of a shrunken world. One became </span><em>good</em><span> at something by pulling one’s world taut against the outer contours of that thing—by living in and mastering a “child’s world,”</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self" class="footnote-anchor">1</a></span><span> cutting deeply into a tiny surface area. Much of high school I therefore had spent trimming excess fat from my own world. I stopped writing or drawing; in the month before competitions, I allowed myself only sparingly the pleasure of listening to music with lyrics; I allotted one day per year to just hang out with my friends outside the pretext of studying or building together for competitions, and felt bad even about this annual day (usually in May, post-competition season; we would go to the beach), since it disqualified me from living up to the anecdote I’d heard about Bill Gates, that he didn’t take a single day off in his twenties. I thought lovingly of the prospect of squeezing my mind and body dry, all propelled towards a singular goal, mastering a world as small and pure as possible.</span></p><p>When at MIT I actually met people who (I thought) had accomplished such a whittling down of their worlds, I felt the suffocating inferiority which had so far defined my college experience. And in my pursuit of such a world I had somehow come to a point where I’d spent the spring of my sophomore year doing almost nothing at all: sleeping, crying, occasionally dragging myself out of the little dark nook in my room to do a pset, stressing over emailing for extensions, eventually emailing, which always required a gargantuan effort on the part of both me and poor Renee, my girlfriend at the time. By that spring I’d become such a husk of a person that all the hopes I carried upon entrance to MIT of solving The Biggest Problems and doing The Hardest Things (the substance of these items being less important than the superlatives themselves) were dispelled. </p><p>It came as a bit of a relief, even, that at Los Alamos there simply was not that much to do. I read papers about supernova core-collapse mechanisms and tried to figure out the same issue in a hydrodynamics code the whole summer and mostly just became okay at using the terminal and writing bash scripts. </p><p>I also socialized a lot. At one gathering I was asking another intern, Anna, about her life, which is something that people Did, because Anna’s life is really cool. She told us about adventure after adventure. She had brought kickboxing pads and was taking a break after teaching the men how to hit them. She told me about the Shaolin monk she’d trained under making her do push-ups with her knuckles on cinderblocks. All this she recounted while sitting next to me on the grass in the field smoking a cigarette. </p><p>For a long time I would have viewed such endeavors as wasted motion but I thought when meeting her and seeing her self-assurance and her drive and her decisiveness that it didn’t seem wasted at all. And in the coming years when I had to choose, I thought more and more of how Anna would live, how she would move forward in that enormous world of hers, and less of what my idol living in a shrunken world would do. </p><div><hr/></div><p>As I said, the magic of Santa Fe never faded for me, and it took a while to even identify what it was, this magic, this new feeling. There was the fact that the city itself constantly captivated my attention with its beauty and color. It turned my view outwards upon a larger, more surprising world than I had thought existed.</p><p>There is another thing, something I began to articulate about halfway through the summer. We drove out to see a waterfall together, and had to climb up some rock scrambles to make it to the gushing mouth of the falls, at the top of a long, high stream of shallow but fast-moving water. As I followed my friends up the scramble I thought with each lift of my body up another wet, jagged pillar of rock, levered by my fingers around some rough crevice, that this was the first time I’d ever completed such a motion, that I’d had no idea the world could feel like this. I kept feeling that, over and over, with each application of power, of balance, and of the pressure of my body into the world that let it happen. When I look back on Santa Fe now, I think that it was the first place I really enjoyed being in my body; and the first place I learned that it was my body which paid attention to the world, which received the world, which, also, had the power to act upon the world.</p><p>At the end of the summer we went to the reservoir once more. I wrote:</p><p><em>Before this summer, it seemed like there were some things totally outside the realm of possibility for me. For example, if I were driving a car on a long, straight road surrounded by bristling plains, I would not think to stop the car and get out and walk into the grass. Despite being physically capable of doing this, it simply would not occur to me. There was a layer of separation between me and some parts of the world.</em></p><p><em>Now this layer has dissolved… I went to the reservoir again yesterday with friends from my internship. On the walk back to the car, we saw two bears, one black and then one brown. They were lumbering through the grass and looking right at us. I didn’t feel any fear or surprise. Instead I was just impressed by their physicality, the sheen of their fur and the fluidity with which they moved. It was entirely possible that the bears could come towards us and touch us. There was no glass wall separating us, and I had expected this—I did not feel the glass breaking, it had already shattered quietly a few weeks ago.</em></p><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-1" href="#footnote-anchor-1" contenteditable="false" target="_self" class="footnote-number">1</a><div class="footnote-content"><p>DFW writing on tennis, in his Esquire article “The String Theory”: </p><blockquote><p>Note the way “up close and personal” profiles of professional athletes strain so hard to find evidence of a rounded human life—outside interests and activities, values beyond the sport. We ignore what’s obvious, that most of this straining is farce. It’s farce because the realities of top-level athletics today require an early and total commitment to one area of excellence. An ascetic focus. A subsumption of almost all other features of human life to one chosen talent and pursuit. A consent to live in a world that, like a child’s world, is very small.</p></blockquote><p>I still find this very beautiful, but I believed then (in and before 2023) that the only kind of world worth living in is a very small one, which I don’t believe anymore.</p></div></div></div></div><div class="visibility-check">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

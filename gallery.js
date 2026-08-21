@@ -1,0 +1,919 @@
+// The gallery: a dense field of comets with rectangular voids carved out of it,
+// one void per piece. Everything is derived from window.GALLERY_POSTS (generated
+// by scripts/scrape-substack.js) and window.GALLERY_ART (hand-written), so
+// adding a piece never means touching this file.
+//
+// Three layers, cheapest first:
+//   #field    document-sized canvas, the static comet field. Painted once into
+//             an offscreen "pristine" copy, then blitted and re-carved whenever
+//             the layout changes. Re-stroking ~3000 gradients per filter click
+//             would cost ~250ms; blitting costs ~2ms.
+//   #live     viewport-sized canvas, fixed. Nothing travels on it; it only
+//             lights up trails that are already in the field — the one under
+//             the cursor, or every trail crossing a hovered piece.
+//   .void     the actual text, positioned into the holes.
+
+(function () {
+  'use strict';
+
+  // ---- geometry -------------------------------------------------------
+  // One heading for the whole page, so every trail — static, live, glowing —
+  // runs parallel and the field reads as a single sweep.
+  const ANG = 28 * Math.PI / 180;
+  const DX = Math.cos(ANG), DY = Math.sin(ANG);   // along a trail
+  const PX = -DY, PY = DX;                        // across the trails
+
+  const toU = (x, y) => x * DX + y * DY;
+  const toV = (x, y) => x * PX + y * PY;
+  const toX = (u, v) => u * DX + v * PX;
+  const toY = (u, v) => u * DY + v * PY;
+
+  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+
+  // ---- shared helpers -------------------------------------------------
+
+  // Deterministic PRNG (mulberry32 over an FNV-1a string hash), so every piece
+  // lands in the same place on every reload instead of jumping around.
+  function rngFor(seed) {
+    let h = 2166136261;
+    for (let i = 0; i < seed.length; i++) {
+      h ^= seed.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    let a = h >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function fmtDate(d) {
+    if (d.length === 4) return d;
+    const [y, m] = d.split('-');
+    return MONTHS[parseInt(m, 10) - 1] + ' ' + y;
+  }
+
+  function fmtWords(w) {
+    if (w == null) return '';
+    // round before choosing the unit, or 996 words reads as "~1000 words"
+    const tens = Math.round(w / 10) * 10;
+    if (tens < 1000) return '~' + tens + ' words';
+    return '~' + (Math.round(w / 100) / 10).toFixed(1).replace(/\.0$/, '') + 'k words';
+  }
+
+  // A bare year sorts as mid-year — the best guess available for undated art.
+  const sortKey = i => (i.date.length === 4 ? i.date + '-06-15' : i.date);
+
+  // ---- items ----------------------------------------------------------
+  const CATEGORIES = ['all', 'art', 'comics', 'fiction', 'poetry', 'essays'];
+
+  const items = []
+    .concat((window.GALLERY_POSTS || []).map(p => ({
+      kind: 'text',
+      slug: p.slug,
+      title: p.title,
+      subtitle: p.subtitle,
+      date: p.date,
+      words: p.words,
+      category: p.category,
+      fav: !!p.fav,
+      href: p.local ? 'posts/' + p.slug + '.html'
+        : 'https://goldenblue.substack.com/p/' + p.slug,
+      local: p.local,
+    })))
+    .concat((window.GALLERY_ART || []).map(a => ({
+      kind: 'art',
+      slug: a.slug,
+      title: a.title,
+      subtitle: a.medium,
+      date: a.date,
+      words: null,
+      category: 'art',
+      fav: false,
+      image: a.image,
+      aspect: a.aspect || 1,
+    })))
+    .sort((a, b) => (sortKey(a) < sortKey(b) ? 1 : sortKey(a) > sortKey(b) ? -1 : 0));
+
+  // ---- DOM ------------------------------------------------------------
+  const stage = document.getElementById('stage');
+  const sky = document.getElementById('sky');
+  const fieldCv = document.getElementById('field');
+  const liveCv = document.getElementById('live');
+  const nav = document.getElementById('filters');
+  const lb = document.getElementById('lightbox');
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = matchMedia('(hover: hover)').matches;
+
+  const voids = items.map(item => {
+    const rand = rngFor(item.slug);
+    const art = item.kind === 'art';
+    const el = document.createElement(art ? 'div' : 'a');
+    el.className = 'void' + (art ? ' art' : '');
+
+    if (art) {
+      el.innerHTML =
+        '<img src="' + item.image + '" alt="' + item.title +
+        '" style="aspect-ratio:' + item.aspect.toFixed(4) + '">' +
+        '<span class="v-title">' + item.title + '</span>' +
+        '<span class="v-meta">' + item.subtitle + ' · ' + fmtDate(item.date) + '</span>';
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Enlarge ' + item.title);
+      const open = () => openLightbox(item);
+      el.addEventListener('click', open);
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    } else {
+      el.href = item.href;
+      if (!item.local) el.target = '_blank';
+      const meta = [fmtDate(item.date), fmtWords(item.words)].filter(Boolean).join(' · ');
+      el.innerHTML =
+        '<span class="v-title">' +
+        (item.fav ? '<span class="v-fav" title="a favorite">✦</span>' : '') +
+        item.title + '</span>' +
+        (item.subtitle ? '<span class="v-sub">' + item.subtitle + '</span>' : '') +
+        '<span class="v-meta">' + meta + '</span>';
+    }
+
+    sky.appendChild(el);
+    return { el, item, rand };
+  });
+
+  // ---- filters --------------------------------------------------------
+  const present = new Set(items.map(i => i.category));
+  const cats = ['all'].concat(CATEGORIES.filter(c => c !== 'all' && present.has(c)));
+  let active = cats.indexOf(location.hash.slice(1)) > 0 ? location.hash.slice(1) : 'all';
+
+  cats.forEach(c => {
+    const b = document.createElement('button');
+    b.textContent = c;
+    b.dataset.cat = c;
+    b.setAttribute('aria-pressed', String(c === active));
+    b.addEventListener('click', () => {
+      if (active === c) return;
+      active = c;
+      history.replaceState(null, '', c === 'all' ? location.pathname : '#' + c);
+      markFilters();
+      layout();
+      scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+    nav.appendChild(b);
+  });
+
+  function markFilters() {
+    nav.querySelectorAll('button').forEach(b => {
+      const on = b.dataset.cat === active;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
+  markFilters();
+
+  // ---- layout ---------------------------------------------------------
+  // Round-robin down a handful of lanes, each with its own cursor, then push
+  // anything that would touch an already-placed box below it. The lanes keep
+  // rough chronological order readable; the jitter and per-item gaps keep it
+  // from looking like a grid.
+  let rects = [];        // void rectangles in document space, for carving
+  let hits = [];         // just the pieces' rects, for pointer hit-testing
+  let pageH = 0;
+
+  function laneCount(W) {
+    return W < 700 ? 1 : W < 1080 ? 2 : W < 1400 ? 3 : 4;
+  }
+
+  function layout() {
+    const W = sky.clientWidth;
+    if (!W) return;
+    const lanes = laneCount(W);
+    const narrow = lanes === 1;
+    const colW = W / lanes;
+
+    // pass 1 — visibility and width only, so the browser can do one reflow
+    const live = [];
+    voids.forEach(v => {
+      const visible = active === 'all' || v.item.category === active;
+      v.visible = visible;
+      if (visible) {
+        // back into the flow before it fades in, so the reflow in pass 2 gives
+        // the transition a real starting opacity to run from
+        clearTimeout(v.hideT);
+        v.el.classList.remove('out');
+      }
+      if (!visible) return;
+      const w = v.item.words;
+      // longer pieces get wider boxes: the shape of the void hints at the size
+      // of the read before you click it
+      const t = w == null ? 0.55 : clamp((w - 150) / 4200, 0, 1);
+      const width = v.item.kind === 'art'
+        ? Math.min(narrow ? W * 0.84 : colW * 1.05, 420)
+        : (narrow ? W * 0.84 : Math.min(colW - 26, 210 + t * 170));
+      v.el.style.width = Math.round(width) + 'px';
+      live.push({ v, width: Math.round(width) });
+    });
+
+    // pass 2 — one batched height read, then place
+    live.forEach(L => { L.h = L.v.el.offsetHeight; });
+
+    // Fade toggled after that read, for the reason above. A filtered-out piece is
+    // absolutely positioned, so at `opacity: 0` it still overflows #sky and still
+    // counts toward the page's scroll height — which left short filters scrollable
+    // for thousands of pixels past the end of the field. Drop it out of the flow
+    // once it has finished fading.
+    voids.forEach(v => {
+      v.el.classList.toggle('gone', !v.visible);
+      if (v.visible || v.el.classList.contains('out')) return;
+      clearTimeout(v.hideT);
+      v.hideT = setTimeout(() => v.el.classList.add('out'), 450);
+    });
+
+    const cursor = new Array(lanes).fill(narrow ? 24 : 8);
+    const placed = [];
+    rects = [];
+    let bottom = 0;
+
+    live.forEach(({ v, width, h }, i) => {
+      const lane = i % lanes;
+      // bleed a little past the lane so the field doesn't read as columns
+      const slack = Math.max(0, colW - width);
+      let left = lane * colW + v.rand() * (slack + 30) - 15;
+      left = clamp(left, 6, W - width - 6);
+
+      let top = cursor[lane];
+      placed.forEach(p => {
+        const apart = left > p.r + 16 || left + width < p.l - 16;
+        if (!apart) top = Math.max(top, p.b + 30);
+      });
+
+      v.el.style.left = Math.round(left) + 'px';
+      v.el.style.top = Math.round(top) + 'px';
+      placed.push({ l: left, r: left + width, b: top + h });
+      rects.push({ x: left, y: top, w: width, h: h, item: v.item });
+      bottom = Math.max(bottom, top + h);
+      // irregular vertical rhythm, seeded so it never reshuffles
+      cursor[lane] = top + h + (narrow ? 34 : 30 + v.rand() * 62);
+    });
+
+    pageH = bottom + (narrow ? 90 : 150);
+    sky.style.height = pageH + 'px';
+
+    // the canvas covers #stage; #sky starts below the hero and menu bar
+    const off = sky.offsetTop;
+    rects.forEach(r => { r.y += off; });
+    // the pieces alone, in document space — what the pointer tests against, and
+    // the seed for each piece's "every trail crossing me" set
+    hits = rects.slice();
+    hits.forEach(r => { r.trails = null; });
+    glow = null;
+    maskOy = null;
+    // Anything marked `.carve` gets a void of its own. Only the filter row is,
+    // now: the hero and the menu bar sit straight on the field, on purpose — the
+    // titling face and the bordered buttons carry themselves, and the field
+    // reading as continuous behind them is the point.
+    document.querySelectorAll('.carve').forEach(el => {
+      const b = el.getBoundingClientRect();
+      const pad = parseFloat(el.dataset.pad || 8);
+      rects.push({
+        x: b.left + scrollX - pad,
+        y: b.top + scrollY - pad,
+        w: b.width + pad * 2,
+        h: b.height + pad * 2,
+      });
+    });
+
+    // Never shorter than the window: a one- or two-item filter is only ~500px
+    // tall, which used to leave the bottom of the screen as bare background
+    // below the end of the field.
+    paintField(stage.clientWidth, Math.max(pageH + off, innerHeight));
+  }
+
+  // ---- the static comet field -----------------------------------------
+  // Generated once per size into `trails`, painted once into `pristine`.
+  let trails = [];
+  let bucketed = new Map();   // v-bucket -> trails, for O(1) hover lookup
+  let pristine = null;
+  let fieldW = 0, fieldH = 0, fieldDpr = 1;
+  const GAP = 2.8;            // spacing across the trails — very dense
+
+  function buildTrails(W, H) {
+    const rand = rngFor('comet-field-v4');
+    let umin = Infinity, umax = -Infinity, vmin = Infinity, vmax = -Infinity;
+    [[0, 0], [W, 0], [0, H], [W, H]].forEach(([x, y]) => {
+      const u = toU(x, y), v = toV(x, y);
+      if (u < umin) umin = u; if (u > umax) umax = u;
+      if (v < vmin) vmin = v; if (v > vmax) vmax = v;
+    });
+    const span = umax - umin;
+
+    trails = [];
+    for (let v = vmin; v <= vmax; v += GAP) {
+      const n = rand() < 0.6 ? 3 : 2;
+      for (let k = 0; k < n; k++) {
+        const len = span * (0.2 + rand() * 0.62);
+        trails.push({
+          v: v + (rand() - 0.5) * GAP * 1.3,
+          u0: umin - len + (span + len) * rand(),
+          len: len,
+          lw: rand() < 0.13 ? 1.8 + rand() * 1.9 : 0.4 + rand() * 0.9,
+          alpha: 0.3 + rand() * 0.68,
+          halo: rand() < 0.16 ? 6 + rand() * 12 : 0,
+          hr: 2.2 + rand() * 4.4,
+        });
+      }
+    }
+
+    // Paint top-down, not across-axis. The bake streams a slice per frame, and
+    // the reader is at the top of the page, so the first screenful should be the
+    // first thing finished. Generated order is by v, which sweeps diagonally over
+    // the whole 4,500px page and leaves the top unfinished until nearly the end.
+    trails.forEach(t => {
+      t.ymin = Math.min(toY(t.u0, t.v), toY(t.u0 + t.len, t.v));
+    });
+    trails.sort((a, b) => a.ymin - b.ymin);
+
+    bucketed = new Map();
+    trails.forEach((t, i) => {
+      t.id = i;                 // a stable name for the glow cache
+      const key = Math.floor(t.v / GAP);
+      let list = bucketed.get(key);
+      if (!list) bucketed.set(key, list = []);
+      list.push(t);
+    });
+  }
+
+  function colors() {
+    const cs = getComputedStyle(document.documentElement);
+    return {
+      core: cs.getPropertyValue('--comet-core').trim(),
+      soft: cs.getPropertyValue('--comet-soft').trim(),
+      head: cs.getPropertyValue('--comet-head').trim(),
+    };
+  }
+
+  // Every trail wants its own gradient, and building ~8,000 gradient objects is
+  // most of the field's cost. Instead each trail is drawn in local space —
+  // rotated onto the +x axis — so gradients only differ by length, and lengths
+  // are quantised into buckets we can cache. LEN_Q is coarse (trails run
+  // 600–2700px) and HR_Q is fine, since the heads are small and visible.
+  const LEN_Q = 40, HR_Q = 0.5;
+  const gradCache = new Map();
+
+  function trailGrad(g, c, lenKey) {
+    let grad = gradCache.get('l' + lenKey);
+    if (!grad) {
+      grad = g.createLinearGradient(0, 0, lenKey * LEN_Q, 0);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.5, c.soft);
+      grad.addColorStop(0.94, c.core);
+      grad.addColorStop(1, c.head);
+      gradCache.set('l' + lenKey, grad);
+    }
+    return grad;
+  }
+
+  function headGrad(g, c, hrKey) {
+    let grad = gradCache.get('h' + hrKey);
+    if (!grad) {
+      const r = hrKey * HR_Q;
+      grad = g.createRadialGradient(0, 0, 0, 0, 0, r);
+      grad.addColorStop(0, c.head);
+      grad.addColorStop(0.4, c.core);
+      grad.addColorStop(1, 'transparent');
+      gradCache.set('h' + hrKey, grad);
+    }
+    return grad;
+  }
+
+  function strokeTrail(g, t, c) {
+    const lenKey = Math.max(1, Math.round(t.len / LEN_Q));
+    const hrKey = Math.max(1, Math.round(t.hr / HR_Q));
+    const len = lenKey * LEN_Q, hr = hrKey * HR_Q;
+
+    g.save();
+    g.translate(toX(t.u0, t.v), toY(t.u0, t.v));
+    g.rotate(ANG);
+    g.strokeStyle = trailGrad(g, c, lenKey);
+
+    if (t.halo) {
+      g.globalAlpha = 0.14;
+      g.lineWidth = t.halo;
+      g.beginPath(); g.moveTo(0, 0); g.lineTo(len, 0); g.stroke();
+    }
+
+    g.globalAlpha = t.alpha;
+    g.lineWidth = t.lw;
+    g.beginPath(); g.moveTo(0, 0); g.lineTo(len, 0); g.stroke();
+
+    g.translate(len, 0);
+    g.globalAlpha = Math.min(1, t.alpha + 0.2);
+    g.fillStyle = headGrad(g, c, hrKey);
+    g.beginPath(); g.arc(0, 0, hr, 0, Math.PI * 2); g.fill();
+    g.restore();
+  }
+
+  // Erase, rather than cover, so the void is a genuine hole in the field — and
+  // blur the eraser, so the hole dissolves into the comets instead of ending on
+  // a cut edge. The blur eats inward as well as outward, so the rectangle is
+  // grown by GROW first; that keeps the piece's own box fully clear and puts the
+  // whole soft transition outside it.
+  //
+  // All the rectangles go into ONE path and get filled once. Not for speed —
+  // for correctness. `destination-out` twice over the same pixel removes
+  // (1-a1)(1-a2) where a union removes max(a1,a2), so two feathers that met
+  // would scrub a bright seam between their boxes. They do meet: the closest
+  // pair of voids in any filter at any width is 16px apart, inside the ~15px
+  // each feather reaches.
+  //
+  // The price is that a blurred fill costs its whole work region, and one path
+  // spanning the page makes that the page: the 1440x4566 'all' layout measures
+  // 225ms against 4.8ms unblurred, in a software rasteriser with no GPU. Ways
+  // out that were tried and rejected — one blurred fill per rect is 8000ms
+  // (each one re-filters the canvas); per-rect fills clipped to their own
+  // bounds are 57ms but reintroduce the double-erased seam; grouping into runs
+  // that don't overlap in y is exact and free, but 'all' is one single run
+  // 4207px tall, so it saves nothing on the only layouts that are slow. It is
+  // one frame on a filter click, so it stays simple.
+  const FEATHER = 6, GROW = 6;
+  const canBlur = (() => {
+    const g = document.createElement('canvas').getContext('2d');
+    g.filter = 'blur(2px)';
+    return g.filter !== 'none';
+  })();
+
+  // `scale` is the device pixels per CSS pixel of g's transform: canvas filters
+  // are applied in device space, so without it the feather would come out half
+  // as wide on a 2x display as on a 1x one.
+  function carve(g, list, scrollOffset, scale) {
+    const oy = scrollOffset || 0;
+    g.save();
+    g.globalCompositeOperation = 'destination-out';
+    g.fillStyle = '#000';
+    if (canBlur && typeof Path2D === 'function') {
+      g.filter = 'blur(' + (FEATHER * (scale || 1)).toFixed(2) + 'px)';
+      const p = new Path2D();
+      list.forEach(r => p.rect(r.x - GROW, r.y - oy - GROW, r.w + GROW * 2, r.h + GROW * 2));
+      g.fill(p);
+    } else {
+      // No canvas filters: stacked fills over the same span, widest and faintest
+      // first, so each ring erases what's left of the one outside it. Coarser
+      // than a blur, but the same soft ramp — ~20% of the field survives at the
+      // box edge and none of it a few pixels in.
+      const steps = [[GROW * 2, 0.25], [GROW, 0.4], [0, 0.6], [-GROW, 1]];
+      list.forEach(r => {
+        steps.forEach(([out, alpha]) => {
+          if (r.w + out * 2 <= 0 || r.h + out * 2 <= 0) return;
+          g.globalAlpha = alpha;
+          g.fillRect(r.x - out, r.y - oy - out, r.w + out * 2, r.h + out * 2);
+        });
+      });
+    }
+    g.restore();
+  }
+
+  function paintField(W, H) {
+    if (!W || !H) return;
+
+    const fresh = !pristine || W !== fieldW || H > fieldH;
+    if (fresh) {
+      fieldW = W;
+      fieldH = Math.max(H, fieldH);
+      // cap device pixels so a tall page doesn't allocate hundreds of MB
+      fieldDpr = Math.min(devicePixelRatio || 1, Math.sqrt(8e6 / (fieldW * fieldH)));
+      pristine = document.createElement('canvas');
+      pristine.width = Math.round(fieldW * fieldDpr);
+      pristine.height = Math.round(fieldH * fieldDpr);
+      buildTrails(fieldW, fieldH);
+    }
+
+    fieldCv.style.width = W + 'px';
+    fieldCv.style.height = H + 'px';
+    fieldCv.width = Math.round(W * fieldDpr);
+    fieldCv.height = Math.round(H * fieldDpr);
+    fieldMask = null;                // the voids moved, or the canvas resized
+
+    if (fresh) repaintPristine();   // blits each chunk as it lands
+    else blitField();
+  }
+
+  // The voids as a reusable alpha mask — opaque everywhere the field survives,
+  // feathered to nothing inside each box. Built once per layout instead of
+  // re-blurring on every blit, because the bake blits several times as it
+  // streams and a full-page blurred carve is ~225ms: re-carving each time cost
+  // about a second of the load on its own.
+  //
+  // Half resolution, like the live layer's mask. The edge is a ~15px feather
+  // already, so upscaling costs about a pixel of extra softness, and it makes
+  // the one build 4x cheaper — a blurred fill is charged for its region.
+  let fieldMask = null;
+  const FIELD_MASK_S = 0.5;
+
+  function buildFieldMask() {
+    const s = fieldDpr * FIELD_MASK_S;
+    const w = Math.max(1, Math.round(fieldCv.width * FIELD_MASK_S));
+    const h = Math.max(1, Math.round(fieldCv.height * FIELD_MASK_S));
+    if (!fieldMask) fieldMask = document.createElement('canvas');
+    if (fieldMask.width !== w || fieldMask.height !== h) {
+      fieldMask.width = w;
+      fieldMask.height = h;
+    }
+    const g = fieldMask.getContext('2d');
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.clearRect(0, 0, w, h);
+    g.fillStyle = '#fff';
+    g.fillRect(0, 0, w, h);
+    g.setTransform(s, 0, 0, s, 0, 0);
+    carve(g, rects, 0, s);
+    return fieldMask;
+  }
+
+  // Copy the baked field onto the visible canvas and punch the voids out of it.
+  //
+  // Optionally only a horizontal band of it, in CSS px. This matters more than it
+  // looks: the page is ~4,500px tall and the window shows ~800px of it, and the
+  // whole-canvas version costs ~80ms — mostly scaling the half-res mask up. A
+  // bake blits ten-odd times as it streams, so blitting all of it every time put
+  // ~880ms of the ~1350ms bake into redrawing rows nobody was looking at.
+  function blitField(y0, y1) {
+    const g = fieldCv.getContext('2d');
+    const m = fieldMask || buildFieldMask();
+    const top = y0 == null ? 0 : clamp(Math.floor(y0 * fieldDpr), 0, fieldCv.height);
+    const bot = y1 == null ? fieldCv.height : clamp(Math.ceil(y1 * fieldDpr), 0, fieldCv.height);
+    const h = bot - top;
+    if (h <= 0) return;
+
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    // Clipped, because `destination-in` erases the destination everywhere the
+    // source *isn't* — without a clip a banded mask would wipe the whole rest of
+    // the canvas instead of leaving it alone.
+    g.save();
+    g.beginPath();
+    g.rect(0, top, fieldCv.width, h);
+    g.clip();
+    g.clearRect(0, top, fieldCv.width, h);
+    // crop the top of the pristine field — a filtered view is a shorter page
+    g.drawImage(pristine, 0, top, fieldCv.width, h, 0, top, fieldCv.width, h);
+    g.globalCompositeOperation = 'destination-in';
+    g.drawImage(m, 0, top * FIELD_MASK_S, m.width, h * FIELD_MASK_S,
+      0, top, fieldCv.width, h);
+    g.restore();
+    fieldCv.classList.add('ready');
+  }
+
+  // ~4,000 soft gradient strokes is 100–400ms of rasterisation depending on the
+  // machine, which is far too long to hold the main thread. Painted a slice per
+  // frame instead: nothing ever blocks a click, and the field visibly streams
+  // in behind the already-readable titles.
+  let paintRaf = 0;
+  function repaintPristine() {
+    cancelAnimationFrame(paintRaf);
+    delete fieldCv.dataset.baked;
+    const g = pristine.getContext('2d');
+    g.setTransform(fieldDpr, 0, 0, fieldDpr, 0, 0);
+    g.clearRect(0, 0, fieldW, fieldH);
+    g.lineCap = 'round';
+    gradCache.clear();          // gradients belong to this context and palette
+    const c = colors();
+    const CHUNK = 150;
+    let i = 0, n = 0;
+    const step = () => {
+      const end = Math.min(i + CHUNK, trails.length);
+      for (; i < end; i++) strokeTrail(g, trails[i], c);
+      if (i >= trails.length) {
+        blitField();                    // one full pass, now that it's all in
+        fieldCv.dataset.baked = '1';
+        return;
+      }
+      // Only the rows on screen are worth showing progress for, and trails are
+      // painted top-down, so the first screenful is also the first to finish.
+      if (++n % 3 === 1) blitField(scrollY - 100, scrollY + innerHeight + 100);
+      paintRaf = requestAnimationFrame(step);
+    };
+    step();
+  }
+
+  // ---- the live layer: the hover glow ---------------------------------
+  // Nothing travels here. One group of static trails is lit at a time — either
+  // the single trail under the cursor, or every trail crossing the piece the
+  // cursor is on, which can run to a couple of hundred. That is far too many to
+  // re-stroke every frame, so a group is rendered once into an offscreen copy
+  // (with the voids carved back out of it) and the fade in and out is a single
+  // alpha'd blit. When nothing is lit the layer costs nothing at all.
+  let liveDpr = 1;
+  let glow = null;        // { key, trails, at, oy, c3, alpha, target }
+  let glowCv = null;      // the group so far, rendered at full strength
+  let maskCv = null;      // the voids, as a reusable alpha mask
+  let maskOy = null;      // the scroll position maskCv was built for
+  let liveBlank = true;
+
+  function sizeLive() {
+    liveDpr = Math.min(devicePixelRatio || 1, 2);
+    liveCv.width = Math.round(innerWidth * liveDpr);
+    liveCv.height = Math.round(innerHeight * liveDpr);
+    liveCv.style.width = innerWidth + 'px';
+    liveCv.style.height = innerHeight + 'px';
+    glowCv = null;
+    maskCv = null;
+    liveBlank = true;
+  }
+
+  // Blurring is what makes carving expensive, so it happens once here rather
+  // than every frame: one viewport's worth of holes, opaque where the field
+  // shows and feathered away inside each void. Anything that needs the holes
+  // punched in it composites this instead of carving for itself. It's a soft
+  // alpha ramp, so half resolution is indistinguishable once it's scaled back
+  // up — and a quarter of the blur's cost.
+  const MASK_S = 0.5;
+
+  function maskFor(oy) {
+    if (maskCv && maskOy === oy) return maskCv;
+    const s = liveDpr * MASK_S;
+    const w = Math.max(1, Math.round(innerWidth * s));
+    const h = Math.max(1, Math.round(innerHeight * s));
+    if (!maskCv) maskCv = document.createElement('canvas');
+    if (maskCv.width !== w || maskCv.height !== h) { maskCv.width = w; maskCv.height = h; }
+    const g = maskCv.getContext('2d');
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.clearRect(0, 0, w, h);
+    g.fillStyle = '#fff';
+    g.fillRect(0, 0, w, h);
+    g.setTransform(s, 0, 0, s, 0, 0);
+    carve(g, rects.filter(r => r.y + r.h > oy - 20 && r.y < oy + innerHeight + 20), oy, s);
+    maskOy = oy;
+    return maskCv;
+  }
+
+  // Every trail crossing a rectangle. A trail is a segment at constant v, so the
+  // only candidates are the v-buckets the rectangle spans; each one then reduces
+  // to an axis-aligned slab test, whose u-interval has to overlap the trail's own
+  // extent for the trail to actually pass through.
+  function trailsThrough(r) {
+    const out = [];
+    let vmin = Infinity, vmax = -Infinity;
+    [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h]]
+      .forEach(([x, y]) => {
+        const v = toV(x, y);
+        if (v < vmin) vmin = v;
+        if (v > vmax) vmax = v;
+      });
+    for (let k = Math.floor(vmin / GAP) - 1; k <= Math.floor(vmax / GAP) + 1; k++) {
+      const list = bucketed.get(k);
+      if (!list) continue;
+      for (let i = 0; i < list.length; i++) {
+        const t = list[i];
+        if (t.v < vmin || t.v > vmax) continue;
+        const ax = (r.x - t.v * PX) / DX, bx = (r.x + r.w - t.v * PX) / DX;
+        const ay = (r.y - t.v * PY) / DY, by = (r.y + r.h - t.v * PY) / DY;
+        const enter = Math.max(Math.min(ax, bx), Math.min(ay, by));
+        const exit = Math.min(Math.max(ax, bx), Math.max(ay, by));
+        if (enter > exit || exit < t.u0 || enter > t.u0 + t.len) continue;
+        out.push(t);
+      }
+    }
+    return out;
+  }
+
+  // One trail lit along its whole length: a wide soft pass for the bloom, then
+  // the bright core over it. The bloom is two thirds of the cost and only earns
+  // its keep on a lone trail — across a few hundred of them the cores overlap
+  // into the same wash, and keeping it as well just floodlights the page.
+  function strokeGlow(g, t, c3, oy, bloom) {
+    const x0 = toX(t.u0, t.v), y0 = toY(t.u0, t.v) - oy;
+    const x1 = toX(t.u0 + t.len, t.v), y1 = toY(t.u0 + t.len, t.v) - oy;
+    const grad = g.createLinearGradient(x0, y0, x1, y1);
+    grad.addColorStop(0, 'transparent');
+    grad.addColorStop(0.5, c3.soft);
+    grad.addColorStop(1, c3.head);
+    g.strokeStyle = grad;
+    if (bloom) {
+      g.globalAlpha = 0.3;
+      g.lineWidth = 9;
+      g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+    }
+    g.globalAlpha = 1;
+    g.lineWidth = Math.max(1.4, t.lw);
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+  }
+
+  // A group runs to several hundred trails for the widest pieces, and stroking
+  // them all in one go stalls that frame. Streamed a slice per frame instead:
+  // the fade takes ~250ms anyway, so even the widest group finishes arriving
+  // before it is fully bright, and no frame goes over budget.
+  const GLOW_CHUNK = 32;
+  const BLOOM_MAX = 24;      // groups bigger than this drop the wide soft pass
+
+  function renderGlow() {
+    if (glow.at >= glow.trails.length) return;
+    if (!glowCv) {
+      glowCv = document.createElement('canvas');
+      glowCv.width = liveCv.width;
+      glowCv.height = liveCv.height;
+      glow.at = 0;
+    }
+    const g = glowCv.getContext('2d');
+    if (glow.at === 0) {
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.clearRect(0, 0, glowCv.width, glowCv.height);
+    }
+    g.setTransform(liveDpr, 0, 0, liveDpr, 0, 0);
+    g.lineCap = 'round';
+    if (!glow.c3) glow.c3 = colors();
+    const bloom = glow.trails.length <= BLOOM_MAX;
+    const end = Math.min(glow.at + GLOW_CHUNK, glow.trails.length);
+    for (; glow.at < end; glow.at++) {
+      strokeGlow(g, glow.trails[glow.at], glow.c3, glow.oy, bloom);
+    }
+  }
+
+  function drawLive() {
+    const g = liveCv.getContext('2d');
+    if (!glow || glow.alpha <= 0.01) {
+      if (!liveBlank) {
+        g.setTransform(1, 0, 0, 1, 0, 0);
+        g.clearRect(0, 0, liveCv.width, liveCv.height);
+        liveBlank = true;
+      }
+      return;
+    }
+    renderGlow();
+    // The group is drawn in document space, so if the page has scrolled since
+    // then it just slides by the difference — exact, not an approximation. A
+    // scroll starts the fade anyway, so the band that slides in from off-copy
+    // never has time to show.
+    const dy = Math.round((glow.oy - scrollY) * liveDpr);
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.clearRect(0, 0, liveCv.width, liveCv.height);
+    g.globalAlpha = Math.min(1, glow.alpha);
+    g.drawImage(glowCv, 0, dy);
+    g.globalAlpha = 1;
+    // the holes stay holes: a lit trail is cut off at a void edge like the rest
+    const mask = maskFor(glow.oy);
+    g.globalCompositeOperation = 'destination-in';
+    g.drawImage(mask, 0, 0, mask.width, mask.height,
+      0, dy, liveCv.width, liveCv.height);
+    g.globalCompositeOperation = 'source-over';
+    liveBlank = false;
+  }
+
+  let last = 0;
+  function frame(now) {
+    if (!last) last = now;
+    const dt = Math.min(50, now - last);
+    last = now;
+    if (glow) {
+      glow.alpha += ((glow.target ? 1 : 0) - glow.alpha) * Math.min(1, dt / 130);
+      if (!glow.target && glow.alpha < 0.01) glow = null;
+    }
+    drawLive();
+    requestAnimationFrame(frame);
+  }
+
+  // ---- hover ----------------------------------------------------------
+  function pickTrail(x, y) {
+    const u = toU(x, y), v = toV(x, y);
+    const key = Math.floor(v / GAP);
+    let best = null, bestD = 3.2;
+    for (let k = key - 1; k <= key + 1; k++) {
+      const list = bucketed.get(k);
+      if (!list) continue;
+      for (let i = 0; i < list.length; i++) {
+        const t = list[i];
+        if (u < t.u0 || u > t.u0 + t.len) continue;
+        const d = Math.abs(t.v - v);
+        if (d < bestD) { bestD = d; best = t; }
+      }
+    }
+    return best;
+  }
+
+  const inside = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
+
+  function light(key, make) {
+    if (glow && glow.key === key && glow.oy === scrollY) { glow.target = true; return; }
+    glow = {
+      key: key, trails: make(), at: 0, oy: scrollY, c3: null,
+      // keep a little of the outgoing brightness, so crossing from one trail to
+      // the next reads as one light moving rather than separate flashes
+      alpha: glow ? glow.alpha * 0.4 : 0, target: true,
+    };
+  }
+
+  function onMove(e) {
+    const x = e.clientX + scrollX, y = e.clientY + scrollY;
+    const hit = hits.find(r => inside(r, x, y));
+    if (hit) {
+      // on a piece: every trail running through it. Cached, since the set only
+      // changes when the layout does.
+      light('i' + hit.item.slug, () => hit.trails || (hit.trails = trailsThrough(hit)));
+      return;
+    }
+    // over the hero or the menu — those are holes in the field too, so nothing
+    // lights up under them
+    if (rects.some(r => inside(r, x, y))) {
+      if (glow) glow.target = false;
+      return;
+    }
+    const t = pickTrail(x, y);
+    if (t) light('t' + t.id, () => [t]);
+    else if (glow) glow.target = false;
+  }
+
+  // ---- lightbox -------------------------------------------------------
+  const lbImg = lb.querySelector('img');
+  const lbCap = lb.querySelector('.cap');
+  let lastFocus = null;
+
+  function openLightbox(item) {
+    lastFocus = document.activeElement;
+    lbImg.src = item.image;
+    lbImg.alt = item.title;
+    lbCap.textContent = item.title + ' — ' + item.subtitle + ', ' + fmtDate(item.date);
+    lb.classList.add('open');
+    lb.focus();
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    if (lastFocus) lastFocus.focus();
+  }
+
+  lb.addEventListener('click', closeLightbox);
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+  });
+
+  // ---- theme ----------------------------------------------------------
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+
+  function setTheme(theme) {
+    if (theme === 'light') {
+      root.setAttribute('data-theme', 'light');
+      toggle.textContent = '☽';
+    } else {
+      root.removeAttribute('data-theme');
+      toggle.textContent = '☀';
+    }
+    localStorage.setItem('theme', theme);
+    // both the field and any lit group are baked into bitmaps, so a palette
+    // change means repainting one and dropping the other
+    glow = null;
+    if (pristine) repaintPristine();
+  }
+
+  toggle.addEventListener('click', () =>
+    setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+  setTheme(localStorage.getItem('theme') || 'dark');
+
+  // ---- nav ------------------------------------------------------------
+  const go = { 'home-btn': 'index.html', 'collection-btn': 'collection.html' };
+  Object.keys(go).forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.addEventListener('click', () => { location.href = go[id]; });
+  });
+
+  // ---- boot -----------------------------------------------------------
+  // Lay out and measure straight away; the field then paints itself in slices
+  // over the following frames, so the titles are readable immediately.
+  function boot() {
+    layout();
+    // With no pointer, or with motion turned down, the page is just the static
+    // carved field — the whole design minus the glow.
+    if (!canHover || reduced) return;
+    sizeLive();
+    addEventListener('pointermove', onMove, { passive: true });
+    // A scroll moves the page out from under the cursor, so whatever was lit is
+    // no longer what's being pointed at: let it fade and wait for the next move.
+    // It also means a group is only ever rendered at one scroll position.
+    addEventListener('scroll', () => { if (glow) glow.target = false; }, { passive: true });
+    requestAnimationFrame(frame);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    // heights depend on the Typekit faces; measuring before they land would
+    // place every void against the fallback metrics
+    document.fonts.ready.then(boot);
+  } else {
+    addEventListener('load', boot);
+  }
+
+  let rz;
+  addEventListener('resize', () => {
+    clearTimeout(rz);
+    rz = setTimeout(() => { pristine = null; fieldH = 0; layout(); sizeLive(); }, 150);
+  });
+
+  // an art image that arrives late would otherwise leave a hole in the field
+  sky.querySelectorAll('img').forEach(img => {
+    if (img.complete) return;
+    img.addEventListener('load', layout);
+  });
+})();

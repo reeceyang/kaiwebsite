@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Waking is dreaming - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="#" class="nav-arrow prev-post" style="visibility: hidden;">
+      <span class="arrow">←</span>
+      <span class="nav-title"></span>
+    </a>
+    <a href="monsoon-season.html" class="nav-arrow next-post">
+      <span class="nav-title">Monsoon season</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Waking is dreaming</h2>
+      <span class="post-date">August 17, 2026</span>
+      <div class="content">
+      <p><span>Sleep teaches us a few things about consciousness. </span><strong><span>One, it’s possible to be unconscious and alive.</span></strong><span> Sometimes when we wake up, we know we weren’t conscious a moment ago and are conscious now. </span><strong><span>Two, it’s possible to be conscious but disconnected from the world.</span></strong><span> In dreams, we often aren’t aware of the external world at all, but we’re undoubtedly “conscious” in the sense of having an experience. The 2024 review paper </span><a href="https://www.cell.com/neuron/fulltext/S0896-6273(24)00272-1"><span>“Consciousness and sleep”</span></a><span> explores the current state of research into those two ideas; here are my notes.</span></p><p><span>First we should establish the main technique researchers use to probe people’s conscious experience during sleep: experience sampling. Sleeping subjects are woken at various points throughout the night and asked to report their experience. This report might vary from a description of dream content, to an affirmation that they were dreaming but can’t remember what, to a claim that they came out of nowhere or weren’t conscious at all just prior to waking.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-1" href="#footnote-1" target="_self" class="footnote-anchor">1</a></span></p><p><span>Typically, sleep progresses through a number of different stages marked by different brain activity patterns, going from deeper to lighter stages of NREM sleep, punctuated by increasingly long REM sleep periods. Though it’s often said that “dreaming occurs during the REM stage,” shorter, less narratively-organized dreams frequently occur during NREM sleep.</span></p><p><span>What actually distinguishes the two sleep stages, then? During REM sleep, EEG activity looks quite similar to waking, with low voltage and fast activity. NREM sleep is characterized by the presence of slow waves and spindles.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-2" href="#footnote-2" target="_self" class="footnote-anchor">2</a></span><span> Slow waves are synchronous fluctuations in the membrane potential of the cortical neurons. Slowly (with a cycle period on the order of one second) and all together, cortical neurons oscillate between the ON-period—the depolarized, fast-activity state, where neuron activity is similar to waking—and the OFF-period, the hyperpolarized, silent state. These OFF-periods may be locally confined or spread globally over the cortex. REM sleep is characterized by a total lack of OFF-periods, and NREM sleep by the presence of OFF-periods.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-3" href="#footnote-3" target="_self" class="footnote-anchor">3</a></span></p><div><hr/></div><p><strong><span>First, sleep teaches us that it’s possible to be unconscious and alive.</span></strong><span> We can use the sleeping state to probe the boundary between consciousness and unconsciousness, to work towards an understanding of what patterns of neural activity support one or the other, and why. We can’t compare </span><em><span>across</span></em><span> sleep stages to understand this, since a) physiological changes apart from losing consciousness may occur in the transition from REM to NREM sleep, and b) sometimes you’re dreaming during NREM sleep, and sometimes (though very rarely) you’re unconscious during REM sleep, so the division between stages doesn’t map cleanly onto the boundary between consciousness and unconsciousness.</span></p><p><span>Instead, studies use a within-stage paradigm, comparing the pre-waking brain activity between subjects in the same sleep stage who, upon waking, report a dream vs no dream.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-4" href="#footnote-4" target="_self" class="footnote-anchor">4</a></span><span> Lack of consciousness—a null dream report—is correlated with slow wave activity in posterior cortical areas in particular. Slow waves are present throughout all of NREM sleep and act as the defining quality of that sleep stage, but when confined to more anterior areas, consciousness may still be present: the subject may still be experiencing a dream. During “deep sleep,” then—the earliest, dreamless portion of the night’s sleep—NREM sleep occurs with slow waves present in posterior areas.</span></p><p><span>What do slow waves actually entail in terms of neuronal activity? The paper’s own words explain this well:</span></p><blockquote><p><span>The number of slow waves reflects the propensity of cortical neurons to enter the down-state, while their amplitude reflects the number of cortical neurons that do so together. The descending slope of the wave reflects how synchronously neurons enter the down-state, and the ascending slope reflects how synchronously they enter the up-state. Multiple negative peaks within a slow wave indicate that down-states are not well synchronized across distant neuronal populations. From this perspective, the high-amplitude, steep slow waves that sweep through the cortex more than 10 times a minute in early NREM sleep (N3), when consciousness often vanishes, indicate high bistability. Bistability attenuates during NREM sleep later in the night (N2), when slow waves become less frequent, more asynchronous, and localized mostly in the front, and dreaming is common, even though often fragmentary. Bistability is even lower at sleep onset (N1), when posterior cortical areas may remain activated for longer, and subjects are almost invariably conscious. Finally, bistability is altogether absent during most of REM sleep, when subjects are not only conscious but tend to enjoy prolonged, narrative dreams.</span></p></blockquote><p><span>The natural next question to ask is </span><em><span>why</span></em><span> slow waves would lead to loss of consciousness. Giulio Tononi, the paper’s lead author, helped develop the Integrated Information Theory (IIT) of consciousness, and uses IIT to motivate some of the following conclusions.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-5" href="#footnote-5" target="_self" class="footnote-anchor">5</a></span></p><p><span>Here’s an approximate explanation of the relevant part. IIT starts from the fact that by definition, a “substrate of consciousness”—a thing that generates consciousness—must support experience. Then, from the axioms that define experience (as IIT posits), the definition and necessity of the “integrated information” quantity for consciousness are derived. The “information” axiom gestures at something like: two different things might happen that lead to the same downstream signal for an ant, and to different downstream signals for a human. If we add up some measure of the information contained in this downstream signal across all possible input signals, we might come to the conclusion that a human is “more conscious” than an ant, under IIT. “What it is like” to be a human might be richer than “what it is like” to be an ant.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-6" href="#footnote-6" target="_self" class="footnote-anchor">6</a></span></p><p><span>There are plenty of objections to IIT and several competing theories of consciousness. For example, you could say, obviously then the universe is conscious. IIT says: yes, it is. You could also say, well, a thermostat is conscious in its own way. IIT says: yes, it is. It’s up to you whether you consider IIT to have a very interesting conception of consciousness, if it says that, whatever it is, you bet thermostats have it. In any case, that is one way to answer the question, “Why does slow wave activity cause a loss of consciousness, even though the OFF-periods are short and localized?” Because slow waves lead to the disruption of causal links among different populations of neurons.</span></p><p><span>To make this concrete, cognitive neuroscientists quantify the concept of causally influenced neural signals with “phase locking.” Implant an electrode in the brain: its measured signal is an average over the electrical activity of a local cluster of neurons. In response to a stimulus at time t=0, signals propagate through the brain, and some resulting local signal is read out at this electrode. Suppose that for the same stimulus, you read the same (power-normalized) response signal over many trials: then this signal is said to be “phase locked” to the initial stimulus, with a “phase locking factor” of 1.</span></p><p><span>Concretely, the phase locking factor is calculated by taking the Hilbert transform of the signal x(t), normalizing by power, and then taking the average of this normalized H(x(t))=Ae^(iwt+phi) over many trials, resulting in one value for phase locking factor at every point in time. If the instantaneous phase phi, defined this way, evolves in the same way every time, PLF=1 all the way until the signal disappears; if it evolves randomly every time, PLF=0. In practice PLF starts close to 1 and decays to 0 at some point: more quickly for signals which begin to vary randomly more quickly across trials, and more slowly for signals which evolve deterministically across trials for longer.</span></p><p><a href="https://www.sciencedirect.com/science/article/pii/S1053811915001573?via%3Dihub"><span>This was tested</span></a><span> in subjects with epilepsy with intracranial electrodes embedded for clinical evaluations. During waking, electrical stimulation of one electrode led to consistent, deterministic signals in the other cortical electrodes. But during deep NREM sleep, the same stimulation led to a slow wave with high-frequency components damped; in the following ON-period, when cortical activity had resumed to levels close to wakefulness, phase locking had disappeared between the neural activity in that period and the initial stimulation.</span></p><p><a href="https://www.science.org/doi/10.1126/science.1117256"><span>A different study</span></a><span> probed the same question using transcranial magnetic stimulation (TMS), a useful technique since it can stimulate cortical areas directly, without activating sensory/arousal systems. Subjects stimulated during NREM sleep were then woken and asked for their sleep report. Similarly, the study found that “reports of no dreaming were associated with a larger negative evoked response [the EEG’s measured down-state in the response] and shorter phase-locking compared with reports of dreaming.”</span></p><p><span>So in IIT, consciousness is lost when slow waves invade the posterior cortex because the OFF-periods disrupt causal links: even if activations during ON-periods resemble those seen during wakefulness, the synchronous silencing of many distant neuron populations during OFF-periods quickly kills all parts of the signal correlated to the initial activation.</span></p><div><hr/></div><p><strong><span>Second, sleep teaches us it’s possible to be conscious and disconnected from reality.</span></strong><span> When dreaming, we’re undeniably conscious in the sense of having an experience. But consciousness during dreams differs from waking consciousness in many ways. While dreaming, you’re unaware of the world around you—so consciousness can be present without integrating sensory inputs. Sometimes, you lack the ability to reflect on your own actions—so consciousness does not require metacognitive ability. Often, what occurs in dreams is not remembered—so consciousness is separate from memory acquisition.</span></p><p><span>Dreaming thus demonstrates a more “base” version of consciousness. A being without connection to external reality, metacognition, or memory can still have an extremely rich sense of experience, and in our dreams we gain a sense of what this might feel like.</span></p><p><span>What causes disconnection from stimuli? Various hypothesized “gates” (at the brainstem, thalamus, and cortex) may prevent signal from sensory stimuli from progressing upstream as far during sleep as during wakefulness; and during NREM sleep, OFF-periods destroy signal from sensory stimuli. But more interesting and relevant to our inquiry into dreaming consciousness is that even when sensory stimuli activate the neural substrate of consciousness, i.e. signals propagate as far upstream as during waking, while the subject is asleep and conscious (dreaming), still dreams take place largely independently of the environment.</span></p><p><span>One explanation is that the neural activation triggered endogenously by the dream is inconsistent with the activation triggered by exogenous stimuli, so the “dominant” activation wins. This is similar to the </span><a href="https://en.wikipedia.org/wiki/Binocular_rivalry"><span>binocular rivalry</span></a><span> effect—where a subject is shown two images, one in each eye, and reports seeing one at a time, </span><em><span>not</span></em><span> both at once or a blend of both: consistently our consciousness reduces conflicting signals to a single most likely representation of reality—down to the fact that sensory stimuli from both images still travel upstream in binocular rivalry experiments, but only one is perceived. And it’s consistent with the observation that some </span><em><span>consistent</span></em><span> signals </span><em><span>do</span></em><span> get incorporated into dreams: everyone has occasionally had their alarm sound incorporated into the end of a dream.</span></p><p><span>As for metacognition and memory, various neural circuits are hypothesized to gate those abilities which are less active during sleep. But each night we experience consciousness without those features. Waking life, then, may be thought of as a dream which matches causal processes in the external world. It’s only due to the external structure of the world—in which we observe that objects remain themselves, causality holds, and certain predictions bear fruit—that we developed such abilities as metacognition and memory for use during wakefulness. It’s easy to conceive of a kind of experience (we do, nightly, in our dreams) where the ability to remember may as well be meaningless.</span></p><div><hr/></div><p><span>There’s one more interesting question about sleep that the review floated around but understandably didn’t answer: </span><strong><span>why do we sleep?</span></strong><span> What we recognize as “sleep” can be characterized roughly as a state of reduced responsiveness to environmental stimuli. During sleep, this state is rapidly reversible, which distinguishes it from states like anesthesia or coma. Still, it’s intuitively a dangerous state for an organism to be in—naively you’d expect many animals to have evolved a mechanism to avoid it if possible—and yet almost all animals need to sleep. Whatever is going on during sleep seems both crucial to animal fitness and very difficult or impossible to achieve without disconnecting from external reality.</span></p><p><span>One theory for the function of sleep is the down-weighting of certain synapse connections. Connections between synapses are strengthened during wakefulness: as external stimuli trigger neural activity patterns that propagate through the brain, the neurons that fire together more often have their connecting synapses strengthened. This is the basic principle of neuroplasticity. However, some mass downweighting and pruning of synapses must also occur, and the “synaptic homeostasis hypothesis” argues that this occurs during sleep.</span><span style="min-width:0;" data-state="closed"><a data-component-name="FootnoteAnchorToDOM" id="footnote-anchor-7" href="#footnote-7" target="_self" class="footnote-anchor">7</a></span></p><p><span>So why is disconnection from the environment necessary? In this 2024 paper, the authors suggest it’s so the brain can endogenously trigger activity patterns through which to pick which synapses to prune: the synapses less activated via these endogenously triggered patterns get downweighted. In particular, </span><em><span>recombination</span></em><span> of the brain’s intrinsic repertoire of activity patterns is important—distinct both from exactly replaying old activity patterns, and simply continuing to receive sensory input from the environment. As we saw above, very little is different about dreaming consciousness and waking consciousness otherwise in terms of brain signals! It may be that a dream is just consciousness triggered endogenously, and waking life is consciousness triggered exogenously, by the external world; and this explains all that differs between those two consciousnesses.</span></p><p><span>(This sounds nice, and aligns with a hypothesis I like, that </span><a href="https://www.cell.com/patterns/fulltext/S2666-3899(21)00064-7"><span>the ability to dream evolved to prevent against overfitting</span></a><span>. Recently when I was learning to drive, I kept having dreams where I drove a car which worked in some totally bonkers way that bore little resemblance to how any car in the real world might behave, or I had to drive on some topologically fucked-up, nonorientable road, etc, etc. Did that help me drive functional Toyota Corollas on orientable roads that were new to me? Maybe!)</span></p><p><span>But </span><a href="https://www.nature.com/articles/s41593-026-02318-9"><span>more recently, in 2026,</span></a><span> the paper authors induced a slow-wave-like ON-/OFF-cycle locally in the cortical neurons of awake mice and found this reversed the memory loss effects of sleep deprivation. This is the same mechanism that some birds, fur seals, and cetaceans use to remain vigilant while reaping the benefits of sleep—by undergoing unihemispheric NREM sleep, they do not fully lose consciousness, nor does it even seem their waking abilities degrade over long periods without rest: </span><a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0047478"><span>one study</span></a><span> had dolphins continuously echolocating for 15 days without visible degradation in ability.</span></p><p><span>Doesn’t this make it seem like whole-brain sleep is unnecessary? In that paper, the authors venture that whole-brain sleep might still be helpful for renormalization of synapse strengths on a </span><em><span>global</span></em><span> scale, as opposed to within the local neuronal clusters undergoing slow wave activity; but this isn’t tested, and as far as I can tell it’s still a mystery.</span></p><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-1" href="#footnote-anchor-1" contenteditable="false" target="_self" class="footnote-number">1</a><div class="footnote-content"><p>Should we trust these reports? Even if we assume subjects are always truthful, is there the chance you are remembering a random scene from much earlier in the night when you wake up, as opposed to what was going on right then? Or maybe the contents get scrambled upon waking? Actually, there’s evidence that the occurrence, duration, and high-level content of a dream can be predicted by brain activity preceding awakening, e.g. reporting human faces is correlated with pre-waking activation of the fusiform face gyrus.</p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-2" href="#footnote-anchor-2" contenteditable="false" target="_self" class="footnote-number">2</a><div class="footnote-content"><p>I don’t really understand the spindles, but fortunately everyone just talks about slow waves.</p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-3" href="#footnote-anchor-3" contenteditable="false" target="_self" class="footnote-number">3</a><div class="footnote-content"><p>Interestingly, in states of sleep deprivation, you experience OFF-periods while waking.</p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-4" href="#footnote-anchor-4" contenteditable="false" target="_self" class="footnote-number">4</a><div class="footnote-content"><p>To control for the effect of being able to recall the actual dream contents, as opposed to the bare knowledge of consciousness—“I was dreaming but I can’t remember what”—the study ran the same comparison but between subjects reporting a white dream vs no dream, and found similar results except for a missing activation in one area of the brain that thus seems more necessary for recall, not experience itself.</p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-5" href="#footnote-anchor-5" contenteditable="false" target="_self" class="footnote-number">5</a><div class="footnote-content"><p><span>I don’t understand IIT, and I feel like most explanations are like: “Things with more integrated information are more conscious. Here is some math.” If you’re interested in a good, readable explanation, </span><a href="https://scottaaronson.blog/?p=1799">Scott Aaronson’s</a><span> is the best I’ve found.</span></p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-6" href="#footnote-anchor-6" contenteditable="false" target="_self" class="footnote-number">6</a><div class="footnote-content"><p><span>This misses the important fact that </span><em>integrated</em><span> information is actually some measure over all possible partitions A and B of the substrate that’s larger if no roughly-independent A and B can be chosen…but the signal causality thing is sufficient for our understanding of what “breakdown of causal links” means in this paper. Again you should read </span><a href="https://scottaaronson.blog/?p=1799">Aaronson’s blog</a><span> for precision.</span></p></div></div><div data-component-name="FootnoteToDOM" class="footnote"><a id="footnote-7" href="#footnote-anchor-7" contenteditable="false" target="_self" class="footnote-number">7</a><div class="footnote-content"><p>Like IIT, this hypothesis is Tononi’s; like IIT, it is influential but contested.</p></div></div></div></div><div class="visibility-check">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

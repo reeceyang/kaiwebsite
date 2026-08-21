@@ -16,7 +16,7 @@
   </script>
   <style>
     :root {
-      --bg-color: #0a0a0a;
+      --bg-color: #121212;
       --text-color: white;
       --border-color: white;
       --heading-stroke: lightgoldenrodyellow;
@@ -26,6 +26,8 @@
       --button-hover-bg: rgb(255, 255, 255);
       --button-hover-text: black;
       --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
     }
 
     :root[data-theme="light"] {
@@ -39,6 +41,8 @@
       --button-hover-bg: #1a1a1a;
       --button-hover-text: white;
       --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
     }
 
     * {
@@ -57,32 +61,6 @@
       font-style: normal;
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: var(--heading-stroke);
-    }
-
-    h1 {
-      font-size: 13.2ch;
-      text-shadow: 0px 0px 5px var(--glow-color);
-      padding-top: 0.55rem;
-      padding-bottom: 0rem;
-      margin-left: 3px;
-    }
-
-    @media screen and (max-width: 80ch) {
-      h1 {
-        font-size: 19.25vw;
-      }
-    }
-
-    .red-drop {
-      text-shadow: 0px 0px 5px var(--glow-color), 9px 6px 0px #F43208;
-    }
-
-    .red-raise {
-      text-shadow: 0px 0px 5px var(--glow-color), -9px -6px 0px #F43208;
-    }
-
-    .header-container {
-      padding-bottom: 0;
     }
 
     h2 {
@@ -284,8 +262,7 @@
 
   <nav class="menu-bar container" style="margin-top: 1.65rem;">
     <button id="home-btn">home</button>
-    <button id="writing-btn" class="active">writing</button>
-    <button id="gallery-btn">gallery</button>
+    <button id="gallery-btn" class="active">gallery</button>
     <button id="collection-btn">collection</button>
     <button id="theme-toggle">☀</button>
   </nav>
@@ -306,7 +283,7 @@
       <h2>parallel universe</h2>
       <span class="post-date">December 20, 2024</span>
       <div class="content">
-      <p><em>I made this as a hopefully-reassuring comic for post-decisions release on the <a href="https://mitadmissions.org/blogs/entry/parallel-universe/">MIT Admissions blogs</a>, but since I put so much time into it I thought I would just put it here too. </em></p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!W8Lp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!W8Lp!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 424w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 848w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1272w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png" width="1456" height="8008" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:8008,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:15402382,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!W8Lp!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 424w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 848w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1272w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1456w" sizes="100vw" fetchpriority="high"></picture><div class="image-link-expand"><div class="pencraft pc-display-flex pc-gap-8 pc-reset"><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container restack-image"><svg role="img" style="height:20px;width:20px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke="var(--color-fg-primary)" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg></button><button tabindex="0" type="button" class="pencraft pc-reset pencraft icon-container view-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg></button></div></div></div></a></figure></div>
+      <p><em>I made this as a hopefully-reassuring comic for post-decisions release on the <a href="https://mitadmissions.org/blogs/entry/parallel-universe/">MIT Admissions blogs</a>, but since I put so much time into it I thought I would just put it here too. </em></p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!W8Lp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!W8Lp!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 424w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 848w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1272w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1456w" sizes="100vw"><img src="https://substack-post-media.s3.amazonaws.com/public/images/47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png" width="1456" height="8008" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:8008,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:15402382,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:null,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!W8Lp!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 424w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 848w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1272w, https://substackcdn.com/image/fetch/$s_!W8Lp!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F47cee49f-60fa-436e-b7bb-73744998051d_2000x11000.png 1456w" sizes="100vw" fetchpriority="high"></picture></div></a></figure></div>
       </div>
     </div>
   </div>
@@ -316,37 +293,20 @@
   </div>
 
   <script src="../starfield.js"></script>
-  <script src="../light-starfield.js"></script>
   <script>
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
-
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      if (savedTheme === 'light') {
-        themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
-      } else {
-        themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
-      }
-    }
 
     function setTheme(theme) {
       if (theme === 'light') {
         root.setAttribute('data-theme', 'light');
         themeToggle.textContent = '☽';
-        window.starfield.stop();
-        window.lightStarfield.start();
       } else {
         root.removeAttribute('data-theme');
         themeToggle.textContent = '☀';
-        window.lightStarfield.stop();
-        window.starfield.start();
       }
       localStorage.setItem('theme', theme);
+      window.starfield.refresh();
     }
 
     function toggleTheme() {
@@ -355,10 +315,9 @@
     }
 
     themeToggle.addEventListener('click', toggleTheme);
-    initTheme();
+    setTheme(localStorage.getItem('theme') || 'dark');
 
     document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
-    document.getElementById('writing-btn').addEventListener('click', () => window.location.href = '../writing.html');
     document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
     document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
     document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));

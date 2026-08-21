@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Books I read in 2025 - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="getting-around-nairobi.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Getting around Nairobi</span>
+    </a>
+    <a href="everything-blends-with-everything.html" class="nav-arrow next-post">
+      <span class="nav-title">Everything blends with everything else</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Books I read in 2025</h2>
+      <span class="post-date">January 11, 2026</span>
+      <div class="content">
+      <p>I read 19 books in 2025. This is one fewer book than in 2024, but I feel that I spent at least twice as much time reading this year as last year. I think this is basically explained by two factors:</p><p>1) All my completed books of 2025 are from May onwards; in the spring I was taking a history class that required a lot of dense reading weekly and I did not want to spend my free time reading more.</p><p>2) I became much more okay with sampling and not finishing books instead of waiting for the "headspace" in which I felt "excited" to read a certain book all the way through. Mostly this means that I read a lot of books halfway through and then got busy and left them for later, which happens mainly if I'm consuming the book in online-PDF-whose-tab-I-close form or in standing-at-bookstore-shelf-for-three-hours form, so that it's not so easy to pick up a book I've paused on. However: honorable mention to <em>The Covenant of Water,</em> which I was convinced for some reason I would love, for taking up a whole torturous 2-week attempted reading period and two pounds in my suitcase over the summer before I finally gave up and pawned it off half-finished to a friend.</p><p>Thanks in part to #2 I feel quite satisfied with the set of books I've finished this year. Maybe because I haven't read so much and so intentionally since before college (!), and also due in part to some luck in book selection, my senses of what literature can do and of what constitutes a <em>good voice</em> (as in, one I enjoy) evolved more this year than any other.</p><p>I read 15 fiction books, 3 poetry collections, and 1 nonfiction book. I've ranked them in a tier list below, and I'll comment on my S-tier books. Like <a href="books-i-read-in-2024-ranked.html">last year</a>, I don't rank based on any supposed metric of objective quality, but based on the books' impact on me personally. I would say that actually I found the books in tier D rather odious and would actively anti-recommend them and only finished them to up my book count since they were really short, lol. But I liked all the other ones; for instance, two books in C tier made me cry.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!vu8e!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!vu8e!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 424w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 848w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 1272w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!vu8e!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png" width="1140" height="689" alt="" srcset="https://substackcdn.com/image/fetch/$s_!vu8e!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 424w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 848w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 1272w, https://substackcdn.com/image/fetch/$s_!vu8e!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a114480-9dcc-459e-99ef-e0a8276c0c7b_1140x689.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><ul><li><p>S tier: really impacted me; would read again and again</p><ul><li><p><em>Oblivion</em> by David Foster Wallace</p></li><li><p><em>The Unconsoled</em> by Kazuo Ishiguro</p></li><li><p><em>Pale Fire</em> by Vladimir Nabokov</p></li><li><p><em>Giovanni's Room</em> by James Baldwin</p></li><li><p><em>Twice Alive</em> by Forrest Gander</p></li></ul></li><li><p>A tier: excellent experience</p><ul><li><p><em>The Road</em> by Cormac McCarthy</p></li><li><p><em>The Bluest Eye</em> by Toni Morrison</p></li><li><p><em>One Hundred Years of Solitude</em> by Gabriel Garcia Marquez</p></li></ul></li><li><p>B tier: solid experience, no obvious points of weakness, some standout moments</p><ul><li><p><em>Be With</em> by Forrest Gander</p></li><li><p><em>Pastoralia</em> by George Saunders</p></li><li><p><em>Dubliners</em> by James Joyce</p></li><li><p><em>Getting Lost</em> by Annie Ernaux</p></li></ul></li><li><p>C tier: enjoyed overall, some weaker parts / weaker overall impression</p><ul><li><p><em>The Argonauts</em> by Maggie Nelson</p></li><li><p><em>Earthlings</em> by Sayaka Murata</p></li><li><p><em>Convenience Store Woman</em> by Sayaka Murata</p></li><li><p><em>If Beale Street Could Talk</em> by James Baldwin</p></li><li><p><em>No Longer Human</em> by Osamu Dazai</p></li></ul></li><li><p>D tier: hated these lol</p><ul><li><p><em>Faithful and Virtuous Night</em> by Louise Gluck</p></li><li><p><em>Women, Seated</em> by Zhang Yueran</p></li></ul></li></ul><h3><em>Oblivion</em> by David Foster Wallace</h3><p>This was <em>the</em> defining read of the year for me: it changed my approach to my waking moments, my experience of my own consciousness, and my expectation for what writing should do at all. Thanks to Uzay for recommending a story by DFW in the first place, which elevated him from "vaguely pretentious writer I've heard of and will never read from" to, well, this, and Sabine for then recommending <em>Oblivion</em>.</p><p><em>Oblivion</em> is a short story collection that I experienced as being themed around attention. Here is what I wrote about it when I finished (lightly edited for clarity; also reading this back it sounds very pretentious and my voice was obviously being affected by having just read 400 pages of DFW, but oops what can you do):</p><blockquote><p>I don't have much new or insightful to say about the collection. But it did make me feel new things. Parallel to, or maybe in part spurred on by, my reading of the book, I gained over the past couple of months a distaste for abstraction, a salivatory impulse to treat life instead as a series of moments. For many years—at least since COVID, maybe much earlier—I had this impression of viewing my life through a 2D screen. Sometimes I felt genuinely shocked by the three-dimensionality of an object. I tried and failed to feel like I was inhabiting a real volume on Earth, or a tubelet through spacetime with four-dimensional richness, that could interact with other tubelets and alter their trajectories.</p><p>This is how time became abstracted away from the actual human experience of sensation after sensation: it calved into chunks allocated for this thing or that, and upon being spent, left no trace of the actual moments that had passed, only the label assigned to the sum of those moments, each of which I had barely experienced at all.</p><p>The idea of assigning value to different paths through life could also only be achieved post-integration, the summation and then categorization of an experience into "better" or "worse" than another, which is not <em>wrong</em> in the sense that there aren't experiences one might prefer to have over other experiences, but I mean that the categorization over and over makes different "paths" seem like discrete entities when they are not—are instead two labels for sums of experiences, only really useful after the fact as a point of reflection if at all, the entirely wrong thing to focus on either in the moment or looking into the future.</p><p>In the end all of this comes back to presence of mind, living in the moment, etc; but what DFW speaks to uniquely is the tension—more than a "craving for dopamine" or a "short attention span" or a desire for "instant gratification"—that makes such careful attention uncomfortable, at times painful or unnatural even, the very real and urgent tension between visceral boredom / sustained pain that it <em>hurts</em> to pay attention to, vs the desire to experience life. It was <em><a href="https://www.esquire.com/entertainment/books/a500/incarnations-burned-children-david-foster-wallace-0900/">Incarnations of Burned Children</a></em> [which btw is short and the perfect story and I highly recommend you read] that assured me he took it seriously, this hurt—that sometimes it felt as if the only way to survive was to peel one's attention back, at least a little, to compartmentalize, to detach, to avoid feeling the full thing, that this had not been invented by the modern brainrotted child but was instead a part of the Human Condition, a part to fight against if one wanted to live a full human life.</p><p>So this is what I thought about when I kept my eyes open the entire time while skydiving during Senior Week, watching the dull green horizon. And what I thought about during conversations where I usually would have avoided eye contact, sought the easy conversational path, presented only slight and easily surmountable disagreements or questions to the other person so they could feel engaged but not attacked, but now in really paying attention sometimes I found that people <em>wanted</em> that, and opened up to the genuine questions I had.</p></blockquote><h3><em>Pale Fire</em> by Vladimir Nabokov</h3><p>Thanks to Renee for this rec. This is a novel in the form of a dead man's final poem, a 999-line magnum opus, featuring commentary by his colleague. I think you need to read it more slowly, and intentionally, and probably just more times than I did in order to understand all the little connections. Even so, it was really funny, Nabokov's prose is cracked, and it was so fun to experience a novel in the form of "footnotes to a poem".</p><p>The real reason I've categorized <em>Pale Fire</em> as S-tier is due to the titular poem itself. I really had no idea that a long, fictive poem could be all of funny, moving, and beautiful to read. Some stanzas I felt I <em>needed</em> to physically read aloud, to experience the musicality on a physical level. It made me rethink the entire genre and was the direct inspiration for my first <a href="another-arctic.html">foray</a> into poetry.</p><h3><em>The Unconsoled</em> by Kazuo Ishiguro</h3><p>Thanks to Uzay for this rec. It's hard to describe this book: a pianist goes on many sidequests? Reading this felt like having a long stress dream and then waking up with a feeling of melancholy and tenderness and significance that I couldn't point to any specific reason for or communicate to anyone else. It also felt like some parts of waking life: making up your mind to change something and being frustratingly unable to enact this change in the physical world. If only a moment could arrive that throws your situation into sharp relief, lets you see its structure and change it, lets you take control over your fate. But you're just one person in gridlock with the rest of the world.</p><p>For all this it's also genuinely really funny, and made me laugh in public more than once. Lots of people claim it's frustrating, boring, or plotless, but for me it felt like a very smooth reading experience once I surrendered to it—the literal sensation of dreaming. It's the Ishiguro I've read that steps farthest away from what he does in <em>The Remains of the Day</em> and, to some extent, in all his other novels that I've read, which is constructing a portrait of a narrator through both what the narrator is and isn't willing to say to you, or even to themselves. In <em>The Unconsoled</em>, instead <em>reality</em> is warping around the narrator; we can no longer really apply the logic in Ishiguro's other stories which comes from an unreliable narrator living in a still externally-consistent/logical world. That was a pretty cool difference and I would be excited to see Ishiguro do something like this again, but my impression is that everyone thought it was a flop so maybe he won't.</p><h3><em>Twice Alive</em> by Forrest Gander</h3><p>I picked up this poetry collection on a whim from a book sale like three years ago and finally read it in full this year. It's the first poetry collection I've thoroughly enjoyed and maybe the first collection where I feel consistently that even if I don't understand what the poet is trying to express in a certain poem, the beauty of his language carries me through anyway. Gander was trained as a geologist and I love his depictions of natural scenes (landscapes, biological/ecological dynamics) and how he uses them in his poetry.</p><p><a href="https://poets.org/poem/pastoral-3">Here</a>'s one poem I enjoyed—not my favorite from the collection, but maybe my favorite that's short enough to reproduce here.</p><pre><strong>Pastoral</strong>
+
+Together,
+you
+standing
+before me before
+the picture
+window, my arms
+around you, our
+eyes pitched
+beyond our
+reflections into—
+
+("into," I'd
+written, as
+though there
+swung at the end
+of a tunnel,
+a passage dotted
+with endless
+points of
+arrival, as
+though our gaze
+started just outside
+our faces and
+corkscrewed its way
+toward the horizon,
+processual,
+as if looking
+took time to happen
+and weren't
+instantaneous,
+offered whole in
+one gesture
+before we
+ask, before our
+will, as if the far
+Sonoma mountains
+weren't equally ready
+to be beheld as
+the dead
+fly on the sill)—
+
+the distance, a
+broad hill of
+bright mustard flowers
+the morning light
+coaxes open.
+
+<em>Copyright © 2021 by Forrest Gander. Originally published in Poem-a-Day on April 13, 2021, by the Academy of American Poets.</em></pre><h3><em>Giovanni's Room</em> by James Baldwin</h3><p>This was actually physically painful to read. I remember sitting in Blue Bottle reading this and feeling like I was going to throw up. Rec to everyone!!</p><blockquote><p>I dropped my brick and went to him. In a moment I heard his fall. And at moments like this I felt that we were merely enduring and committing the longer and lesser and more perpetual murder.</p></blockquote><hr><p>Books I began in 2025 that I'd like to finish in 2026 (probably an incomplete list because I'm just pulling from memory):</p><ul><li><p><em>The Golden Gate</em> by Vikram Seth, a novel in verse about SF</p></li><li><p><em>Moderation</em> by Elaine Castillo, a romance about…VR content moderation</p></li><li><p><em>The Making of the Atomic Bomb</em> by Richard Rhodes, this thing is just so long</p></li><li><p><em>War Trash</em> by Ha Jin, I really enjoyed this and got halfway through but then I got sleepy and closed the EPUB and never opened it again</p></li><li><p><em>Stories of Your Life and Others</em> by Ted Chiang, wow I read "Story of Your Life" recently and it was <em>insane</em>; I can't believe I'd never read it before</p></li><li><p><em>Ficciones</em> by Borges, unfinished because I am reading it in Spanish and I am sooo slow but 2026 will be The Year</p></li></ul><p>A sample of other books on my to-read for 2026:</p><ul><li><p><em>Wuthering Heights</em> before the movie comes out!! I am told it (the movie) will be "trash" but I look forward to participating in this cultural phenomenon nonetheless</p></li><li><p><em>Pnin</em> by Nabokov; I want to read more Nabokov but honestly very few experiences on this Earth appeal to me less than the thought of reading <em>Lolita</em> so I will settle for <em>Pnin</em>, which I have heard is a tale of a pure goodhearted man</p></li><li><p><em>The Years</em> by Annie Ernaux; I really enjoyed her voice in <em>Getting Lost</em> and would love to read it in the context of an edited novel as opposed to unedited diary entries</p></li><li><p>In general I would like to read more nonfiction. In high school I read exclusively nonfiction and while reading fiction again has been fun there is some feeling of knowledge acquisition that I miss lol</p></li><li><p>Stretch goal: develop a "taste" for "poetry"? If anyone else was similarly enamored by <em>Pale Fire</em> the poem and has recommendations lmk</p></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

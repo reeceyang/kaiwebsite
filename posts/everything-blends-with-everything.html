@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Everything blends with everything else - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="books-i-read-in-2025.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Books I read in 2025</span>
+    </a>
+    <a href="inside-outside.html" class="nav-arrow next-post">
+      <span class="nav-title">Inside, outside</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Everything blends with everything else</h2>
+      <span class="post-date">January 3, 2026</span>
+      <div class="content">
+      <p>Luther only dealt in cash. He drove us from one ATM to another until Sana and I had both exhausted each machine’s withdrawal limit on our cards. When Luther had picked us up from the Windhoek airport, he’d taken one look at us and told us he was giving us a different rental car than he’d promised over WhatsApp. “That’s fine, right?” We’d nodded. At the time we were still eager to please, relieved anyone would rent a truck to two 21-year-olds at all—the reputable companies all had a lower age limit of 25 for this kind of truck, and everyone had told us you absolutely needed four-wheel drive to get around in Namibia.</p><p>So we didn’t say anything about the cash-only enterprise or one of the locks on the trunk’s lockbox being sticky or the bottle of rum in the backseat. We were relieved that he even allowed us to set off with the truck once he saw Sana drive it. She told him she’d learned how to drive stick a long time ago and might need some time to regain her confidence. Actually she’d just watched a variety of YouTube tutorials and had been replaying the steps in her head for the past two months. She stalled the engine about ten times on our way to the Windhoek city limits. Luther, who’d come with us to stay in the truck while we took care of groceries, kept sighing and moaning and rubbing his head. “Just drive straight, okay,” he called, hanging on the open window before we left. “Don’t shift gears. Don’t do anything. The next town is not far.”</p><p>At the station coming out of Windhoek where they checked Sana’s driver’s license she—immediately following the worker’s friendly “drive safe!”—lifted her foot on the clutch too quickly and the truck tires screeched loudly, leaving skid marks on the view of the road through the rearview mirror, as the vehicle’s body jolted forward onto the highway. What could we have done differently? That night we were both happy just to have made it to the campsite.</p><div><hr></div><p>When I looked outside the window at the plains—sometimes pale yellow or green as I’d envisioned of desert grass, but often, in the distance, colored pink, heat waves rendering transparent the base of the hills to give the real impression that they were floating in rose-dusted clouds above the surface of the Earth—I expected total emptiness but occasionally saw a lone oryx facing me head-on, breathtakingly proportioned, its horns as tall as its legs; or a single ostrich sprinting across the grass, its dark-feathered body so much larger than I’d expected in relation to its spindly neck and legs.</p><p>All these animals must have been kilometers from the nearest source of water. If you put me in the middle of such a field, I thought, I would surely die. Whenever I stepped out of the truck into the sun I thought of a cautionary educational movie my teacher had showed the class in elementary school, a warning against reckless venturing into the desert, and in particular the scene in which our two hapless protagonists, lying on the flat expanse of sand with no end, had used a mirror to flash bursts of sunlight in the direction of a helicopter overhead, signaling for help. In the end their attempts had met no avail, and they’d both perished in the heat and the aridity of an age-old landscape they’d underestimated.</p><div><hr></div><p>On our first stop, an old German farmer brought us around his estate. He had us follow him in our truck; every time we came to a wire gate on his land he stopped his car and walked out and “unlocked” the gate, “unlock” being a bit of a stretch in vocabulary since none of the gates required a key to open and instead fastened shut via a different clever mechanism each: a loop of wire around a pipe with its opening obscured by a long metal nut, for instance. Sheep lounged at the foot of each gate; occasionally their bodies intersected the arc of the gate as it swung open, and the farmer nudged them gently so they—slowly, unhurriedly—rose and padded away.</p><p>Finally at the end of the path the farmer parked his car and led us up a hill where he had stashed multiple mesosaurus fossils, formed clearly and with great detail in slabs of shale. This valley, he said, used to lie underwater. I could see it. The landscape was so alien to me I could imagine it as the surface of Mercury. The trees lay lunar white and neon lime against a lavender sky.</p><p>He kept repeating the story of how he had first found the fossils, next to a marble gravestone of the German soldier on his property, acted out the indigenous people falling dead from German ammunition. I tried asking some follow-up questions—how long have you been here? How is your life in Namibia?—but he’d find some way to loop back onto an earlier part of the script. <em>You know what I say to this guy?</em> (He’d tap the fossilized imprint, here, of the mesosaurus, which looked mostly like a little lizard.) <em>Rest in pieces!</em> He said that three separate times.</p><p>He told me these “quiver trees” dotting the land weren’t even really trees, these tall sprouting bodies—they were giant aloe plants. When you cut a branch open the inside was spongy, hollow. The end of a branch sprouted aloe fingers long and curved like tentacles. I felt I was witnessing an ancient fork in the evolutionary tree; here was a divot where the world had remained unchanged since eighty million years ago.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!HRJo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!HRJo!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!HRJo!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg" width="1456" height="1941" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:1941,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:5229059,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!HRJo!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 424w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 848w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!HRJo!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88112c85-bfcf-4c1b-a011-8d7152f10cb2_4096x3072.jpeg 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><p>As we neared the coast, the golden fields and hazy pink mountains gave way to pale dunes. We drove parallel to a railroad which extended from Keetmanshoop to the coastal town of Luderitz. In the middle of the desert, hundreds of kilometers from the nearest town, the road was still paved smooth, and the empty tracks still ran parallel to our drive. I never witnessed a train pass by. There was one stop every hundred kilometers or so, marked by a hand-painted sign, black text in a surprisingly modern, Gothic-style script on white background, and little else, no station or even a stand to offer shade.</p><p>We almost never drove through a town, which made the availability and quality of maintenance of the adjacent infrastructure that much more puzzling. Where did the people live, who appeared in neon-vested groups next to a single Caterpillar articulated truck with its wheels in the sand, to extend the second track of a railway whose first track stretched across the country, as far as I could tell, barren and unused?</p><p>Without fail, a rest stop appeared on the side of the road every ten kilometers. They all looked the same: a metal canopy with legs bolted into the ground and a table with attached benches sat in the shade, all its parts painted bright white and green. We lunched under these canopies. Who was setting them up? Who was keeping them clean? I thought about stopping the car and walking up to the construction workers and asking them where they lived. But sand was blowing across the road; I didn’t know if we’d be able to drive out of the layer of sand of unknown depth coating the side of the road, if we swerved in and parked. So we kept on our route. The men outside my window may as well have been from a different country.</p><div><hr></div><p>Sand blew in tendrils over the dark road, whose winding trail made the only real feature in the otherwise smooth scenery. Every kilometer or so there was another yellow warning sign erect next to the road which just said SAND. Then the car lurched over a hill and the scene before us transformed completely. In the rearview there sprawled the yellow dunes and bright blue sky, and ahead of us, a gray mist hung low over the land, revealing only the lowest parts of the jagged black rock faces that now shouldered the road. A blinking lighthouse rose in the distance. The road wound between cliffs, pools of glittering violet water (later, I learned, colored by algae), becoming increasingly gravelly before finally opening into a roundabout flanked by a few structures of wood and stone, and surrounded by the sea.</p><p>Jonas was the one who welcomed us after we parked. He sat at the boiler stoking the fire, wrapped in layers of clothing bulging from under a denim jacket, a hood constantly pulled low over his head against the wind. “This will be ready for a shower in two, three hours,” he told us. “I’ll let you know.” We asked if he was the owner. No, but he’d built everything—all seven of the little houses facing the sea, each a one- or two-room slanted structure of large stones walled in mortar.</p><p>One of the houses was a retrofitted, grounded sailboat, whose single compartment Jonas gave us a short tour of. “It’s not ready yet,” he said, “but it’s my favorite.” As we stood at the helm of the boat he pointed at another, slightly larger boat, halfway up the hill to the lighthouse. “That one is mine.” He swiveled to an island in the distance. “That’s the island the penguins live on. You can pay for them to take you up close in a boat. Or I can take you in my boat, not as close, and you can zoom in on your phone.” He swiveled once more to point out a thick black pillar at the top of a steep, blocky peak rising from the water, half-obscured by fog. “That’s their monument. But the bridge to it needs to be repaired, so be careful.”</p><p>When we climbed up to it we saw it was the Diaz Cross. Its engraving commemorated an explorer’s passage over this peninsula centuries ago. Sana and I spent a few minutes in a peaceful silence next to that carved black pillar overlooking the tides. Only months later would I bother to look up the history of the place and learn that, that night, we had camped next to Shark Island. In the early 1900s the Germans had built a concentration camp there, during their genocide of the Herero and Nama indigenous peoples. Somehow I went the entire trip without knowing.</p><div><hr></div><p>We picked up oatmeal, peanut butter, jam, bread, nuts, oranges, and instant ramen. This would comprise our entire diet over the next two weeks. On the first night we were too frazzled, and had arrived at the campsite too late, to consider making a fire. Instead we just ate sandwiches.</p><p>The Luderitz logs were damp, seeped in sea air. Neither of us had made a fire on our own before, though we’d been on outdoor retreats with the co-op we’d both lived in. Back then, a savvy alum had taken care of all the outdoor tasks: a campfire appeared, blazing, each night, without my lifting a finger. On our first attempt we stacked a pitifully small amount of used tissue paper and little twigs together in the firepit and placed the damp logs just over it, and balanced a pot full of water upon a grate we jammed into the crevices of the firepit’s stone walls, which Jonas had also built. When he came by and saw the entirely kindling-sustained flame licking gently at the bottom of the pot and the still water inside devoid of bubbles, he shook his head and said, “I will show you.”</p><p>Into the bottom of the firepit he stuffed a greater volume and diversity of kindling than I would have thought remotely reasonable, retrieving from his sailboat-house a bag of trash from which he drew items that he pushed into the firepit under the logs one by one until finally he crumpled up the empty plastic bag itself and let the fire consume it as well. Sana looked horrified. But the water boiled, under the stench of burning plastic; we added instant noodles; it was the first hot meal we’d had in three days, and the best ramen I’d ever eaten, huddled there behind a stone wall with the waves crashing before us and the wind chilling us to the bone.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!9wOu!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!9wOu!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 424w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 848w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 1272w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!9wOu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png" width="1151" height="763" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/d44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:763,&quot;width&quot;:1151,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:1012349,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!9wOu!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 424w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 848w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 1272w, https://substackcdn.com/image/fetch/$s_!9wOu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd44bff96-1bcd-42d6-a679-a337145d0149_1151x763.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><p>As we moved from one campsite to another we got better at making fires, partly because we began to accumulate logs drier than the Luderitz ones which steamed and dripped sap for the first hour they were heated, but mostly because quickly we came to understand that tending to the fire and cooking dinner was not a brief diversion but the essential, defining activity of the evening. We could not start earlier because while the sun was high in the sky it was too hot to do anything but sit around and swat at the bugs that crawled onto our skin, much less willingly conjure another source of heat. We’d sit by the fire until it died and then find ourselves plunged into a bitter cold. Even crammed side by side in the single-person tent, in our respective sleeping bags and my body layered in heat underwear and shirts and jackets, every night without fail I woke in the early morning, shivering, the entire surface of my body cold to the touch. Placing my hands between my thighs, keeping my head inside the sleeping bag, offered no reprieve from the cold, which was all-encompassing and unforgiving. I’d check my watch after every brief nap I managed and count down the hours to sunrise.  My dreams revolved around that scene of relief, the band of gold that lowered upon the mountains with the ascent of the sun, the coloring and lightening of the world. </p><p>Dawn brought a period of relative comfort. Before it became hot, if we didn’t have anything else planned for the morning, Sana and I would pick a direction to walk in, keeping one landmark to our left and another to our right, and then retrace our steps on the way back. Then it got so hot my blood pounded audibly in my head after spending just a minute under the sun; we’d sit around waiting for night to fall again.</p><p>The first few days it hurt to swallow, and the skin on my lips was flaking off. But—I don’t know if we drove into milder climates, or if my body really acclimated so quickly—by the end of the first week I felt just fine. The cold still drove me out of the tent before dawn: moving around helped me warm up, and by then all the warmth of my body would have leached out of the sleeping bag anyway. But I at least began sleeping through the night.</p><p>I got used to other things, also. Like our gas station routine. When we pulled into a gas station the attendants would ask where we were from. First, always, they would guess: Japan?</p><p>No, we’d say, America.</p><p>America! But your eyes!</p><p>Yes, our families are Chinese.</p><p>Ah, that explains it.</p><p>Though we didn’t realize this until later, I guess we attracted such curiosity because it was uncommon to see self-driving travelers of East Asian descent on the Namibian roads. Many tourists took guided tours in big buses around the country, especially families with children. We didn’t encounter them until the second leg of the trip, when we stopped at the big tourist spots: the Sossusvlei dunes, the Etosha safari park. All the travelers we saw with their own rented white pickup trucks like ours were white, European, groups of men or else couples. Sana and I got read as a couple occasionally, but usually people assumed we were two Japanese women, and this caused such a stir at each stop that attendants from other fuel stations would come crowd around our truck to make conversation.</p><p>At gas stations I’d also page through the newspapers. On a national scale Namibian politics were peaceful and uneventful. Though there was no shortage of discontent with the poverty of daily life, people were too spread out to stage any kind of significant mass demonstration. When I looked through <em>The Namibian</em> I found headlines like “Pupils bunk school to sell ‘ngungula’” and “Relocation process upsets Okahandja residents” and then a bunch of filler content from other countries. One of the local stories was about a village that wanted a toilet built. Its residents included a disabled man whose mother had to move his excrement to the riverbed because he could not get there himself. It was like we moved in a tunnel of modern infrastructure circling the main roads, isolated from the rest of the country.</p><div><hr></div><p>I’d sat behind a car’s steering wheel just twice before in my life, both times taking circles around a parking lot, but Namibia seemed as good a place as any to learn to drive. Sana explained the mechanics of the clutch to me as she drove. There was the speed at which the engine was spinning, and the speed at which the tires were spinning, and you had to couple and decouple them to shift into a higher or lower gear—a higher gear allowed the tires to spin faster but traded off some acceleration. So in addition to the gas pedal and the brake, there was the clutch, which you brought from fully pressed down (the tires and engine moving fully independently; there, you’d shift gears) to the “bite point” (where the engine and the tires could just lock or unlock) to fully released, so the tires and engine were moving in sync.</p><p>Some days we remained at the same campsite and didn’t start up the car at all. Other days we drove hundreds of kilometers to the next campsite. When the road was smooth enough that we could hear anything above the shuddering of the truck, we put on Obama’s audiobook, <em>A Promised Land</em>, which we’d downloaded before arriving. On the first day I fell asleep a few times and Sana had to prod me to ask me for directions. (We had basically no service in Namibia, and none at all on the roads; we relied on our saved routes to get around.) I felt bad, but there was nothing I could do to keep from dozing off. I didn’t know how Sana was staying so alert.</p><p>Sometime around the third day when Sana had become comfortable enough with the truck to supervise its operation remotely, she handed it off to me on a long, straight stretch of road. And then I understood—not only how she was able to stay awake, but the entire culture around the glorification of driving, driving as power, driving as freedom. Sitting there with my hands on the steering wheel and one foot on the gas and the other on the clutch, feeling something deep inside the machine shift when I shifted gears, feeling it grumble and respond to my movements, sailing along the outer curve of a dirt road in the middle of nowhere—the power with which it accelerated or decelerated, its <em>mass</em>, which I could feel, under my palms, literally vibrating (my and Sana’s hands always felt numb after a few hours at the wheel)—it was a feeling of peace and attention and engagement with the road that brought me immediately closer to, I don’t know, everything else that had ever existed. I understood now why NO OFF-ROADING signs sprouted everywhere in Namibia, which previously I’d scoffed at a bit, as if people needed a constant reminder to stay on the road, and wouldn’t you want to stay on the main road anyway, instead of bumping over grass and ruts in loose dirt, not knowing where you were going?</p><p>What I found was that I didn’t care at all where I was going. Driving was agency: driving was a dangerous, tantalizing sense of invulnerability: I, too, wanted to take the truck off the road, head into the dunes, a lone machine rumbling through the wilderness.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!Y3sB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!Y3sB!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 424w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 848w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 1272w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!Y3sB!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png" width="1142" height="850" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/c070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:850,&quot;width&quot;:1142,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:694261,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!Y3sB!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 424w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 848w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 1272w, https://substackcdn.com/image/fetch/$s_!Y3sB!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc070ad16-a4bd-4156-a3e2-17171b2b0831_1142x850.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><div class="preformatted-block" data-component-name="PreformattedTextBlockToDOM"><label class="hide-text" contenteditable="false">Text within this block will maintain its original spacing when published</label><pre class="text">Everything blends with
+everything else. When I 
+fleck the eye’s chasm
+with ochre fiber
+I duck away from
+the impression of light
+shaping a pupil
+still backlit by
+a rush of blood
+
+pumping through my throat
+up the crest of the next dune.
+How many
+do you think
+they form a ring? Or ever will
+return us to where we began?
+
+Why do you think
+these bees, every afternoon,
+swollen to three times
+their girth at dawn,
+beat their bodies
+against splintering wood
+till their wings cease to flicker?
+
+Why do you think
+he locks horns with
+the only other oryx
+for miles—
+excepting the
+one who lay with
+hooves crossed, snout yawed
+in half-buried prayer,
+mottled skin pressed to bone,
+found when we began?
+
+You answer it’s desperation
+which makes you desert 
+your instinctual resistance
+to the flickering that begins
+an infinite distance
+from its final deepening pause,
+
+that makes you forget
+that water once spilled
+over the sides
+of a glass you held,
+
+forget that once
+we might have been
+somewhere else.
+
+My eyes flick a ring
+around the ochre chasm
+to the carcass weighing
+down its center, 
+pulling its sides taut,
+everything tumbling in; everything
+a mottled impression
+of the rush of blood
+that began us.</pre></div><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!ASBG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!ASBG!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 424w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 848w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 1272w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!ASBG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png" width="1182" height="787" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:787,&quot;width&quot;:1182,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:1915815,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!ASBG!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 424w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 848w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 1272w, https://substackcdn.com/image/fetch/$s_!ASBG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e6cfe9b-6bb0-4c32-9d7d-a1a6c5a889b6_1182x787.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><p>The condition of our truck was deteriorating all the while. Luther called Sana: “I need to take the truck to my repairman in Swakopmund. There’s a problem with the wheels and the third gear.” Indeed, the wheels were so misaligned that even gentle turns caused them to screech against the road. And switching into third gear required first bringing the stick all the way into first, wiggling it a bit, and then slamming it sharply into third.</p><p>“Why did he rent us this car if he knew it had these issues?” Sana groaned. I thought she was being dramatic, though I was also baffled as to why Luther found these issues urgent enough to warrant driving the entire length of the country to service the truck, why he couldn’t wait ten days to address it once we drove the truck back to Windhoek.</p><p>Then Luther showed up to take the car and when he returned he pointed out all the external damage: the lockbox coming off its hinges, the grate under the car dented, the fender misaligned. “You guys owe me money,” he said angrily. “We’ll talk in Windhoek. This is not normal damage. Don’t lie, you must have hit an animal or something.” All our stupefied protest made no difference. At first I actually thought he was joking: this from the man who’d rented us a car with its innards literally zip-tied together, cracks permeating the rusted ironworks, who apparently knew in advance about the busted third gear and the misaligned wheels and found those problems serious enough to drive across the country for but not serious enough to address before our departure? Quickly we realized he seriously intended to fine us. Sana and I sat there on the truckbed looking through the contract we had signed, which stated explicitly that we had inspected the car and found it in good condition, and that any assessment of damage was up to the renter’s discretion, and that he could charge us an additional amount up to the rental fee itself for damages.</p><p>When we set off again we found the gearbox and the tires functioned exactly as they had before. Upon the lumps of existing welding that’d split apart when the lockbox frame ruptured, Luther’s repairman had screwed in a single thin L-shaped sheet of metal that fell off within the next day of driving. As far as we could tell that’d been the only modification. We called Luther to ask why he hadn’t fixed the other things. “No time,” he said. “Don’t worry. You’ll be fine.”</p><p>We would encounter Luther two more times on the road, without telling him where we were. He appeared in a parking lot and then a gas station. Sana and I puzzled over his possible motives and finally came upon a theory that explained everything.</p><p>“Maybe,” I said, “he stows cocaine in the truck in a hidden compartment. And he rents the truck to tourists to drive it around Namibia so <em>he</em> doesn’t get caught with it. But when they bring it somewhere he has to come get it and take the cocaine out to sell it.” </p><p>Sana laughed. “That’s a brilliant business plan.”</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!qv0n!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!qv0n!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 424w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 848w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 1272w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!qv0n!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png" width="1144" height="749" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:749,&quot;width&quot;:1144,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:420453,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!qv0n!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 424w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 848w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 1272w, https://substackcdn.com/image/fetch/$s_!qv0n!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c16aecc-7305-44da-8910-cdf1737826ca_1144x749.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><p>For the most part we passed fields and valleys and dunes and saw no one. Occasionally our route intersected a village: a few houses visible from the road, wooden shacks, cows led around by kids. Once as I was driving we came upon a gate that we would need to manually unlock and open to let the truck through and then close again. This kind of gate was fairly common—it’d appeared at the first night’s campsite—and by now we’d encountered basically all the different lock options, which at first would momentarily confuse us as we figured out how to unlock a new, novel type. We gathered the gates were mainly meant to restrict cattle movement. Sana made a motion to unbuckle her seatbelt; before she could, a boy and a girl sprinted out from the village to swing open the gate for us.</p><p>“Thank you,” I said through the open window as we passed. “Give me money,” the boy said, his hands reaching out. I had already shifted to a higher gear; all the cash we had was for Sana’s taxi to the airport later, the price of which we weren’t sure; and so we didn’t stop, though we should have, though we drove in silence for a while after.</p><div><hr></div><p>We talked sometimes. While watching the sun set over the dunes; while watching dolphins barrel through the surf; while lying on her blanket watching the stars; while seated in the truck with windows open watching a herd of wildebeest and zebras and springbok grazing, or giraffes loping across the plains. I’d known Sana since our freshman year at MIT and yet I knew very little about her beyond what I’d glimpsed from the intersection of our academic lives. We’d lived in that co-op together for two years. As it became an increasingly uncomfortable place for me to live, I moved out and Sana took on more and more of the work of keeping the house together.</p><p>I remember, living there, how I’d thought of her as something almost beyond human. Before this trip I had never seen her sleep; I had hardly ever seen her express frustration or confusion; when other people in the house dropped the ball she picked it up with no questions asked, on top of the hundred-ish units she took every semester. So despite not knowing her very well, Sana sat near the top of the very short list of people in the world with whom I would have embarked on such a trip as this one.</p><p>Throughout the entire two-week stretch—when our truck got stuck in the sand and we had to dig its tires out with our bare hands to get it started again, and when we got lost on a hiking trail and tried unsuccessfully to just boulder to the top of the plateau (I’d been the one to bail, of course), through all the days we spent not leaving each other’s company for more than a few minutes at a time, there never formed even the beginnings of tension between us. We were both, as a matter of temperament, easygoing and inclined to make light of each of the barrage of minor inconveniences we experienced daily, and it was fun to have this aspect of myself not only accepted but amplified by Sana. I liked the open rationality with which she treated my account of my passage through MIT, which was difficult to make legible to most people. It’s funny, but fitting, that now I can envision her tanned hands on the steering wheel, cuffed by the long blue sleeves of her jacket, the parts of her hair she didn’t clip back falling over her shoulders, as clearly as any other sight in Namibia.</p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!AS66!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!AS66!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 424w, https://substackcdn.com/image/fetch/$s_!AS66!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 848w, https://substackcdn.com/image/fetch/$s_!AS66!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 1272w, https://substackcdn.com/image/fetch/$s_!AS66!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!AS66!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png" width="1139" height="852" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:852,&quot;width&quot;:1139,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:1512152,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!AS66!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 424w, https://substackcdn.com/image/fetch/$s_!AS66!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 848w, https://substackcdn.com/image/fetch/$s_!AS66!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 1272w, https://substackcdn.com/image/fetch/$s_!AS66!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F65dbce94-95b4-4bbb-a96f-45af81a49cf5_1139x852.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div><div><hr></div><p>As the trip wore on we settled into the days’ rhythms and my memories grow duller and more protracted. I had planned to journal, but for some reason I hated the idea of writing down what had happened in Namibia in the concrete. I wrote fiction instead. I liked the idea of my memories of the country weaving together over time, blending into each other, refusing a clean, factual recollection of the world that had seemed so surreal to me when I was really in it.</p><p>By the end I missed Cambridge. It wasn’t just the effect of this two-week detour through Namibia; I had been in Africa for three months at this point. On my last full day before returning to the U.S., Sana and I devised a plan to return the truck without coming into contact with Luther, who hadn’t taken down our names or looked at Sana’s license and so couldn’t do anything once we made it to the airport and left the ground. We would message him, we agreed, and if he wanted to fine us a reasonable amount then we would pay a reasonable amount. (As it happened, we never heard back from him.) Then I finally wrote the only entry of fact I produced in Namibia:</p><p><em>I miss everyone. I don’t want to write. I miss my work, my home, and of course most of all my friends. [...] Someday soon you return to normalcy. Cherish the limbo while you’re in it. How easily passion flips. Steel yourself. The tide turns and there you stand, exposed, on a ship anchored in drying sand. You have to get off the ship before it decays around you, turned into a roost for cormorants.</em></p><div class="captioned-image-container"><figure><a class="image-link image2 is-viewable-img" target="_blank" href="https://substackcdn.com/image/fetch/$s_!hVzu!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png" data-component-name="Image2ToDOM"><div class="image2-inset"><picture><source type="image/webp" srcset="https://substackcdn.com/image/fetch/$s_!hVzu!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 424w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 848w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 1272w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 1456w" sizes="100vw"><img src="https://substackcdn.com/image/fetch/$s_!hVzu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png" width="622" height="728" data-attrs="{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/d5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:728,&quot;width&quot;:622,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:497434,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/png&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:true,&quot;topImage&quot;:false,&quot;internalRedirect&quot;:&quot;https://goldenblue.substack.com/i/183302146?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}" class="sizing-normal" alt="" srcset="https://substackcdn.com/image/fetch/$s_!hVzu!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 424w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 848w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 1272w, https://substackcdn.com/image/fetch/$s_!hVzu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5996d5d-861f-4fc5-b090-5caa4ea75c70_622x728.png 1456w" sizes="100vw" loading="lazy"></picture></div></a></figure></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
