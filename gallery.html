@@ -167,24 +167,21 @@
       box-shadow: 4px 4px 0px 0px #F43208;
     }
 
-    /* ---- the field and the voids share one coordinate space, so the carved
-       holes always line up with the text sitting in them ---- */
+    /* ---- three layers, back to front: the sky at -1, the lit comets at 1, the
+       pieces at 10. The pieces being on top is what makes their opaque plates
+       occlude the comet layer, so a lit trail stops at a void edge for free ---- */
     #stage {
       position: relative;
     }
 
-    #field {
+    /* the same sky as every other page, and the only thing on this one that is
+       painted without being asked for */
+    #starfield {
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-
-    #field.ready {
-      opacity: 1;
     }
 
     #live {
@@ -209,10 +206,20 @@
       padding-bottom: 0.5rem;
     }
 
+    /* positioned so the plate below hugs the links themselves, rather than the
+       full-width row they sit in */
     .filters {
+      position: relative;
       display: flex;
       flex-wrap: wrap;
       gap: 0.2rem 1.05rem;
+    }
+
+    .f-fav {
+      color: #F43208;
+      font-size: 0.8em;
+      margin-right: 0.3em;
+      vertical-align: 0.1em;
     }
 
     .filters button {
@@ -253,6 +260,35 @@
       transition: opacity 0.4s ease,
         left 0.5s cubic-bezier(.2, .7, .3, 1),
         top 0.5s cubic-bezier(.2, .7, .3, 1);
+    }
+
+    /* The void itself: a plate of plain background colour with a blurred edge, so
+       the sky dissolves into it instead of ending on a cut. Grown 6px first,
+       because a blur eats inward as well as outward and the piece's own box has
+       to stay completely clear — the whole soft transition falls outside it.
+       Being a real element, it also occludes the comet layer beneath it, which
+       is why a lit trail stops at a void edge without any masking.
+
+       Overlapping plates are harmless here: two soft edges meeting only make the
+       result more opaque, where erasing twice used to scrub a bright seam. */
+    .void::before,
+    .filters::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      z-index: -1;
+      background-color: var(--bg-color);
+      filter: blur(6px);
+    }
+
+    /* The filter links are small text with wide gaps, so their plate wants a
+       little more room around them than a preview's does. Not more than 8px
+       sideways, though: the row is flush right inside a container with 0.55rem of
+       padding, and a wider plate is a real box overhanging the viewport — 2px of
+       horizontal scroll at 390px, since a filter's blur is ink overflow but its
+       layout box is not. */
+    .filters::before {
+      inset: -7px -8px;
     }
 
     .void.gone {
@@ -365,18 +401,14 @@
       .void {
         transition: opacity 0.3s ease;
       }
-
-      #field {
-        transition: none;
-      }
     }
   </style>
 </head>
 
 <body>
-  <div id="stage">
-    <canvas id="field"></canvas>
+  <canvas id="starfield"></canvas>
 
+  <div id="stage">
     <div class="container header-container">
       <h1><span class="red-raise">K</span>ai van&nbsp;Brun<span class="red-drop">t</span></h1>
     </div>
@@ -388,8 +420,9 @@
       <button id="theme-toggle">☀</button>
     </nav>
 
-    <div class="container filter-row carve" data-pad="6">
-      <nav class="filters" id="filters" aria-label="filter by category"></nav>
+    <div class="container filter-row">
+      <nav class="filters carve" id="filters" data-pad="9"
+        aria-label="filter by category"></nav>
     </div>
 
     <div id="sky"></div>
@@ -404,6 +437,7 @@
     </div>
   </div>
 
+  <script src="./starfield.js"></script>
   <script src="./gallery-posts.js"></script>
   <script src="./gallery-art.js"></script>
   <script src="./gallery.js"></script>

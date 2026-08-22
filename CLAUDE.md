@@ -20,7 +20,7 @@ posts/*.html          76 posts, one file each, scraped from Substack
 gallery-posts.js      GENERATED manifest of those 76 posts
 gallery-art.js        hand-written manifest of the art
 gallery.js            the gallery's comet-field engine
-starfield.js          the background on every page except the gallery
+starfield.js          the background on every page, the gallery included
 art/                  paintings
 torties/              0.jpg … 21.jpg, photos of Tortellini
 scripts/
@@ -65,12 +65,24 @@ media-query fallback used to overflow between ~640px and ~780px.
 
 ## gallery.html
 
-The whole archive on one page: a dense field of diagonal comet trails, with each piece sitting in a
-rectangular **void** genuinely carved out of the field (`globalCompositeOperation =
-'destination-out'`, not a card drawn on top). Filters (`all · art · comics · fiction · poetry ·
-essays`) are links in the top right, red-underlined when active. Previews show only title, subtitle,
-date, and rounded word count — nothing else, on purpose. Favourites (Substack's `Best` tag) get a
-red ✦.
+The whole archive on one page: a dense field of diagonal comet trails that **is never drawn**, and
+shows only where you point at it. Each piece sits in a rectangular **void** in that field. Filters
+(`all · best · art · comics · fiction · poetry · essays`) are links in the top right, red-underlined
+when active. Previews show only title, subtitle, date, and rounded word count — nothing else, on
+purpose. Favourites (Substack's `Best` tag) get a red ✦, and `best` is the filter for them — not a
+category but a flag cutting across all of them, so it's labelled with the same ✦ rather than a
+legend, and only appears when some item carries the tag.
+
+Three layers, back to front:
+
+| | |
+|---|---|
+| `#starfield` | the same twinkling sky as every other page (`starfield.js`), at `z-index: -1` |
+| `#live`      | viewport-sized, `position: fixed`, `z-index: 1`. The lit group, and nothing else |
+| `.void`      | the pieces, `z-index: 10`. Opaque plates that read as holes in the sky |
+
+The field being invisible until hovered was **not** the original design — it was drawn statically at
+first. It turned out to be better, and the drawing was deleted rather than fixed.
 
 How `gallery.js` works, roughly:
 
@@ -80,47 +92,47 @@ How `gallery.js` works, roughly:
   piece always lands in the same place and adding a post doesn't reshuffle the page.
 - Layout is measure-then-place: set widths, one batched `offsetHeight` read, then round-robin lanes
   with a greedy push-down for collisions. Widths scale with word count.
-- The hero and the menu bar have **no void** — the field runs straight behind them, on purpose. The
-  filter row is the only `.carve` element left. Everything still works if you add the class back.
+- The hero and the menu bar have **no void** — the sky runs straight behind them, on purpose. The
+  menu buttons are filled with `--bg-color` instead, so a label stays legible over the sky while the
+  gaps between buttons still show it through. `.filters` is the only `.carve` element left, and it
+  carries the class itself rather than the full-width row it sits in, so its plate hugs the links.
+  Everything still works if you add the class back to something else.
 - A filtered-out `.void` is absolutely positioned, so at `opacity: 0` it still overflows `#sky` and
   still counts toward the page's scroll height. `.out` (`display: none`) is added 450ms later, once
   it has faded, and removed *before* the batched height read so a returning piece has a real starting
   opacity to fade up from. Without it `poetry` was 561px of content in a 4,415px scrollable page.
-- The field is never shorter than the window, or a one-item filter leaves bare background below it.
-- The field (~4,000 gradient strokes) is stroked **once** into an offscreen `pristine` canvas, a
-  slice per frame, in **top-down order** (`ymin`) rather than the generated across-axis order — the
-  reader is at the top, so the first screenful should be the first thing finished.
-- Void edges are **feathered**, not cut: `carve()` grows each rect by `GROW` and erases it through
-  `ctx.filter = blur(FEATHER)`, so the whole soft transition falls outside the piece's own box (the
-  field measures 0 alpha from ~7px inside the box, ramping back to full ~15px outside). `ctx.filter`
-  blurs in **device** space, so `carve()` takes a `scale` — without it the feather would be half as
-  wide on a 2× display.
-- That carve is not run per blit. It's baked once per layout into `fieldMask`, a half-res alpha mask,
-  and `blitField()` applies it with `destination-in`. `blitField(y0, y1)` can do a **band** only, and
-  the bake uses that: the page is ~4,500px and the window ~800px, a whole-canvas blit costs ~80ms
-  (mostly scaling the mask up), and a bake blits ten-odd times — which had put ~880ms of a ~1350ms
-  bake into redrawing rows nobody was looking at. Banding it took the bake to ~760ms. A banded
-  `destination-in` **must be clipped**, or it erases the destination everywhere the source isn't.
-- All rects go into **one path per carve**, for correctness rather than speed: `destination-out`
-  twice over a pixel removes `(1-a1)(1-a2)` where a union removes `max(a1,a2)`, so two feathers that
-  met would scrub a bright seam. They do meet — the closest pair of voids in any filter at any width
-  is 16px apart. The cost is that a blurred fill is charged for its whole region, so a full-res
-  carve of the 1440×4566 `all` layout is ~200ms of software rasterisation against 4.8ms unblurred —
-  which is why it's cached as a half-res mask rather than repeated. Three cheaper schemes were
-  measured and rejected; the comment above `FEATHER` records why.
-- Nothing travels. A `position: fixed` overlay canvas only lights trails **already in the field**:
-  the one under the cursor, or — when the cursor is over a piece — every trail crossing it, found
-  with `trailsThrough()` (an axis-aligned slab test against the v-buckets). Both are cached per key
-  and cross-faded over ~130ms.
+- The trails still reach the bottom of the window even when the content doesn't, or a one- or
+  two-item filter (`best` is four) leaves the last screenful with nothing in it to light.
+- The ~4,000 trails are **geometry only**, generated once per page size and never stroked. They exist
+  so there is a real, fixed field to light: the trail under the cursor is the same trail every time
+  you return to that spot, and the sheaf under a piece is exactly the set that passes through it.
+- **Voids are CSS, not canvas.** `.void::before` is a plate of `--bg-color` at `inset: -6px` under
+  `filter: blur(6px)`, so the sky dissolves into it instead of ending on a cut. It's grown before
+  being blurred because a blur eats inward too, and the piece's own box has to stay completely
+  clear — measured against a flooded backdrop, the plate is ~99% opaque 4px inside the box and fully
+  opaque from ~8px, ramping up from ~14px outside, and the text starts at 19–24px of padding.
+- `.filters::before` overrides the inset to `-7px -8px`. Not wider: the row is flush right inside a
+  container with 0.55rem of padding, and the pseudo-element's negatively-inset **layout box** is real
+  even though its blur is only ink overflow — 9px gave 2px of horizontal scroll at 390px. Note this
+  rule has to sit *below* the shared one; equal specificity resolves by document order.
+- Because the plates are real elements above `#live` in the stacking order, **they occlude the glow
+  for free** — a lit trail stops at a void edge with nothing masked. That is what a half-res carved
+  alpha mask used to do. Overlapping plates are also safe where erasing twice was not:
+  `destination-out` twice over a pixel removed `(1-a1)(1-a2)` where a union removes `max(a1,a2)`, so
+  two feathers that met scrubbed a bright seam, and they do meet — the closest pair of voids in any
+  filter at any width is 16px apart. Two opaque `source-over` plates only get more opaque.
+- Nothing travels. `#live` only lights trails already in the field: the one under the cursor, or —
+  when the cursor is over a piece — every trail crossing it, found with `trailsThrough()` (an
+  axis-aligned slab test against the v-buckets). Both are cached per key and cross-faded over ~130ms.
 - A lit group can run to a couple of hundred trails, far too many to re-stroke per frame, so it's
   rendered once into an offscreen canvas 32 trails at a time and blitted; groups over `BLOOM_MAX`
   drop the wide soft pass, which is what keeps an item's glow reading as a band rather than a
-  floodlight. The voids are re-applied to it as a reusable half-res alpha mask (`maskFor`), so a lit
-  trail still stops at a void edge. Scrolling fades the group out — the page has moved out from
-  under the cursor — which also means a group is only ever built at one scroll position.
-- Everything degrades to the static carved field under `prefers-reduced-motion` and on touch, which
-  is the whole design minus the glow. Note `matchMedia('(hover: hover)')` is **false** in headless
-  Chrome, so the glow layer correctly refuses to boot there unless you force
+  floodlight. Scrolling fades the group out — the page has moved out from under the cursor — which
+  also means a group is only ever built at one scroll position. A theme flip drops it, since it's
+  baked in the old palette.
+- Under `prefers-reduced-motion` or on touch the glow never boots, and the page is then just the
+  starfield and the voids. Note `matchMedia('(hover: hover)')` is **false** in headless Chrome, so
+  the glow layer correctly refuses to boot there unless you force
   `--blink-settings=primaryHoverType=2,availableHoverTypes=2,…`.
 
 Art is the one kind of piece that renders itself in its void, and clicking it opens a lightbox.
@@ -151,16 +163,28 @@ exists to work around, both learned the hard way:
 Also: `performance.now()` deltas read as 0ms under virtual time, so anything about frame cost has to
 be measured over CDP in a real event loop instead. And a canvas taller than the headless viewport
 isn't fully rasterized into a viewport screenshot — that looks like a painting bug but isn't.
+**Headless has no GPU**, so every canvas number here is a software-rasterisation upper bound, and an
+*idle* frame gap is already 33ms — anything under ~35ms is unmeasurable there, not fast. A
+full-canvas `getImageData` readback also costs tens of ms itself and gets charged to the frame it
+lands in, so a frame-gap window must contain no readback at all or the probe measures itself.
 
-Two traps specific to measuring the glow layer, both of which produced phantom regressions:
+Anything about the voids or the glow has to be measured on **composited** pixels — a screenshot
+decoded to RGB — not with `getImageData`. Occlusion by an opaque DOM plate and a plate's colour
+against the page background are both invisible to a canvas readback. Two things that follow:
 
-- **Headless has no GPU**, so every canvas number above is a software-rasterisation upper bound, and
-  an *idle* frame gap is already 33ms. Anything under ~35ms is unmeasurable there, not fast.
-- A full-canvas `getImageData` readback costs tens of ms **itself** and gets charged to the frame it
-  lands in. Frame-gap windows have to contain no readback at all, or the probe measures itself. The
-  session-wide spikes in such a run are `repaintPristine()` on a theme flip re-stroking the whole
-  field, not the hover layer — the same streaming path as first paint. They were 200–250ms before
-  the banded blit; the worst gap in a full probe run is now 67ms.
+- Give the plates a **known backdrop** before measuring them: stop the starfield and flood its canvas
+  with solid white (dark theme) or black (light). Against a live sky the contrast is a few stars and
+  the edge ramp is unmeasurable. This is what showed the plate to be exactly `--bg-color` in both
+  themes and pinned down the feather profile above.
+- For the glow, diff a hover screenshot against a no-hover baseline with the sky stopped, so the lit
+  group is the only thing that can differ. Exclude the hovered piece's own box — hover puts a
+  `text-shadow` on its title and scales an art image — and sample a *different* void for occlusion.
+  Inset that sample at least 6px: nearer the edge than that you are measuring the feather, not a
+  hole, which reads as a 3-pixel leak and isn't one.
+
+Do not trust a downscaled screenshot for anything near the background colour. Reading `#121212`
+plates on a `#121212` page, I twice reported defects — plates lighter than the background, plates
+with no text in them — that measurement then showed did not exist.
 
 ## Design notes
 

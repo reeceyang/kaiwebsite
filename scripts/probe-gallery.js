@@ -24,7 +24,7 @@ const ROOT = path.join(__dirname, '..');
 const TARGET = 'file://' + path.join(ROOT, 'gallery.html');
 const WIDTHS = process.argv.slice(2).map(Number).filter(Boolean);
 const SIZES = WIDTHS.length ? WIDTHS : [320, 390, 768, 1024, 1440, 1920];
-const CATS = ['all', 'art', 'comics', 'fiction', 'poetry', 'essays'];
+const CATS = ['all', 'best', 'art', 'comics', 'fiction', 'poetry', 'essays'];
 
 const HARNESS = (w, h, cat) => `<!DOCTYPE html>
 <style>html,body{margin:0}iframe{border:0;display:block}</style>
