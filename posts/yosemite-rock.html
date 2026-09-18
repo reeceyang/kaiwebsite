@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yosemite rock - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="clairo-in-an-la-bookstore-and-other.html" class="nav-arrow prev-post">
+      <span class="arrow">←</span>
+      <span class="nav-title">Clairo in an LA bookstore & other kinds of beauty</span>
+    </a>
+    <a href="not-a-wolf.html" class="nav-arrow next-post">
+      <span class="nav-title">Not a wolf</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Yosemite rock</h2>
+      <span class="post-date">September 6, 2026</span>
+      <div class="content">
+      <p>At Yosemite, Ro and I wanted to try bouldering. I had never climbed outdoors before. We went to the mountain store in Curry Village and bought a crash pad. The Swedish guy behind the counter slid the shop’s climbing guide over to us, a thick book that showed a visible twenty ish years of wear. We took photos of the pages with routes rated VB and V0, all concentrated in a neighborhood of rocks named Curry West.</p>
+<p>To begin our journey to Curry West we walked around the back of the shop and encountered two guys on the first boulder we saw, a big dollop of dark granite at the edge of the forest. The dark-haired one leapt from a sit start into a one-handed grip on this flared turn of stone and pulled himself onto the top of the rock. We asked the light-haired one, sitting at a picnic table next to the boulder, how to get to Curry West. “Oh, yeah, next to the run-down cabins and shieeet,” he said, gesturing. The freshly descended, dark-haired climber meandered up too. They were both clearly really stoned.</p>
+<p>Traveling in the direction they’d indicated, we sank deeper into the forest. Wherever there was a patch of open space you’d find, too, some fallen logs and a couple of massive boulders, just dropped in on the ground. Big and round and soft-looking, a little knobbly—“like monkeybread,” Ro said—dark gray, leoparded by lichen, edges brushed white by climbing chalk. To figure out where the routes were, Ro and I matched the little thumbnails in the mountain store’s climbing guide, with boulders snapshotted and bright numbered dotted lines tracing out the rough trajectories of the routes across them, to our view of the real loaves of granite before us.</p>
+<p>We’d go up to the wall of the boulder, set out our newly purchased crash pad and make an attempt at some purported VB and usually our feet would slide right off the stone’s surface. But I liked it—in some way it felt much more real than indoor climbing—moving my hand along a ledge matted white, searching for purchase in the cool rock. Your world became so large, by virtue of all those divots and crevices and variations in texture taking on relevance and possibility for you.</p>
+<p>I like bouldering indoors, but outdoors was a different feeling. People liken sending a boulder to “solving a puzzle.” I guess, possibly related to my total lack of interest in solving puzzles, I never thought this description captured what <em>I</em>liked about indoor bouldering, which was finding new ways to move my body—entering some motion that tested my body in a new way and pushing through it. In brief, rare periods of flow, my body reached for holds, and caught them, and pivoted around them, in sequences I could not fully visualize, and certainly could not imagine the physical <em>feeling</em> of before really perching there and reaching.</p>
+<p>But I find no innate appeal in trying the same problem over and over, in a focused way, which often is necessary to send a challenging problem. Maybe there’s something I don’t like in the feeling that the setter has the one intended solution—even if, in practice, you can do a problem many ways. It’s easier to abstract away the texture, the exact feel, of the candy-colored plastic holds in a gym. For me no such abstraction is possible outdoors.</p>
+<p>But outdoors I really could imagine sprawling out with friends and snacks on the forest floor, attacking the same ledge, over and over; discovering something new every time. In Yosemite I found all kinds of new rock. Walking in the night: in the otherwise pitch black, rock walls flashed silver with moonlight through dark trees, the high sheer face of El Capitan, Half Dome luminous and curved like a porpoise’s bald snout. Or, under the afternoon sun, the massive weighty rock which formed strata on cliff walls melted into ribbons, the cracks between which grew patches of tiny vegetation: bright moss, faint thin-tendriled trees, puffs of yarrow. In the wake of the falls, darkened veins, bands, like tears, ran down the russet slopes that had been carved out and smoothed over by each spring’s gush of ice melt.</p>
+<p>And, in the morning, standing in the meadow facing El Capitan you saw a wall of pale white- and pink- and slate-streaked rock. And you’d turn around and look at the formations named “Cathedral Spires” and see sunlight diffusing over pillars of stone in a golden mist pouring over the top of the cliff, edges lanced through with light, like candlelit castle windows.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

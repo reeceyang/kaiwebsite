@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clairo in an LA bookstore & other kinds of beauty - Kai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/xxz4zlr.css">
+  <script>
+    // Set theme immediately to avoid flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: white;
+      --border-color: white;
+      --heading-stroke: lightgoldenrodyellow;
+      --glow-color: lightgoldenrodyellow;
+      --marker-color: lightgray;
+      --backdrop-brightness: 0.5;
+      --button-hover-bg: rgb(255, 255, 255);
+      --button-hover-text: black;
+      --date-color: #aaa;
+      --star-color: rgba(255, 255, 255, 1);
+      --comet-color: rgba(255, 255, 255, 1);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f5f5f5;
+      --text-color: #1a1a1a;
+      --border-color: #333;
+      --heading-stroke: rgba(244, 50, 8, 0.5);
+      --glow-color: rgba(244, 50, 8, 0.3);
+      --marker-color: #666;
+      --backdrop-brightness: 1.5;
+      --button-hover-bg: #1a1a1a;
+      --button-hover-text: white;
+      --date-color: #888;
+      --star-color: rgba(244, 50, 8, 0.85);
+      --comet-color: rgba(244, 50, 8, 0.7);
+    }
+
+    * {
+      font-family: brigade, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "waters-titling-condensedpro", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: var(--heading-stroke);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-underline-offset: 0.25rem;
+      text-decoration-color: #F43208;
+      color: var(--text-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--border-color);
+      padding-left: 1.1rem;
+      margin: 1.1rem 0;
+      font-style: italic;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: var(--date-color);
+      font-size: 1rem;
+      margin-bottom: 1.65rem;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-color);
+    }
+
+    .container {
+      margin: auto;
+      margin-top: unset;
+      margin-bottom: unset;
+      max-width: 71.5ch;
+      padding: 0.55rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.55rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.55rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
+    .dashed {
+      border: 1px dashed var(--border-color);
+      box-sizing: border-box;
+    }
+
+    .backdrop {
+      backdrop-filter: blur(10px) brightness(var(--backdrop-brightness));
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-bar button {
+      flex: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #theme-toggle {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .menu-bar button.active {
+      box-shadow: 4px 4px 0px 0px #F43208;
+    }
+
+    .post-content {
+      padding: 1.1rem;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.1rem 0;
+    }
+
+    .content a {
+      display: inline;
+    }
+
+    .content a img {
+      cursor: pointer;
+    }
+
+    .post-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.1rem;
+      margin-bottom: 1.1rem;
+      gap: 1.1rem;
+    }
+
+    .nav-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+    }
+
+    .nav-arrow .arrow {
+      font-size: 1.5rem;
+    }
+
+    .nav-arrow .nav-title {
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .prev-post {
+      justify-content: flex-start;
+    }
+
+    .next-post {
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .footnote {
+      margin-top: 1.1rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .footnote-anchor {
+      vertical-align: super;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 1.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <nav class="menu-bar container" style="margin-top: 1.65rem;">
+    <button id="home-btn">home</button>
+    <button id="gallery-btn" class="active">gallery</button>
+    <button id="collection-btn">collection</button>
+    <button id="theme-toggle">☀</button>
+  </nav>
+
+  <div class="container post-navigation">
+    <a href="#" class="nav-arrow prev-post" style="visibility: hidden;">
+      <span class="arrow">←</span>
+      <span class="nav-title"></span>
+    </a>
+    <a href="yosemite-rock.html" class="nav-arrow next-post">
+      <span class="nav-title">Yosemite rock</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="container dashed backdrop">
+    <div class="post-content">
+      <h2>Clairo in an LA bookstore & other kinds of beauty</h2>
+      <span class="post-date">September 14, 2026</span>
+      <div class="content">
+      <p>It’s April and I’m visiting California. In Victor’s room I lie down on their bed while they do the Wordle (which is “carom”—what does that even mean?) at their desk. I push their dog off the bed again and again. Finally they pick up their guitar. “Let’s make a song.”</p>
+<p>We’ve written songs together before. We were most prolific during the summer just before college. I was 17, Victor 18. I spent that summer studying for the MIT placement exams and teaching small children to swim. Rose worked at a boba store, and they’d had a license for years. So after my lessons they’d pick me up from the North Hollywood pool where I worked and bring me a honey boba and we’d get burgers at the drive through before they took me home. In a month or so I’d be in Boston and Rose and I would be broken up. But for one more month my hair was always wet and I always smelled like chlorine. And my memories of Los Angeles over the years all appear through a sweet haze of orange, but that summer, in particular, is delivered to me through a sticky, tangerine film coating the grass and the surface of the pool and my fingers and the sky.</p>
+<p>It was the tail end of lockdown and Victor had moved to Bakersfield so I don’t think I saw them in person even once that summer. It wasn’t until years later that I heard them play our songs in front of me. We wrote a song called “Fond” and then a song called “Seventeen” and then a song called “Wish,” sending recordings to each other over Discord. After that I kept writing and writing. I’d take the Metro to North Hollywood early and sit with my feet in the pool and type lyrics into my phone instead of talking to the other swim instructors, who scared me, as most things did back then.</p>
+<p>Anyway we have plenty of experience, Victor and I, writing songs together. They tell me an idea and get excited by the words and melodies I create and then get <em>me</em> excited by their voice and the guitar line they write and all the texture they bring. This time they want to write something about their partner, Valeria. I ask for a scene.</p>
+<p>“Well,” they say. “There’s the time I asked Valeria to be official with me. I remember that really well.”</p>
+<p>As they walk me through the image, that span of a few minutes, I remember too. The coast where we watched the tide pool around us and I watched your eyes cut through me, in one flash, as from a pale mirror, untempered by the sun’s halo around your face.</p>
+<hr>
+<p>Sitting at one of the tables in Little Tokyo that I worked at, often, in high school. My grandparents lived in downtown L.A. so I would just walk over on weekends. A Chinese grandma with a cap over her head and paper face mask layered over her mouth opens the curved side of a trash can and begins retrieving and tapping dry and dropping to the ground empty Arizona cans. This tall fat guy comes up with trash and places it gingerly in the can while she’s still got it pulled halfway out of the bin. Some people walking by look silly; some look ethereal. This girl with dark hair cascading down to the small of her back. Baggy jeans, ballet flats, black corset leaving her collarbones bare, sweater bleach-dyed on the back, noticeably done by hand and quite skillfully, with three koi fish. Someone else is wearing knee-high Converse and skinny jeans and a baggy hoodie. How badly I wanted to be them when I was, like, thirteen. Woman running through in white feather boa and tiny thin cheetah print skirt and sandals clapping against the ground.</p>
+<p>I drink a cappuccino and eat a green tea doughnut filled with vanilla custard. I try to write, but I keep getting distracted by the people bubbling through, all the life pulsing around me, things I forgot, how living here it was so easy to sink into monologue, how I’d walk for hours to get places, retake sentences in my mind, see people who’d push those sentences around, tug at their centers and re-hook them elsewhere, by virtue of their naked presence inside the city.</p>
+<p>I go to the bookstore without planning on buying anything. When I walk in—the whole place is dim, warmly lit, shelves stacked around a big open space where a bunch of long fat leather couches grid the floor just before the speakers—I immediately lose all sense of objective and just begin paging through the books on the shelf of new arrivals they set up. Clairo is playing over the speakers. I read the first two pages of <em>The Pickup</em>, a book that piqued my interest with its description on the back cover: the love story, set in Cape Town, between a rich white woman and an Arab illegal immigrant, after a chance encounter between the two. So the beauty I’d experienced in Cape Town layered gossamer over the beauty of that morning in L.A., and of that preceding week in California, and over the bass pooling from the speakers building to Clairo’s voice, over the falling words, each drifting flake.</p>
+<hr>
+<p>The night before I leave we are dancing in your room. The Bay is still new to me and your room has a great view. Blue light falls through the window as so many shades of blue have fallen through so many panes of glass before. As my room filled with night’s cerulean in Cambridge, as I’d lift the window to let cold sweet air blow onto my pillow after the storm; as the sunset dusted the same houses with lavender and lily-green each evening; so also your body haloes in a warm alien glow.</p>
+<p>Some things, the beauty never wears off, it grows deeper and fuller over time. I came up and down the beach in Cape Town a hundred times in a walk or run and saw in the tide the crystal wall and white fallout and stinking deep brown jets of sewage and felt surprised always by the warmth that jolted through my legs after a stray wave submerged my feet.</p>
+<p>In the hour that I am meant to pack my things I am instead transcribing a poem on a card for you which is not what I really want to say. But I do feel that I get closer every time. Your hand touches mine and I have the time, again, to see the tide swell above me. It still surprises me when we look at the same painting and both say it moves our hearts, because that telescope of beauty you are thinking of can’t be anything like the beauty I am thinking of, but there it is nonetheless. The feeling of the tide dragging me out, once and before and again before then. I hope I don’t forget it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 1.1rem; margin-bottom: 1.65rem;">
+    <button id="return-to-top">↑ return to top</button>
+  </div>
+
+  <script src="../starfield.js"></script>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☽';
+      } else {
+        root.removeAttribute('data-theme');
+        themeToggle.textContent = '☀';
+      }
+      localStorage.setItem('theme', theme);
+      window.starfield.refresh();
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    document.getElementById('home-btn').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('gallery-btn').addEventListener('click', () => window.location.href = '../gallery.html');
+    document.getElementById('collection-btn').addEventListener('click', () => window.location.href = '../collection.html');
+    document.getElementById('return-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
